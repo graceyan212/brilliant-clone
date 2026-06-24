@@ -31,12 +31,44 @@ const centralCircle: Circle = {
 
 const keyboardStep = 2
 
+// Keep C this many degrees clear of A and B so it never crosses the chord
+// (and never lands exactly on an anchor, which would make the angle degenerate).
+const arcMargin = 6
+
 type PointKey = 'a' | 'b' | 'c'
 
 const initialAngles: Record<PointKey, number> = { a: 150, b: 30, c: 270 }
 
 function snapToEven(degrees: number) {
   return normalizeDegrees(Math.round(degrees / 2) * 2)
+}
+
+// Clamps a desired angle for C so it stays on the same arc of chord AB that C is
+// currently on — i.e. it can't be dragged past A or B onto the other arc.
+function constrainToArc(desired: number, a: number, b: number, c: number, margin: number) {
+  const span = normalizeDegrees(b - a) // length of the arc from A to B going counter-clockwise
+  const cRelative = normalizeDegrees(c - a)
+  const cOnArcAB = cRelative > 0 && cRelative < span
+
+  const start = cOnArcAB ? a : b
+  const arcLength = cOnArcAB ? span : 360 - span
+  const desiredRelative = normalizeDegrees(desired - start)
+  const lo = margin
+  const hi = arcLength - margin
+
+  if (desiredRelative >= lo && desiredRelative <= hi) {
+    return normalizeDegrees(start + desiredRelative)
+  }
+  if (desiredRelative < lo) {
+    return normalizeDegrees(start + lo)
+  }
+  if (desiredRelative <= arcLength) {
+    return normalizeDegrees(start + hi)
+  }
+  // In the forbidden arc: snap to whichever boundary is closer.
+  return desiredRelative - arcLength <= 360 - desiredRelative
+    ? normalizeDegrees(start + hi)
+    : normalizeDegrees(start + lo)
 }
 
 type CircleDiagramProps = {
@@ -63,6 +95,14 @@ export function CircleDiagram({
       onInteract?.()
     }
   }, [onInteract])
+
+  // When the anchors are locked (A and B fixed), keep C on its current arc.
+  function resolveAngle(key: PointKey, desired: number, current: Record<PointKey, number>) {
+    if (key === 'c' && lockAnchors) {
+      return constrainToArc(desired, current.a, current.b, current.c, arcMargin)
+    }
+    return desired
+  }
 
   // Throttle pointer-driven updates to one per animation frame so dragging
   // stays smooth (60fps) even when pointermove fires faster than the display.
@@ -114,7 +154,10 @@ export function CircleDiagram({
     svgPoint.y = clientY
     const cursor = svgPoint.matrixTransform(screenMatrix.inverse())
 
-    setAngles((current) => ({ ...current, [key]: snapToEven(angleFromCenter(circle, cursor)) }))
+    setAngles((current) => {
+      const desired = snapToEven(angleFromCenter(circle, cursor))
+      return { ...current, [key]: resolveAngle(key, desired, current) }
+    })
   }
 
   function flushMove() {
@@ -154,11 +197,17 @@ export function CircleDiagram({
   function nudge(key: PointKey, event: KeyboardEvent<SVGGElement>) {
     if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
       event.preventDefault()
-      setAngles((current) => ({ ...current, [key]: snapToEven(current[key] + keyboardStep) }))
+      setAngles((current) => ({
+        ...current,
+        [key]: resolveAngle(key, snapToEven(current[key] + keyboardStep), current),
+      }))
       reportInteraction()
     } else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
       event.preventDefault()
-      setAngles((current) => ({ ...current, [key]: snapToEven(current[key] - keyboardStep) }))
+      setAngles((current) => ({
+        ...current,
+        [key]: resolveAngle(key, snapToEven(current[key] - keyboardStep), current),
+      }))
       reportInteraction()
     }
   }
