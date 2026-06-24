@@ -93,11 +93,6 @@ function HomePage() {
           )}
         </div>
       </section>
-
-      <section className="course-next" aria-label="Upcoming lessons">
-        <h2 className="course-next__heading">Up next</h2>
-        <ComingSoonCard />
-      </section>
     </main>
   )
 }

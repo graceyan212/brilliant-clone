@@ -4,7 +4,7 @@ A Brilliant-style, learn-by-doing geometry lesson that teaches one concept deepl
 
 Instead of being handed a formula, learners manipulate a circle, predict, discover the pattern themselves, see a visual proof, and then practice.
 
-**Live demo:** _add your Vercel URL here after deploying_
+**Live demo:** https://brilliant-clone-psi.vercel.app/
 
 ---
 
