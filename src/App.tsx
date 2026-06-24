@@ -161,7 +161,7 @@ function LessonCard({
   return (
     <Link className="course-card course-card--active" to={lesson.path}>
       <span className="course-card__glyph" aria-hidden="true">
-        <LessonGlyph id={lesson.id} />
+        <LessonGlyph />
       </span>
       <div className="course-card__text">
         <h3>{lesson.title}</h3>
@@ -191,20 +191,11 @@ function ComingSoonCard() {
   )
 }
 
-function LessonGlyph({ id }: { id: string }) {
-  if (id === 'cyclic-quadrilaterals') {
-    return (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6">
-        <circle cx="12" cy="12" r="8.4" />
-        <polygon points="12,3.6 20.4,12 13.5,20.3 4.2,9.1" strokeLinejoin="round" />
-      </svg>
-    )
-  }
-
+function LessonGlyph() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <circle cx="12" cy="12" r="8.2" />
-      <path d="M7.5 16 L15 6.5 M7.5 16 L17 13.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="12" r="8.4" />
+      <polygon points="12,3.6 20.4,12 13.5,20.3 4.2,9.1" strokeLinejoin="round" />
     </svg>
   )
 }
