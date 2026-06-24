@@ -15,6 +15,8 @@ export type LessonStep =
 
 export type DiagramConfig = {
   mode: 'interactive' | 'static'
+  /** Non-default figure to draw. Omit for the inscribed/central angle figure. */
+  variant?: 'quad'
   centralAngle?: number
   showCentralValue?: boolean
   showAngleValue?: boolean
@@ -22,6 +24,14 @@ export type DiagramConfig = {
   highlightCentral?: boolean
   highlightAngle?: boolean
   lockAnchors?: boolean
+  /** Interactive quad only: show the live numeric readout (hidden during predictions). */
+  showReadout?: boolean
+  /** Quad static only: realize this value for ∠A (∠C becomes 180 − ∠A). */
+  quadGivenA?: number
+  /** Quad static only: which vertex angles to reveal; the rest show "?". */
+  quadShow?: ('A' | 'C')[]
+  /** Quad static only: rotate the whole figure (degrees) for visual variety. */
+  quadRotate?: number
 }
 
 type BaseStep = {
@@ -84,4 +94,6 @@ export type ProofStep = BaseStep & {
 export type PracticeStep = BaseStep & {
   interactionType: 'practice'
   problems: NumericProblem[]
+  /** Which extra problems the "More practice" button generates. Omit to hide it. */
+  morePracticeKind?: 'inscribed' | 'cyclic'
 }

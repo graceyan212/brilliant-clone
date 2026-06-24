@@ -231,7 +231,7 @@ export function CircleDiagram({
     <div className="diagram">
       <svg
         ref={svgRef}
-        className="diagram__svg"
+        className="diagram__svg is-interactive"
         viewBox="0 0 360 360"
         onPointerMove={handlePointerMove}
         onPointerUp={endDrag}

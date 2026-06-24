@@ -158,9 +158,47 @@
   background: transparent;
 }
 
+.course-list {
+  display: grid;
+  gap: 10px;
+}
+
+.course-card--active {
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 120ms ease;
+}
+
+.course-card--active:hover {
+  border-color: var(--ink-3);
+}
+
+.course-card--active .course-card__text h3 {
+  color: var(--ink);
+}
+
+.course-card__glyph {
+  display: grid;
+  place-items: center;
+  align-self: flex-start;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--accent);
+}
+
+.course-card__arrow {
+  flex: none;
+  margin-left: auto;
+  color: var(--ink-3);
+}
+
 .course-card__lock {
   display: grid;
   place-items: center;
+  align-self: flex-start;
   flex: none;
   width: 40px;
   height: 40px;
@@ -409,6 +447,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  margin-top: 28px;
 }
 
 /* Lesson complete summary */

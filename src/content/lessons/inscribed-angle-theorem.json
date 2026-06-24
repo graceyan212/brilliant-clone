@@ -8,7 +8,7 @@
       "interactionType": "statement",
       "prompt": "Two angles on a circle",
       "diagram": { "mode": "static", "centralAngle": 120, "showNames": true },
-      "body": "A central angle has its vertex at the center O \u2014 here that's \u2220AOB. An inscribed angle has its vertex on the circle itself \u2014 here that's \u2220ACB. Both are built from the same two points, A and B."
+      "body": "A central angle has its vertex at the center O. Here that's \u2220AOB. An inscribed angle has its vertex on the circle itself. Here that's \u2220ACB. Both are built from the same two points, A and B."
     },
     {
       "stepId": "prediction",
@@ -23,7 +23,7 @@
         { "id": "angle_depends_on_circle_size", "label": "It depends on the circle's size." }
       ],
       "correctAnswer": "angle_stays_same",
-      "commitNote": "Prediction saved. Drag C in the next step to test it.",
+      "commitNote": "Prediction saved. You'll test it in the next step.",
       "feedback": {
         "correct": "Right. With A and B fixed, \u2220ACB stays constant.",
         "incorrect": "Watch \u2220ACB as C moves. A and B stay put."
@@ -44,13 +44,13 @@
         {
           "id": "equal",
           "label": "They are equal.",
-          "feedback": "Look at the two readouts \u2014 are they the same number? Which one is larger?"
+          "feedback": "Look at the two readouts. Are they the same number? Which one is larger?"
         },
         { "id": "central_twice", "label": "\u2220AOB is twice \u2220ACB." },
         {
           "id": "inscribed_twice",
           "label": "\u2220ACB is twice \u2220AOB.",
-          "feedback": "Check again \u2014 which angle is bigger, the one at the center or the one at C?"
+          "feedback": "Check again. Which angle is bigger, the one at the center or the one at C?"
         }
       ],
       "correctAnswer": "central_twice",
@@ -69,13 +69,13 @@
     {
       "stepId": "visual_proof",
       "interactionType": "proof",
-      "prompt": "Proof: The inscribed angle theorem",
+      "prompt": "Proof: the inscribed angle theorem",
       "diagram": { "mode": "static", "centralAngle": 120, "showCentralValue": true, "showAngleValue": true },
       "stages": [
         "Draw radii from the center to A, B, and C.",
         "Equal radii make triangles OAC and OBC isosceles.",
         "OC halves the 60\u00b0 inscribed angle, so the base angles at A, B, and C are all 30\u00b0.",
-        "Each triangle sums to 180\u00b0, so \u2220AOC and \u2220BOC are 120\u00b0 \u2014 leaving the central \u2220AOB = 120\u00b0.",
+        "Each triangle sums to 180\u00b0, so \u2220AOC and \u2220BOC are 120\u00b0, leaving the central \u2220AOB = 120\u00b0.",
         "120\u00b0 = 2 \u00d7 60\u00b0: the inscribed angle is half the central angle."
       ]
     },
@@ -83,6 +83,7 @@
       "stepId": "guided_practice",
       "interactionType": "practice",
       "prompt": "Practice",
+      "morePracticeKind": "inscribed",
       "problems": [
         {
           "id": "practice_central_90",

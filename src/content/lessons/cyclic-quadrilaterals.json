@@ -1,0 +1,144 @@
+{
+  "lessonId": "cyclic-quadrilaterals",
+  "title": "Cyclic quadrilaterals",
+  "totalSteps": 8,
+  "steps": [
+    {
+      "stepId": "bridge",
+      "interactionType": "statement",
+      "prompt": "Recap from the last lesson",
+      "diagram": { "mode": "static", "centralAngle": 180, "showCentralValue": true, "showAngleValue": true },
+      "body": "Last lesson you found that the central angle \u2220AOB is twice the inscribed angle \u2220ACB. The central angle also equals the arc it cuts off, so an inscribed angle is half its arc. (A diameter cuts a 180\u00b0 arc, so the inscribed angle is 90\u00b0. That is Thales.) Today uses that one fact: an inscribed angle is half its arc."
+    },
+    {
+      "stepId": "prediction",
+      "interactionType": "multiple_choice",
+      "advanceOn": "select",
+      "prompt": "What happens to \u2220A + \u2220C?",
+      "subtitle": "This is ABCD, four points on one circle. \u2220A and \u2220C are opposite corners. Drag D and watch them.",
+      "diagram": { "mode": "interactive", "variant": "quad", "showReadout": false },
+      "options": [
+        { "id": "grows", "label": "\u2220A + \u2220C grows as the shape stretches." },
+        { "id": "constant", "label": "\u2220A + \u2220C stays the same." },
+        { "id": "depends_size", "label": "It depends on the circle's size." }
+      ],
+      "correctAnswer": "constant",
+      "commitNote": "Prediction saved. You'll test it in the next step.",
+      "feedback": {
+        "correct": "Drag D in the next step to test it.",
+        "incorrect": "Drag D in the next step to test it."
+      }
+    },
+    {
+      "stepId": "exploration",
+      "interactionType": "explore",
+      "prompt": "Drag D. Watch \u2220A and \u2220C trade off.",
+      "subtitle": "One angle grows as the other shrinks. Keep an eye on their sum.",
+      "diagram": { "mode": "interactive", "variant": "quad", "showReadout": true }
+    },
+    {
+      "stepId": "discover",
+      "interactionType": "multiple_choice",
+      "prompt": "Whatever the shape, \u2220A + \u2220C equals\u2026",
+      "diagram": { "mode": "interactive", "variant": "quad", "showReadout": true },
+      "options": [
+        { "id": "180", "label": "180\u00b0, the angles are supplementary." },
+        {
+          "id": "360",
+          "label": "360\u00b0.",
+          "feedback": "That is the whole circle. You only need \u2220A + \u2220C. Check that readout."
+        },
+        {
+          "id": "varies",
+          "label": "A number that changes with the shape.",
+          "feedback": "Drag D again and watch the \u2220A + \u2220C readout. Does the total move?"
+        }
+      ],
+      "correctAnswer": "180",
+      "feedback": {
+        "correct": "Opposite angles of a cyclic quadrilateral are supplementary: they sum to 180\u00b0.",
+        "incorrect": "Watch the \u2220A + \u2220C readout as you drag D, then choose."
+      }
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "Opposite angles are supplementary",
+      "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 95, "quadShow": ["A", "C"] },
+      "body": "In any cyclic quadrilateral, each pair of opposite angles sums to 180\u00b0: \u2220A + \u2220C = 180\u00b0 and \u2220B + \u2220D = 180\u00b0. Here \u2220A = 95\u00b0 forces \u2220C = 85\u00b0."
+    },
+    {
+      "stepId": "visual_proof",
+      "interactionType": "proof",
+      "prompt": "Proof: the inscribed angle theorem, used twice",
+      "diagram": { "mode": "static", "variant": "quad" },
+      "stages": [
+        "\u2220A opens onto the far arc from B through C to D. By last lesson, \u2220A is half that arc, so arc BCD = 2 \u00d7 \u2220A = 190\u00b0.",
+        "\u2220C opens onto the other arc, from B through A to D. Same rule: arc BAD = 2 \u00d7 \u2220C = 170\u00b0.",
+        "Those two arcs are the whole circle, so 2\u2220A + 2\u2220C = 360\u00b0.",
+        "Divide by 2: \u2220A + \u2220C = 180\u00b0. The shape can change, but the two arcs always fill the circle."
+      ]
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "cyclic",
+      "problems": [
+        {
+          "id": "cyclic_find_c_100",
+          "prompt": "ABCD is a cyclic quadrilateral. \u2220A = 100\u00b0. Find \u2220C.",
+          "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 100, "quadShow": ["A"] },
+          "correctAnswer": 80,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. 180\u00b0 \u2212 100\u00b0 = 80\u00b0.",
+            "incorrect": "Opposite angles of a cyclic quadrilateral add to 180\u00b0."
+          },
+          "strongHint": "\u2220A and \u2220C are opposite, so take the given \u2220A away from 180\u00b0."
+        },
+        {
+          "id": "cyclic_find_a_115",
+          "prompt": "ABCD is a cyclic quadrilateral. \u2220C = 115\u00b0. Find \u2220A.",
+          "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 65, "quadShow": ["C"], "quadRotate": 35 },
+          "correctAnswer": 65,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. 180\u00b0 \u2212 115\u00b0 = 65\u00b0.",
+            "incorrect": "\u2220A and \u2220C are opposite, so they add to 180\u00b0."
+          },
+          "strongHint": "\u2220A and \u2220C are opposite, so take the given \u2220C away from 180\u00b0."
+        },
+        {
+          "id": "cyclic_find_c_72",
+          "prompt": "ABCD is a cyclic quadrilateral. \u2220A = 72\u00b0. Find \u2220C.",
+          "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 72, "quadShow": ["A"], "quadRotate": 200 },
+          "correctAnswer": 108,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. 180\u00b0 \u2212 72\u00b0 = 108\u00b0.",
+            "incorrect": "Opposite angles add to 180\u00b0, so \u2220C is the supplement of \u2220A."
+          },
+          "strongHint": "\u2220A and \u2220C are opposite, so take the given \u2220A away from 180\u00b0."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "ABCD is a cyclic quadrilateral and \u2220C = 117\u00b0. What is \u2220A?",
+      "problem": {
+        "id": "challenge_find_a_117",
+        "prompt": "\u2220A",
+        "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 63, "quadShow": ["C"], "quadRotate": 120 },
+        "correctAnswer": 63,
+        "unit": "\u00b0",
+        "feedback": {
+          "correct": "Correct. \u2220A and \u2220C are opposite, so 180\u00b0 \u2212 117\u00b0 = 63\u00b0.",
+          "incorrect": "Opposite angles of a cyclic quadrilateral are supplementary."
+        }
+      }
+    }
+  ]
+}

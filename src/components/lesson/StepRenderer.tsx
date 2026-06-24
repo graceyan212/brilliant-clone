@@ -1,5 +1,7 @@
 import { type FormEvent, type ReactNode, useCallback, useEffect, useState } from 'react'
 import { CircleDiagram } from '../diagram/CircleDiagram'
+import { CyclicQuadDiagram } from '../diagram/CyclicQuadDiagram'
+import { CyclicQuadProof } from '../diagram/CyclicQuadProof'
 import { ProofDiagram } from '../diagram/ProofDiagram'
 import { StaticAngleDiagram } from '../diagram/StaticAngleDiagram'
 import type {
@@ -12,23 +14,29 @@ import type {
 } from '../../types/lesson'
 import './StepRenderer.css'
 
+// Central angle (∠AOB and the words "central angle") is teal; inscribed angle
+// (∠ACB and the words "inscribed angle") is the accent. Keeps the prose, the
+// readouts, and the diagram labels on one consistent color key.
+const isCentralToken = /^(?:\u2220AOB|central angles?)$/i
+const isInscribedToken = /^(?:\u2220ACB|inscribed angles?)$/i
+
 function AngleText({ text }: { text: string }) {
-  const parts = text.split(/(\u2220AOB|\u2220ACB)/g)
+  const parts = text.split(/(\u2220AOB|\u2220ACB|central angles?|inscribed angles?)/i)
 
   return (
     <>
       {parts.map((part, index) => {
-        if (part === '\u2220AOB') {
+        if (isCentralToken.test(part)) {
           return (
             <span key={index} className="angle-text is-central">
-              {'\u2220AOB'}
+              {part}
             </span>
           )
         }
-        if (part === '\u2220ACB') {
+        if (isInscribedToken.test(part)) {
           return (
             <span key={index} className="angle-text is-inscribed">
-              {'\u2220ACB'}
+              {part}
             </span>
           )
         }
@@ -200,6 +208,17 @@ function Interaction({ step, onComplete }: { step: LessonStep; onComplete: () =>
 
 function DiagramView({ config, onInteract }: { config: DiagramConfig; onInteract?: () => void }) {
   if (config.mode === 'static') {
+    if (config.variant === 'quad') {
+      return (
+        <CyclicQuadDiagram
+          interactive={false}
+          givenA={config.quadGivenA}
+          show={config.quadShow}
+          rotate={config.quadRotate}
+        />
+      )
+    }
+
     return (
       <StaticAngleDiagram
         centralAngle={config.centralAngle ?? 0}
@@ -207,6 +226,12 @@ function DiagramView({ config, onInteract }: { config: DiagramConfig; onInteract
         showAngleValue={config.showAngleValue}
         showNames={config.showNames}
       />
+    )
+  }
+
+  if (config.variant === 'quad') {
+    return (
+      <CyclicQuadDiagram interactive showReadout={config.showReadout !== false} onInteract={onInteract} />
     )
   }
 
@@ -295,7 +320,11 @@ function ProofLayout({ step, onComplete }: { step: ProofStep; onComplete: () => 
       </div>
 
       <div className="diagram-placeholder">
-        <ProofDiagram revealed={revealed} centralAngle={centralAngle} />
+        {step.diagram?.variant === 'quad' ? (
+          <CyclicQuadProof revealed={revealed} />
+        ) : (
+          <ProofDiagram revealed={revealed} centralAngle={centralAngle} />
+        )}
       </div>
 
       <div className="interaction-panel">
@@ -428,7 +457,10 @@ function PracticeLayout({
   }
 
   function addMorePractice() {
-    setExtraProblems(generatePracticeProblems(5, step.problems.length))
+    if (!step.morePracticeKind) {
+      return
+    }
+    setExtraProblems(generatePracticeProblems(step.morePracticeKind, 5, step.problems.length))
     setMoreAdded(true)
     setCurrentIndex(step.problems.length)
   }
@@ -463,7 +495,7 @@ function PracticeLayout({
             Next question
           </button>
         )}
-        {currentSolved && isLastQuestion && allBaseSolved && !moreAdded && (
+        {currentSolved && isLastQuestion && allBaseSolved && !moreAdded && step.morePracticeKind && (
           <button type="button" className="btn btn--ghost quiz__more" onClick={addMorePractice}>
             More practice
           </button>
@@ -475,7 +507,22 @@ function PracticeLayout({
 
 // Builds a pool of distinct problems and returns `count` unique ones, so a batch
 // never repeats a question. Deterministic math (no AI), per the Phase 1 rule.
-function generatePracticeProblems(count: number, offset: number): NumericProblem[] {
+function generatePracticeProblems(
+  kind: 'inscribed' | 'cyclic',
+  count: number,
+  offset: number,
+): NumericProblem[] {
+  const pool = kind === 'cyclic' ? cyclicPool() : inscribedPool()
+
+  for (let i = pool.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[pool[i], pool[j]] = [pool[j], pool[i]]
+  }
+
+  return pool.slice(0, count).map((problem, index) => ({ ...problem, id: `generated-${offset + index}` }))
+}
+
+function inscribedPool(): Omit<NumericProblem, 'id'>[] {
   const pool: Omit<NumericProblem, 'id'>[] = []
 
   for (const central of [80, 100, 120, 140, 160]) {
@@ -508,12 +555,43 @@ function generatePracticeProblems(count: number, offset: number): NumericProblem
     })
   }
 
-  for (let i = pool.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[pool[i], pool[j]] = [pool[j], pool[i]]
+  return pool
+}
+
+function cyclicPool(): Omit<NumericProblem, 'id'>[] {
+  const pool: Omit<NumericProblem, 'id'>[] = []
+
+  for (const atA of [70, 85, 100, 110, 125]) {
+    const atC = 180 - atA
+    pool.push({
+      prompt: `ABCD is a cyclic quadrilateral. \u2220A is ${atA}\u00B0. Find \u2220C.`,
+      diagram: { mode: 'static', variant: 'quad', quadGivenA: atA, quadShow: ['A'] },
+      correctAnswer: atC,
+      unit: '\u00B0',
+      feedback: {
+        correct: `Correct. 180\u00B0 \u2212 ${atA}\u00B0 = ${atC}\u00B0.`,
+        incorrect: 'Opposite angles of a cyclic quadrilateral add to 180\u00B0.',
+      },
+      strongHint: '\u2220A and \u2220C are opposite, so take the given \u2220A away from 180\u00B0.',
+    })
   }
 
-  return pool.slice(0, count).map((problem, index) => ({ ...problem, id: `generated-${offset + index}` }))
+  for (const atC of [75, 95, 105, 120]) {
+    const atA = 180 - atC
+    pool.push({
+      prompt: `ABCD is a cyclic quadrilateral. \u2220C is ${atC}\u00B0. Find \u2220A.`,
+      diagram: { mode: 'static', variant: 'quad', quadGivenA: atA, quadShow: ['C'], quadRotate: 30 },
+      correctAnswer: atA,
+      unit: '\u00B0',
+      feedback: {
+        correct: `Correct. 180\u00B0 \u2212 ${atC}\u00B0 = ${atA}\u00B0.`,
+        incorrect: '\u2220A and \u2220C are opposite, so they add to 180\u00B0.',
+      },
+      strongHint: '\u2220A and \u2220C are opposite, so take the given \u2220C away from 180\u00B0.',
+    })
+  }
+
+  return pool
 }
 
 function FeedbackNote({ correct, children }: { correct: boolean; children: ReactNode }) {

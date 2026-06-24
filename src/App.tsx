@@ -1,45 +1,56 @@
 import { useEffect, useState } from 'react'
-import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes, useParams } from 'react-router-dom'
 import { AuthPanel } from './components/auth/AuthPanel'
 import { StepRenderer } from './components/lesson/StepRenderer'
-import lessonContent from './content/lessons/inscribed-angle-theorem.json'
+import { getLesson, lessons, type RegisteredLesson } from './content/lessons'
 import { useAuth } from './lib/AuthProvider'
 import { fetchLessonProgress, saveLessonProgress, type LessonProgress } from './lib/progress'
-import { fetchStreak, recordStreakActivity, type Streak } from './lib/streaks'
-import type { Lesson } from './types/lesson'
+import { activeStreak, fetchStreak, recordStreakActivity, type Streak } from './lib/streaks'
 import './App.css'
-
-const lessonPath = '/lesson/inscribed-angle-theorem'
-const lesson = lessonContent as Lesson
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path={lessonPath} element={<LessonPage />} />
+      <Route path="/lesson/:lessonId" element={<LessonPage />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }
 
+function progressView(progress: LessonProgress | null | undefined, total: number) {
+  const stepsDone = progress ? (progress.completed ? total : progress.currentStep) : 0
+  const percent = Math.round((stepsDone / total) * 100)
+  const cta = progress?.completed
+    ? 'Review lesson'
+    : stepsDone > 0
+      ? 'Continue lesson'
+      : 'Start lesson'
+  return { stepsDone, percent, cta }
+}
+
 function HomePage() {
   const { user } = useAuth()
-  const [progress, setProgress] = useState<LessonProgress | null>(null)
+  const [progressById, setProgressById] = useState<Record<string, LessonProgress | null>>({})
   const [streak, setStreak] = useState<Streak | null>(null)
 
   useEffect(() => {
     let active = true
 
     if (!user) {
-      setProgress(null)
+      setProgressById({})
       setStreak(null)
       return
     }
 
-    fetchLessonProgress(user.id, lesson.lessonId).then((result) => {
+    Promise.all(
+      lessons.map((lesson) =>
+        fetchLessonProgress(user.id, lesson.id).then((result) => [lesson.id, result] as const),
+      ),
+    ).then((entries) => {
       if (active) {
-        setProgress(result)
+        setProgressById(Object.fromEntries(entries))
       }
     })
     fetchStreak(user.id).then((result) => {
@@ -53,37 +64,34 @@ function HomePage() {
     }
   }, [user])
 
-  const total = lesson.totalSteps
-  const stepsDone = progress ? (progress.completed ? total : progress.currentStep) : 0
-  const percent = Math.round((stepsDone / total) * 100)
-  const cta = progress?.completed
-    ? 'Review lesson'
-    : stepsDone > 0
-      ? 'Continue lesson'
-      : 'Start lesson'
+  const featured = lessons[0]
+  const rest = lessons.slice(1)
+  const { stepsDone, percent, cta } = progressView(progressById[featured.id], featured.content.totalSteps)
 
   return (
     <main className="app-shell home">
       <Header />
 
-      {user && <StreakBadge count={streak?.currentStreak ?? 0} />}
+      {user && <StreakBadge count={activeStreak(streak)} />}
 
       <section className="lesson-entry">
         <div className="lesson-entry__diagram">
           <PreviewDiagram />
         </div>
         <div className="lesson-entry__body">
-          <h1>The inscribed angle theorem</h1>
-          <p>What's the relationship between an arc and its inscribed angle?</p>
+          <h1>{featured.title}</h1>
+          <p>{featured.tagline}</p>
           <div className="progress" role="group" aria-label="Lesson progress">
             <div className="progress__track">
               <span style={{ width: `${percent}%` }} />
             </div>
             <span className="progress__count">
-              {progress?.completed ? 'Completed' : `${stepsDone} of ${total} steps`}
+              {progressById[featured.id]?.completed
+                ? 'Completed'
+                : `${stepsDone} of ${featured.content.totalSteps} steps`}
             </span>
           </div>
-          <Link className="btn btn--primary" to={lessonPath}>
+          <Link className="btn btn--primary" to={featured.path}>
             {cta}
           </Link>
           {!user && (
@@ -91,6 +99,16 @@ function HomePage() {
               <Link to="/auth">Sign in</Link> to save your progress.
             </p>
           )}
+        </div>
+      </section>
+
+      <section className="course-next" aria-label="More lessons">
+        <h2 className="course-next__heading">More lessons</h2>
+        <div className="course-list">
+          {rest.map((lesson) => (
+            <LessonCard key={lesson.id} lesson={lesson} progress={progressById[lesson.id] ?? null} />
+          ))}
+          <ComingSoonCard />
         </div>
       </section>
     </main>
@@ -125,6 +143,35 @@ function FlameIcon({ active }: { active: boolean }) {
   )
 }
 
+function LessonCard({
+  lesson,
+  progress,
+  note,
+}: {
+  lesson: RegisteredLesson
+  progress: LessonProgress | null
+  note?: string
+}) {
+  const total = lesson.content.totalSteps
+  const { stepsDone, cta } = progressView(progress, total)
+  const status =
+    note ??
+    (progress?.completed ? 'Completed' : stepsDone > 0 ? `${stepsDone} of ${total} steps` : cta)
+
+  return (
+    <Link className="course-card course-card--active" to={lesson.path}>
+      <span className="course-card__glyph" aria-hidden="true">
+        <LessonGlyph id={lesson.id} />
+      </span>
+      <div className="course-card__text">
+        <h3>{lesson.title}</h3>
+        <p>{status}</p>
+      </div>
+      <ChevronIcon />
+    </Link>
+  )
+}
+
 function ComingSoonCard() {
   return (
     <article className="course-card is-locked" aria-disabled="true">
@@ -141,6 +188,43 @@ function ComingSoonCard() {
         <p>Coming soon</p>
       </div>
     </article>
+  )
+}
+
+function LessonGlyph({ id }: { id: string }) {
+  if (id === 'cyclic-quadrilaterals') {
+    return (
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6">
+        <circle cx="12" cy="12" r="8.4" />
+        <polygon points="12,3.6 20.4,12 13.5,20.3 4.2,9.1" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6">
+      <circle cx="12" cy="12" r="8.2" />
+      <path d="M7.5 16 L15 6.5 M7.5 16 L17 13.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ChevronIcon() {
+  return (
+    <svg
+      className="course-card__arrow"
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
   )
 }
 
@@ -237,6 +321,18 @@ function PreviewPoint({
 }
 
 function LessonPage() {
+  const { lessonId } = useParams()
+  const registered = getLesson(lessonId)
+
+  if (!registered) {
+    return <Navigate to="/" replace />
+  }
+
+  return <LessonView key={registered.id} registered={registered} />
+}
+
+function LessonView({ registered }: { registered: RegisteredLesson }) {
+  const lesson = registered.content
   const { user, loading: authLoading } = useAuth()
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [maxStepReached, setMaxStepReached] = useState(0)
@@ -273,7 +369,7 @@ function LessonPage() {
     return () => {
       active = false
     }
-  }, [user, authLoading, lastIndex])
+  }, [user, authLoading, lastIndex, lesson.lessonId])
 
   useEffect(() => {
     if (user) {
@@ -332,6 +428,7 @@ function LessonPage() {
   }
 
   if (isFinished) {
+    const { formula } = registered.summary
     return (
       <main className="app-shell notice-shell">
         <Header />
@@ -339,21 +436,15 @@ function LessonPage() {
           <div className="complete__badge" aria-hidden="true">
             <CheckIcon />
           </div>
-          <h1>Lesson complete!</h1>
-          <p className="complete__text">
-            An inscribed angle is always half the central angle that shares the same two
-            endpoints on the circle.
-          </p>
+          <h1>Lesson complete</h1>
+          <p className="complete__text">{registered.summary.text}</p>
 
           <p className="summary-formula">
-            <span className="summary-formula__angle">&ang;ACB</span> = &frac12; &times;{' '}
-            <span className="summary-formula__central">&ang;AOB</span>
+            <span className="summary-formula__angle">{formula.left}</span> {formula.op}{' '}
+            <span className="summary-formula__central">{formula.right}</span>
           </p>
 
-          <section className="course-next" aria-label="Recommended next lesson">
-            <h2 className="course-next__heading">Up next</h2>
-            <ComingSoonCard />
-          </section>
+          <UpNext nextId={registered.nextLessonId} />
 
           <div className="notice__actions">
             <button type="button" className="btn btn--ghost" onClick={restart}>
@@ -386,6 +477,17 @@ function LessonPage() {
         onBack={goBack}
       />
     </main>
+  )
+}
+
+function UpNext({ nextId }: { nextId?: string }) {
+  const next = nextId ? getLesson(nextId) : undefined
+
+  return (
+    <section className="course-next" aria-label="Recommended next lesson">
+      <h2 className="course-next__heading">Up next</h2>
+      {next ? <LessonCard lesson={next} progress={null} note={next.tagline} /> : <ComingSoonCard />}
+    </section>
   )
 }
 

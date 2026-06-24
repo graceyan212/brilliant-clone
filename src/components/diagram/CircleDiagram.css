@@ -8,6 +8,11 @@
   width: 100%;
   max-width: 380px;
   margin: 0 auto;
+}
+
+/* Only draggable diagrams claim touch gestures; static figures must let the
+   page scroll so inputs below them stay reachable on touch screens. */
+.diagram__svg.is-interactive {
   touch-action: none;
 }
 
@@ -70,6 +75,20 @@
   fill: var(--accent);
   fill-opacity: 0.55;
   stroke: none;
+}
+
+.diagram__value {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.diagram__value.is-angle {
+  fill: var(--accent);
+}
+
+.diagram__value.is-central {
+  fill: var(--arc);
 }
 
 .diagram__point circle {
@@ -196,4 +215,8 @@
 
 .diagram__readout dd.is-central {
   color: var(--arc);
+}
+
+.diagram__readout dd.is-sum {
+  color: var(--ink);
 }

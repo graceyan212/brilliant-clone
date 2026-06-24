@@ -35,6 +35,16 @@ function nextStreak(existing: Streak | null, today: string): number {
   return Math.max(existing.currentStreak, 1)
 }
 
+// The stored streak is only "alive" if the last activity was today or yesterday.
+// After a longer gap the streak is broken, so the badge should read 0 until the
+// next lesson restarts it, rather than showing a stale count.
+export function activeStreak(streak: Streak | null): number {
+  if (!streak?.lastActiveDate) {
+    return 0
+  }
+  return dayGap(streak.lastActiveDate, todayISO()) <= 1 ? streak.currentStreak : 0
+}
+
 export async function fetchStreak(userId: string): Promise<Streak | null> {
   const { data, error } = await supabase
     .from('user_streaks')

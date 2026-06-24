@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Local screenshot artifacts (manual mobile review)
+.shots/
+
 # Environment variables
 .env
 .env.*
