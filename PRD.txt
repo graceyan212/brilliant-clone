@@ -1,0 +1,407 @@
+PRD: Angle Attack — Discovering the Inscribed Angle Theorem
+
+Product Overview
+
+Angle Attack is a Brilliant-style learn-by-doing lesson that teaches a single geometry concept: the Inscribed Angle Theorem.
+
+Instead of watching a video or reading a proof, learners discover the theorem themselves through interaction. They manipulate points on a circle, make predictions, observe patterns, receive immediate feedback, and ultimately build an understanding of why the theorem is true.
+
+The goal of this MVP is not to teach all circle theorems. The goal is to make one difficult idea click deeply through exploration, visual reasoning, and guided practice.
+
+This project follows Brilliant's core philosophy:
+
+Predict -> Explore -> Explain -> Practice
+
+Learners are asked to think before they are told. The diagram reveals the pattern. The theorem is introduced only after the learner has observed the relationship firsthand.
+
+---
+
+Problem Statement
+
+Students often memorize the Inscribed Angle Theorem as a formula:
+
+Inscribed Angle = 1/2 x Intercepted Arc
+
+without understanding where the relationship comes from.
+
+Traditional instruction frequently presents the rule before the learner has discovered the pattern, causing the theorem to feel arbitrary and easy to forget.
+
+Angle Attack aims to solve this by allowing learners to interact directly with a circle, uncover the relationship themselves, and then build a visual proof of why it works.
+
+---
+
+Design Principles
+
+1. Predict Before Reveal
+
+Learners should commit to a prediction before receiving instruction.
+
+2. Visual First
+
+Concepts should emerge from manipulating diagrams rather than reading explanations.
+
+3. Explain Why
+
+Every mathematical rule should be accompanied by a visual explanation or proof.
+
+4. Immediate Feedback
+
+Feedback should explain reasoning, not simply indicate correctness.
+
+5. Depth Over Breadth
+
+The MVP focuses on one theorem taught exceptionally well rather than many concepts taught superficially.
+
+---
+
+Target User
+
+Maya
+
+Age: 12-14
+
+Background:
+
+* Comfortable with basic angle measurements
+* Understands introductory geometry concepts
+* Has not learned circle theorems before
+* Enjoys challenge problems and pattern recognition
+
+Motivations:
+
+* Wants to understand why rules work
+* Prefers exploration over memorization
+* Enjoys discovering patterns independently
+
+Device:
+
+* Primarily mobile
+* Typical learning session: 10-15 minutes
+
+---
+
+User Stories
+
+Discovery
+
+As a learner, I want to manipulate a circle myself, so that I can discover geometric relationships rather than being told formulas.
+
+As a learner, I want to make predictions before seeing answers, so that I can test my intuition and become curious about the result.
+
+As a learner, I want to see the diagram respond immediately when I move points, so that I can connect my actions to the geometry.
+
+Understanding
+
+As a learner, I want to see a visual proof of the theorem, so that I understand why the rule works instead of memorizing it.
+
+As a learner, I want explanations connected directly to the diagram, so that I can see where the theorem comes from.
+
+Practice
+
+As a learner, I want immediate feedback after every answer, so that I can correct mistakes before moving on.
+
+As a learner, I want incorrect answers to highlight the relevant arc and angle, so that I understand exactly what I misunderstood.
+
+Progress
+
+As a learner, I want my lesson progress saved automatically, so that I can leave and return later without losing my place.
+
+As a learner, I want to see how much of the lesson I have completed, so that I feel motivated to finish.
+
+As a learner, I want a daily streak indicator, so that I am encouraged to return and continue learning.
+
+---
+
+Learning Goals
+
+By the end of the lesson, learners should be able to:
+
+* Identify an intercepted arc
+* State the Inscribed Angle Theorem
+* Explain why the theorem is true using a visual argument
+* Calculate inscribed angles from arc measures
+* Apply the theorem independently in new diagrams
+
+---
+
+Core Learning Loop
+
+Every step in the lesson follows the same interaction pattern:
+
+Observe
+->
+Predict
+->
+Manipulate
+->
+Receive Feedback
+->
+Discover Pattern
+->
+Understand Proof
+->
+Apply Independently
+
+This loop is the primary instructional mechanism of the product.
+
+---
+
+Lesson Flow
+
+Total lesson duration: 8-12 minutes
+
+Total steps: 8
+
+Step 1 — Prediction
+
+Display:
+
+* Circle
+* Fixed points A and B
+* Draggable point C
+
+Prompt:
+
+"What happens to angle ACB as point C moves around the circle?"
+
+Learner selects an answer before receiving any instruction.
+
+Step 2 — Exploration
+
+Learner drags point C around the circumference.
+
+The diagram updates continuously:
+
+* Point position
+* Angle measurement
+
+The learner observes that the angle remains constant.
+
+Step 3 — Discover the Relationship
+
+The intercepted arc is highlighted.
+
+Display:
+
+* Arc measure
+* Angle measure
+
+Learner identifies the relationship between the two values.
+
+Step 4 — Test the Pattern
+
+The learner changes the arc and predicts the resulting angle.
+
+Numeric input with immediate feedback.
+
+Step 5 — State the Theorem
+
+The formal theorem is introduced:
+
+"An inscribed angle measures half its intercepted arc."
+
+Step 6 — Visual Proof
+
+The center of the circle appears.
+
+Additional radii are drawn.
+
+Animated visual reasoning demonstrates why the theorem holds.
+
+The proof is interactive and diagram-driven rather than text-heavy.
+
+Step 7 — Guided Practice
+
+Three scaffolded practice problems.
+
+Each includes:
+
+* Numeric answer input
+* Immediate feedback
+* Diagram-based explanation
+
+Step 8 — Challenge Problem
+
+One independent problem with minimal scaffolding.
+
+Successful completion marks the lesson complete.
+
+---
+
+Functional Requirements
+
+Interactive Diagram
+
+The lesson must include an SVG-based geometry diagram supporting:
+
+* Draggable points constrained to a circle
+* Live angle measurement updates
+* Live arc measurement updates
+* Touch interaction
+* Mouse interaction
+
+Performance target:
+
+* 60 FPS during dragging
+
+Feedback System
+
+Every question must provide immediate feedback.
+
+Correct answers:
+
+* Confirmation
+* Brief explanation
+
+Incorrect answers:
+
+* Highlight relevant arc
+* Highlight relevant angle
+* Explain reasoning
+* Allow retry
+
+No AI-generated feedback in Phase 1.
+
+Progress Tracking
+
+Persist:
+
+* Current lesson step
+* Lesson completion state
+
+Users who leave the lesson must resume where they left off.
+
+Authentication
+
+Required for persistence.
+
+Support:
+
+* Email sign-in
+* Google sign-in
+
+Progress Indicators
+
+Display:
+
+* Lesson progress bar
+* Daily streak counter
+
+Progress should update automatically as learners advance.
+
+Mobile Support
+
+Target viewport:
+
+* 375px width
+
+All interactions must function on touch devices.
+
+---
+
+Content Model
+
+Lesson content should be defined through structured data rather than hardcoded screens.
+
+Example content model:
+
+{
+"stepId": "discover_relationship",
+"prompt": "What relationship do you notice?",
+"diagramType": "inscribed_angle",
+"interactionType": "multiple_choice",
+"correctAnswer": "arc_is_twice_angle",
+"feedback": {
+"correct": "Exactly — the intercepted arc is twice the inscribed angle.",
+"incorrect": "Look at the highlighted arc and compare it to angle ACB."
+}
+}
+
+This allows future lessons to reuse the same lesson engine.
+
+---
+
+Success Metrics
+
+Primary Success Metric
+
+* At least 80% of learners who finish the lesson correctly solve the final challenge problem.
+
+Secondary Metrics
+
+* Lesson completion rate greater than 70%
+* Average lesson duration between 8-12 minutes
+* Average of fewer than 2 retries per practice problem
+* Successful resume behavior after leaving mid-lesson
+
+Qualitative Success
+
+* Learners can explain in their own words why an inscribed angle measures half its intercepted arc.
+
+---
+
+Technical Architecture
+
+Frontend:
+
+* React
+* TypeScript
+* SVG-based diagrams
+
+Backend:
+
+* Supabase
+
+Persistence:
+
+Users:
+
+* id
+* email
+
+Lesson Progress:
+
+* user_id
+* lesson_id
+* current_step
+* completed
+
+Streaks:
+
+* user_id
+* current_streak
+* last_active_date
+
+---
+
+MVP Scope
+
+This MVP intentionally focuses on a single theorem.
+
+Rather than implementing many geometry topics superficially, the goal is to build one Brilliant-quality learning experience demonstrating:
+
+* Interactive discovery
+* Visual proof
+* Immediate feedback
+* Progress persistence
+* Mobile usability
+
+Future concepts can be added using the same architecture.
+
+---
+
+Non-Goals
+
+The following are intentionally out of scope for Phase 1:
+
+* Additional circle theorems
+* Multiple lessons
+* Adaptive learning paths
+* AI tutoring
+* AI-generated content
+* Personalized hints
+* Spaced repetition
+* Mastery learning systems
+* Leaderboards
+* Social features
+* Monster Circle capstone

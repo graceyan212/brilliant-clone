@@ -1,0 +1,113 @@
+.proof-diagram .diagram__point.is-accent circle {
+  fill: var(--accent);
+}
+
+.proof-radius {
+  stroke: var(--ink-3);
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: proof-draw 0.45s ease-out;
+}
+
+.proof-radii.is-equal .proof-radius {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+
+.proof-triangle {
+  fill: color-mix(in srgb, var(--accent) 9%, transparent);
+  stroke: none;
+}
+
+.proof-central {
+  fill: none;
+  stroke: var(--arc);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.proof-central-fill {
+  fill: var(--arc);
+  fill-opacity: 0.18;
+  stroke: none;
+}
+
+.proof-inscribed {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.proof-inscribed-fill {
+  fill: var(--accent);
+  fill-opacity: 0.55;
+  stroke: none;
+}
+
+.proof-value {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  pointer-events: none;
+  animation: proof-pop 0.3s ease-out both;
+}
+
+.proof-value.is-emphatic {
+  font-size: 15px;
+}
+
+.proof-value--accent {
+  fill: var(--accent);
+}
+
+.proof-value--arc {
+  fill: var(--arc);
+}
+
+@keyframes proof-pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.proof-conclusion {
+  fill: var(--ink);
+  font-family: var(--mono);
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.proof-in {
+  animation: proof-fade 0.4s ease-out;
+}
+
+@keyframes proof-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes proof-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proof-radius,
+  .proof-in,
+  .proof-value {
+    animation: none;
+  }
+}

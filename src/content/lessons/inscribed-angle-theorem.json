@@ -1,0 +1,143 @@
+{
+  "lessonId": "inscribed-angle-theorem",
+  "title": "The inscribed angle theorem",
+  "totalSteps": 8,
+  "steps": [
+    {
+      "stepId": "terminology",
+      "interactionType": "statement",
+      "prompt": "Two angles on a circle",
+      "diagram": { "mode": "static", "centralAngle": 120, "showNames": true },
+      "body": "A central angle has its vertex at the center O \u2014 here that's \u2220AOB. An inscribed angle has its vertex on the circle itself \u2014 here that's \u2220ACB. Both are built from the same two points, A and B."
+    },
+    {
+      "stepId": "prediction",
+      "interactionType": "multiple_choice",
+      "advanceOn": "select",
+      "prompt": "What happens to \u2220ACB as C moves?",
+      "subtitle": "Drag point C around the circle.",
+      "diagram": { "mode": "interactive", "highlightAngle": true, "lockAnchors": true },
+      "options": [
+        { "id": "angle_changes_randomly", "label": "It changes randomly." },
+        { "id": "angle_stays_same", "label": "It stays the same while A and B are fixed." },
+        { "id": "angle_depends_on_circle_size", "label": "It depends on the circle's size." }
+      ],
+      "correctAnswer": "angle_stays_same",
+      "commitNote": "Prediction saved. Drag C in the next step to test it.",
+      "feedback": {
+        "correct": "Right. With A and B fixed, \u2220ACB stays constant.",
+        "incorrect": "Watch \u2220ACB as C moves. A and B stay put."
+      }
+    },
+    {
+      "stepId": "exploration",
+      "interactionType": "explore",
+      "prompt": "Meet O, the center. Drag any point and compare \u2220ACB with \u2220AOB.",
+      "diagram": { "mode": "interactive", "highlightAngle": true, "highlightCentral": true }
+    },
+    {
+      "stepId": "discover_relationship",
+      "interactionType": "multiple_choice",
+      "prompt": "How does the central angle \u2220AOB compare to inscribed angle \u2220ACB?",
+      "diagram": { "mode": "interactive", "highlightAngle": true, "highlightCentral": true },
+      "options": [
+        {
+          "id": "equal",
+          "label": "They are equal.",
+          "feedback": "Look at the two readouts \u2014 are they the same number? Which one is larger?"
+        },
+        { "id": "central_twice", "label": "\u2220AOB is twice \u2220ACB." },
+        {
+          "id": "inscribed_twice",
+          "label": "\u2220ACB is twice \u2220AOB.",
+          "feedback": "Check again \u2014 which angle is bigger, the one at the center or the one at C?"
+        }
+      ],
+      "correctAnswer": "central_twice",
+      "feedback": {
+        "correct": "Exactly. \u2220AOB is twice \u2220ACB.",
+        "incorrect": "Compare the two readouts and look again at how they relate."
+      }
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "The inscribed angle theorem",
+      "diagram": { "mode": "static", "centralAngle": 120, "showCentralValue": true, "showAngleValue": true },
+      "body": "An inscribed angle is half the central angle on the same arc. When \u2220AOB is 120\u00b0, \u2220ACB is 60\u00b0."
+    },
+    {
+      "stepId": "visual_proof",
+      "interactionType": "proof",
+      "prompt": "Proof: The inscribed angle theorem",
+      "diagram": { "mode": "static", "centralAngle": 120, "showCentralValue": true, "showAngleValue": true },
+      "stages": [
+        "Draw radii from the center to A, B, and C.",
+        "Equal radii make triangles OAC and OBC isosceles.",
+        "OC halves the 60\u00b0 inscribed angle, so the base angles at A, B, and C are all 30\u00b0.",
+        "Each triangle sums to 180\u00b0, so \u2220AOC and \u2220BOC are 120\u00b0 \u2014 leaving the central \u2220AOB = 120\u00b0.",
+        "120\u00b0 = 2 \u00d7 60\u00b0: the inscribed angle is half the central angle."
+      ]
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "problems": [
+        {
+          "id": "practice_central_90",
+          "prompt": "The central angle \u2220AOB is 90\u00b0. Find \u2220ACB.",
+          "diagram": { "mode": "static", "centralAngle": 90, "showCentralValue": true, "showAngleValue": false },
+          "correctAnswer": 45,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. Half of 90 is 45.",
+            "incorrect": "How does the inscribed angle compare with the central angle?"
+          },
+          "strongHint": "Halve the central angle: 90\u00b0 \u00f7 2."
+        },
+        {
+          "id": "practice_inscribed_35",
+          "prompt": "\u2220ACB is 35\u00b0. Find the central angle \u2220AOB.",
+          "diagram": { "mode": "static", "centralAngle": 70, "showCentralValue": false, "showAngleValue": true },
+          "correctAnswer": 70,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. Double 35 is 70.",
+            "incorrect": "How does the central angle compare with the inscribed angle?"
+          },
+          "strongHint": "Double the inscribed angle: 35\u00b0 \u00d7 2."
+        },
+        {
+          "id": "practice_central_130",
+          "prompt": "The central angle \u2220AOB is 130\u00b0. Find \u2220ACB.",
+          "diagram": { "mode": "static", "centralAngle": 130, "showCentralValue": true, "showAngleValue": false },
+          "correctAnswer": 65,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. Half of 130 is 65.",
+            "incorrect": "How does the inscribed angle compare with the central angle?"
+          },
+          "strongHint": "Halve the central angle: 130\u00b0 \u00f7 2."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "\u2220ACB is 70\u00b0. What is the central angle \u2220AOB?",
+      "problem": {
+        "id": "challenge_70",
+        "prompt": "\u2220AOB",
+        "diagram": { "mode": "static", "centralAngle": 140, "showCentralValue": false, "showAngleValue": true },
+        "correctAnswer": 140,
+        "unit": "\u00b0",
+        "feedback": {
+          "correct": "Done. The central angle is twice the inscribed angle.",
+          "incorrect": "How does the central angle compare with the inscribed angle?"
+        }
+      }
+    }
+  ]
+}

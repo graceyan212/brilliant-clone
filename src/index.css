@@ -1,0 +1,91 @@
+:root {
+  --paper: #edf0f3;
+  --surface: #ffffff;
+  --ink: #16202e;
+  --ink-2: #3f4a59;
+  --ink-3: #6b7585;
+  --line: #d4dae1;
+  --grid: #dde3ea;
+  --accent: #e2533a;
+  --accent-press: #c8462f;
+  --arc: #2f7d8c;
+  --good: #2f7d5b;
+
+  --ui: 'Space Grotesk Variable', system-ui, sans-serif;
+  --mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  font-family: var(--ui);
+  color-scheme: light;
+  color: var(--ink-2);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100svh;
+  line-height: 1.55;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+h1,
+h2 {
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.65rem, 4vw, 2.25rem);
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: clamp(1.2rem, 3vw, 1.45rem);
+}
+
+p {
+  margin: 0;
+  max-width: 60ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
