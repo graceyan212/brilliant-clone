@@ -12,6 +12,7 @@ export type LessonStep =
   | StatementStep
   | ProofStep
   | PracticeStep
+  | IdentifyStep
 
 export type DiagramConfig = {
   mode: 'interactive' | 'static'
@@ -96,4 +97,20 @@ export type PracticeStep = BaseStep & {
   problems: NumericProblem[]
   /** Which extra problems the "More practice" button generates. Omit to hide it. */
   morePracticeKind?: 'inscribed' | 'cyclic'
+}
+
+export type IdentifyTarget = {
+  id: 'central' | 'inscribed'
+  /** Instruction shown while this angle is the one to find. */
+  prompt: string
+  /** Label revealed on the figure once this angle is tapped correctly. */
+  label: string
+  /** Shown when the wrong angle is tapped. */
+  hint: string
+}
+
+export type IdentifyStep = BaseStep & {
+  interactionType: 'identify'
+  centralAngle: number
+  targets: IdentifyTarget[]
 }

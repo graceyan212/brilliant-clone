@@ -2,10 +2,12 @@ import { type FormEvent, type ReactNode, useCallback, useEffect, useState } from
 import { CircleDiagram } from '../diagram/CircleDiagram'
 import { CyclicQuadDiagram } from '../diagram/CyclicQuadDiagram'
 import { CyclicQuadProof } from '../diagram/CyclicQuadProof'
+import { IdentifyFigure } from '../diagram/IdentifyFigure'
 import { ProofDiagram } from '../diagram/ProofDiagram'
 import { StaticAngleDiagram } from '../diagram/StaticAngleDiagram'
 import type {
   DiagramConfig,
+  IdentifyStep,
   LessonStep,
   MultipleChoiceStep,
   NumericProblem,
@@ -84,6 +86,8 @@ export function StepRenderer({
         <PracticeLayout step={step} onComplete={complete} />
       ) : step.interactionType === 'proof' ? (
         <ProofLayout step={step} onComplete={complete} />
+      ) : step.interactionType === 'identify' ? (
+        <IdentifyLayout step={step} onComplete={complete} />
       ) : (
         <section className="lesson-stage">
           <div className="prompt-panel">
@@ -201,6 +205,7 @@ function Interaction({ step, onComplete }: { step: LessonStep; onComplete: () =>
     case 'explore':
     case 'proof':
     case 'practice':
+    case 'identify':
     case 'statement':
       return null
   }
@@ -247,9 +252,13 @@ function DiagramView({ config, onInteract }: { config: DiagramConfig; onInteract
 
 function StatementBody({ step }: { step: StatementStep }) {
   return (
-    <p className="statement-body">
-      <AngleText text={step.body} />
-    </p>
+    <>
+      {step.body.split('\n').map((line, index) => (
+        <p key={index} className="statement-body">
+          <AngleText text={line} />
+        </p>
+      ))}
+    </>
   )
 }
 
@@ -340,6 +349,61 @@ function ProofLayout({ step, onComplete }: { step: ProofStep; onComplete: () => 
           <button type="button" className="btn btn--ghost" onClick={() => setRevealed((n) => n + 1)}>
             Next step
           </button>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function IdentifyLayout({ step, onComplete }: { step: IdentifyStep; onComplete: () => void }) {
+  const [foundIds, setFoundIds] = useState<string[]>([])
+  const [feedback, setFeedback] = useState<string>()
+  const current = step.targets[foundIds.length]
+  const done = current === undefined
+
+  useEffect(() => {
+    if (done) {
+      onComplete()
+    }
+  }, [done, onComplete])
+
+  function tap(id: 'central' | 'inscribed') {
+    if (!current || foundIds.includes(id)) {
+      return
+    }
+    if (id === current.id) {
+      setFeedback(undefined)
+      setFoundIds((ids) => [...ids, id])
+    } else {
+      setFeedback(current.hint)
+    }
+  }
+
+  return (
+    <section className="lesson-stage">
+      <div className="prompt-panel">
+        <h1>
+          <AngleText text={step.prompt} />
+        </h1>
+        <p className="prompt-subtitle">
+          {done ? 'Both angles found.' : <AngleText text={current.prompt} />}
+        </p>
+      </div>
+
+      <div className="diagram-placeholder">
+        <IdentifyFigure
+          centralAngle={step.centralAngle}
+          foundCentral={foundIds.includes('central')}
+          foundInscribed={foundIds.includes('inscribed')}
+          onTap={tap}
+        />
+      </div>
+
+      <div className="interaction-panel">
+        {feedback && (
+          <FeedbackNote correct={false}>
+            <AngleText text={feedback} />
+          </FeedbackNote>
         )}
       </div>
     </section>

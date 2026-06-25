@@ -29,7 +29,7 @@ const inscribed: RegisteredLesson = {
   content: inscribedContent as Lesson,
   summary: {
     text: 'An inscribed angle is always half the central angle that shares the same two endpoints on the circle.',
-    formula: { left: '\u2220ACB', op: '= \u00bd \u00d7', right: '\u2220AOB' },
+    formula: { left: 'inscribed angle', op: '= \u00bd \u00d7', right: 'central angle' },
   },
 }
 

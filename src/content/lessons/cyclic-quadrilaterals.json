@@ -7,8 +7,8 @@
       "stepId": "bridge",
       "interactionType": "statement",
       "prompt": "Recap from the last lesson",
-      "diagram": { "mode": "static", "centralAngle": 180, "showCentralValue": true, "showAngleValue": true },
-      "body": "Last lesson you found that the central angle \u2220AOB is twice the inscribed angle \u2220ACB. The central angle also equals the arc it cuts off, so an inscribed angle is half its arc. (A diameter cuts a 180\u00b0 arc, so the inscribed angle is 90\u00b0. That is Thales.) Today uses that one fact: an inscribed angle is half its arc."
+      "diagram": { "mode": "static", "centralAngle": 120, "showCentralValue": true, "showAngleValue": true },
+      "body": "Last lesson you found that an inscribed angle is half its arc. Today builds on that one fact."
     },
     {
       "stepId": "prediction",
