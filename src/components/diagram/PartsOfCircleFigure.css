@@ -1,0 +1,90 @@
+/* Vocabulary primer for the named lines of a circle. Each line is either
+   "unfound" (neutral grey, awaiting a tap) or "revealed" (its own color with a
+   matching name label). Secant and tangent also carry arrowheads. */
+
+.part-line {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.part-line.is-unfound {
+  stroke: var(--ink-3);
+  stroke-width: 3;
+}
+
+.part-line.is-radius {
+  stroke: #9c27b0;
+}
+
+.part-line.is-chord {
+  stroke: #43a047;
+}
+
+.part-line.is-diameter {
+  stroke: #ef6c00;
+}
+
+.part-line.is-secant {
+  stroke: #1e88e5;
+}
+
+.part-line.is-tangent {
+  stroke: #c62828;
+}
+
+/* Transparent fat overlay that captures taps for an unfound line. The stroke is
+   transparent but still hit-tested, so it stays invisible while remaining
+   clickable along the whole line. */
+.part-hit {
+  fill: none;
+  cursor: pointer;
+  pointer-events: stroke;
+}
+
+.part-hit:focus-visible {
+  outline: none;
+  stroke: color-mix(in srgb, var(--ink) 30%, transparent);
+  stroke-width: 3;
+  stroke-dasharray: 5 5;
+}
+
+/* Arrowhead markers. Each state gets its own fill so the arrow always matches
+   the line it sits on. */
+.part-arrow.is-grey {
+  fill: var(--ink-3);
+}
+
+.part-arrow.is-secant {
+  fill: #1e88e5;
+}
+
+.part-arrow.is-tangent {
+  fill: #c62828;
+}
+
+.part-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.part-label.is-radius {
+  fill: #9c27b0;
+}
+
+.part-label.is-chord {
+  fill: #43a047;
+}
+
+.part-label.is-diameter {
+  fill: #ef6c00;
+}
+
+.part-label.is-secant {
+  fill: #1e88e5;
+}
+
+.part-label.is-tangent {
+  fill: #c62828;
+}

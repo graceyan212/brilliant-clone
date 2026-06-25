@@ -92,11 +92,11 @@
       "prompt": "Proof: the inscribed angle theorem",
       "diagram": { "mode": "static", "centralAngle": 120, "showCentralValue": true, "showAngleValue": true },
       "stages": [
-        "Draw radii from the center to A, B, and C.",
-        "Equal radii make triangles OAC and OBC isosceles.",
-        "OC halves the 60\u00b0 inscribed angle, so the base angles at A, B, and C are all 30\u00b0.",
-        "Each triangle sums to 180\u00b0, so \u2220AOC and \u2220BOC are 120\u00b0, leaving the central \u2220AOB = 120\u00b0.",
-        "120\u00b0 = 2 \u00d7 60\u00b0: the inscribed angle is half the central angle."
+        "Draw a radius from O out to A, B, and C \u2014 every radius of a circle is the same length.",
+        "Two equal radii make triangles OAC and OBC isosceles, and an isosceles triangle has equal base angles.",
+        "OC splits the 60\u00b0 inscribed angle, so those base angles at A, B, and C are each 30\u00b0.",
+        "A triangle's angles add to 180\u00b0, so \u2220AOC and \u2220BOC are each 120\u00b0. The angles at O fill a full turn of 360\u00b0, leaving \u2220AOB = 120\u00b0.",
+        "120\u00b0 = 2 \u00d7 60\u00b0 \u2014 the inscribed angle is half the central angle."
       ]
     },
     {

@@ -1,0 +1,71 @@
+{
+  "lessonId": "parts-of-a-circle",
+  "title": "Parts of a circle",
+  "totalSteps": 2,
+  "steps": [
+    {
+      "stepId": "identify",
+      "interactionType": "identify",
+      "figure": "parts",
+      "prompt": "Name the parts of a circle",
+      "doneNote": "That's the core vocabulary \u2014 you'll use these throughout the course.",
+      "targets": [
+        {
+          "id": "radius",
+          "prompt": "Tap the radius \u2014 the line from the center to a point on the circle.",
+          "label": "Radius",
+          "hint": "It starts at the center dot and stops on the circle."
+        },
+        {
+          "id": "chord",
+          "prompt": "Tap a chord \u2014 a segment joining two points on the circle.",
+          "label": "Chord",
+          "hint": "Both ends sit on the circle, but it doesn't pass through the center."
+        },
+        {
+          "id": "diameter",
+          "prompt": "Tap the diameter \u2014 a chord that passes straight through the center.",
+          "label": "Diameter",
+          "hint": "It's the chord that runs through the center dot."
+        },
+        {
+          "id": "secant",
+          "prompt": "Tap the secant \u2014 a line that cuts across the circle at two points and keeps going.",
+          "label": "Secant",
+          "hint": "Like a chord, but extended into a full line \u2014 note the arrows."
+        },
+        {
+          "id": "tangent",
+          "prompt": "Tap the tangent \u2014 a line that just touches the circle at a single point.",
+          "label": "Tangent",
+          "hint": "It grazes the edge at exactly one point and never goes inside."
+        }
+      ]
+    },
+    {
+      "stepId": "diameter_check",
+      "interactionType": "multiple_choice",
+      "prompt": "How long is the diameter compared with the radius?",
+      "subtitle": "The diameter runs edge to edge through the center.",
+      "diagram": { "mode": "static", "variant": "parts" },
+      "options": [
+        { "id": "twice", "label": "Twice as long" },
+        {
+          "id": "same",
+          "label": "The same length",
+          "feedback": "The radius only reaches halfway \u2014 from the center to the edge."
+        },
+        {
+          "id": "half",
+          "label": "Half as long",
+          "feedback": "Other way around: the radius is the shorter one."
+        }
+      ],
+      "correctAnswer": "twice",
+      "feedback": {
+        "correct": "Right \u2014 the diameter spans the whole circle, so diameter = 2 \u00d7 radius.",
+        "incorrect": "Compare how far each one reaches across the circle."
+      }
+    }
+  ]
+}

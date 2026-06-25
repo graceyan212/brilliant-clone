@@ -17,7 +17,7 @@ export type LessonStep =
 export type DiagramConfig = {
   mode: 'interactive' | 'static'
   /** Non-default figure to draw. Omit for the inscribed/central angle figure. */
-  variant?: 'quad' | 'tangent'
+  variant?: 'quad' | 'power' | 'parts'
   centralAngle?: number
   showCentralValue?: boolean
   showAngleValue?: boolean
@@ -25,7 +25,7 @@ export type DiagramConfig = {
   highlightCentral?: boolean
   highlightAngle?: boolean
   lockAnchors?: boolean
-  /** Interactive quad only: show the live numeric readout (hidden during predictions). */
+  /** Interactive quad/power only: show the live numeric readout (hidden during predictions). */
   showReadout?: boolean
   /** Quad static only: realize this value for ∠A (∠C becomes 180 − ∠A). */
   quadGivenA?: number
@@ -33,23 +33,24 @@ export type DiagramConfig = {
   quadShow?: ('A' | 'C')[]
   /** Quad static only: rotate the whole figure (degrees) for visual variety. */
   quadRotate?: number
-  /** Tangent variant (static): acute angle (deg) of the ray PR from the tangent; omit for the plain 90° figure. */
-  tangentRayAngle?: number
-  /** Tangent variant: show the tangent-side sub-angle value (else "?"). */
-  showTangentValue?: boolean
-  /** Tangent variant: show the radius-side sub-angle value (else "?"). */
-  showRadiusValue?: boolean
-  /** Tangent variant: draw the 90° right-angle marker. Set false to hide it (e.g. before the prediction). Defaults true. */
-  tangentShowRight?: boolean
+  /** Power-of-a-point static figure: the four chord-segment lengths and (optionally) which one is unknown ("?"). Omit `unknown` to show all four. */
+  power?: {
+    pa: number
+    pb: number
+    pc: number
+    pd: number
+    unknown?: 'pa' | 'pb' | 'pc' | 'pd'
+  }
 }
 
 /** Topics that the practice generator (deterministic pool + AI) can produce. */
-export type PracticeTopic = 'inscribed' | 'cyclic' | 'tangent-radius'
+export type PracticeTopic = 'inscribed' | 'cyclic' | 'power-of-point'
 
-/** Minimal problem descriptor: which value is given + the number, plus optional AI flavor text. The answer/diagram/hints are always computed in code from this. */
+/** Minimal problem descriptor the AI returns. The answer/diagram/hints are always computed in code from this. Angle topics use `value`; power-of-a-point uses `values` ([PA, PB, PC]). */
 export type PracticeSpec = {
-  given: string
-  value: number
+  given?: string
+  value?: number
+  values?: number[]
   context?: string
 }
 
@@ -118,17 +119,23 @@ export type PracticeStep = BaseStep & {
 }
 
 export type IdentifyTarget = {
-  id: 'central' | 'inscribed'
-  /** Instruction shown while this angle is the one to find. */
+  /** Matches a tap target id in the figure (angles: central/inscribed; parts: radius/chord/etc). */
+  id: string
+  /** Instruction shown while this item is the one to find. */
   prompt: string
-  /** Label revealed on the figure once this angle is tapped correctly. */
+  /** Label revealed on the figure once this item is tapped correctly. */
   label: string
-  /** Shown when the wrong angle is tapped. */
+  /** Shown when the wrong item is tapped. */
   hint: string
 }
 
 export type IdentifyStep = BaseStep & {
   interactionType: 'identify'
-  centralAngle: number
+  /** Which figure to render. Defaults to the inscribed/central angle figure. */
+  figure?: 'angles' | 'parts'
+  /** Only used by the 'angles' figure. */
+  centralAngle?: number
+  /** Message shown once every target is found. */
+  doneNote?: string
   targets: IdentifyTarget[]
 }

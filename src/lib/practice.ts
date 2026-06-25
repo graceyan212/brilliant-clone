@@ -3,8 +3,8 @@ import type { NumericProblem, PracticeSpec, PracticeTopic } from '../types/lesso
 // Single source of truth for practice problems. Both the deterministic pool and
 // the AI path build problems through `buildProblem`, so the answer, diagram, and
 // the targeted hints are always computed in code - the AI only ever supplies a
-// spec (which value is given + the number + optional flavor text), never the math
-// or the hints.
+// spec (which value is given + the number(s) + optional flavor text), never the
+// math or the hints.
 
 function isInt(value: number, lo: number, hi: number) {
   return Number.isInteger(value) && value >= lo && value <= hi
@@ -22,12 +22,15 @@ function buildCore(topic: PracticeTopic, spec: PracticeSpec): Omit<NumericProble
       return inscribedProblem(spec)
     case 'cyclic':
       return cyclicProblem(spec)
-    case 'tangent-radius':
-      return tangentProblem(spec)
+    case 'power-of-point':
+      return powerProblem(spec)
   }
 }
 
 function inscribedProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 'id'> {
+  if (typeof value !== 'number') {
+    throw new Error('inscribed problem needs a value')
+  }
   if (given === 'central') {
     if (!isInt(value, 60, 170) || value % 2 !== 0) {
       throw new Error(`invalid inscribed/central value: ${value}`)
@@ -66,6 +69,9 @@ function inscribedProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 
 }
 
 function cyclicProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 'id'> {
+  if (typeof value !== 'number') {
+    throw new Error('cyclic problem needs a value')
+  }
   if (!isInt(value, 40, 140)) {
     throw new Error(`invalid cyclic value: ${value}`)
   }
@@ -99,38 +105,32 @@ function cyclicProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 'id
   throw new Error(`unknown cyclic given: ${given}`)
 }
 
-function tangentProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 'id'> {
-  if (!isInt(value, 10, 80)) {
-    throw new Error(`invalid tangent value: ${value}`)
+// Power of a point (intersecting chords): two chords cross at P, and
+// PA * PB = PC * PD. The spec supplies [PA, PB, PC]; code computes PD and
+// guarantees it is a whole number in range.
+function powerProblem({ values }: PracticeSpec): Omit<NumericProblem, 'id'> {
+  if (!values || values.length !== 3 || !values.every((v) => isInt(v, 2, 20))) {
+    throw new Error('power-of-point needs values [PA, PB, PC] of integers in 2..20')
   }
-  const answer = 90 - value
-  if (given === 'tangent') {
-    return {
-      prompt: `A line from the point of contact makes ${value}\u00B0 with the tangent. What angle does it make with the radius?`,
-      diagram: { mode: 'static', variant: 'tangent', tangentRayAngle: value, showTangentValue: true, showRadiusValue: false },
-      correctAnswer: answer,
-      unit: '\u00B0',
-      feedback: {
-        correct: `Correct. 90\u00B0 \u2212 ${value}\u00B0 = ${answer}\u00B0.`,
-        incorrect: 'The tangent meets the radius at 90\u00B0, so the two parts add to 90\u00B0.',
-      },
-      strongHint: `Tangent and radius meet at 90\u00B0, so subtract: 90\u00B0 \u2212 ${value}\u00B0.`,
-    }
+  const [pa, pb, pc] = values
+  const product = pa * pb
+  if (product % pc !== 0) {
+    throw new Error('power-of-point: PA * PB must be divisible by PC')
   }
-  if (given === 'radius') {
-    return {
-      prompt: `A line from the point of contact makes ${value}\u00B0 with the radius. What angle does it make with the tangent?`,
-      diagram: { mode: 'static', variant: 'tangent', tangentRayAngle: answer, showRadiusValue: true, showTangentValue: false },
-      correctAnswer: answer,
-      unit: '\u00B0',
-      feedback: {
-        correct: `Correct. 90\u00B0 \u2212 ${value}\u00B0 = ${answer}\u00B0.`,
-        incorrect: 'The tangent meets the radius at 90\u00B0, so the two parts add to 90\u00B0.',
-      },
-      strongHint: `Tangent and radius meet at 90\u00B0, so subtract: 90\u00B0 \u2212 ${value}\u00B0.`,
-    }
+  const pd = product / pc
+  if (!isInt(pd, 2, 30)) {
+    throw new Error(`power-of-point: PD out of range (${pd})`)
   }
-  throw new Error(`unknown tangent given: ${given}`)
+  return {
+    prompt: `Two chords cross at P. PA = ${pa}, PB = ${pb}, and PC = ${pc}. Find PD.`,
+    diagram: { mode: 'static', variant: 'power', power: { pa, pb, pc, pd, unknown: 'pd' } },
+    correctAnswer: pd,
+    feedback: {
+      correct: `Correct. PA \u00D7 PB = ${pa} \u00D7 ${pb} = ${product}, and ${product} \u00F7 ${pc} = ${pd}.`,
+      incorrect: 'The two parts of one chord multiply to the same as the two parts of the other.',
+    },
+    strongHint: `PA \u00D7 PB = PC \u00D7 PD, so PD = (${pa} \u00D7 ${pb}) \u00F7 ${pc}.`,
+  }
 }
 
 const INSCRIBED_SPECS: PracticeSpec[] = [
@@ -143,17 +143,24 @@ const CYCLIC_SPECS: PracticeSpec[] = [
   ...[75, 95, 105, 120].map((value) => ({ given: 'C', value })),
 ]
 
-const TANGENT_SPECS: PracticeSpec[] = [
-  ...[20, 35, 40, 55, 65].map((value) => ({ given: 'tangent', value })),
-  ...[25, 30, 50, 70].map((value) => ({ given: 'radius', value })),
-]
+const POWER_SPECS: PracticeSpec[] = [
+  [4, 6, 3],
+  [6, 4, 8],
+  [3, 8, 4],
+  [5, 6, 3],
+  [6, 6, 4],
+  [4, 10, 8],
+  [3, 8, 6],
+  [9, 2, 6],
+  [5, 8, 4],
+].map((values) => ({ given: 'PD', values }))
 
 function poolFor(topic: PracticeTopic): PracticeSpec[] {
   if (topic === 'cyclic') {
     return CYCLIC_SPECS
   }
-  if (topic === 'tangent-radius') {
-    return TANGENT_SPECS
+  if (topic === 'power-of-point') {
+    return POWER_SPECS
   }
   return INSCRIBED_SPECS
 }

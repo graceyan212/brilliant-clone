@@ -3,9 +3,11 @@ import { CircleDiagram } from '../diagram/CircleDiagram'
 import { CyclicQuadDiagram } from '../diagram/CyclicQuadDiagram'
 import { CyclicQuadProof } from '../diagram/CyclicQuadProof'
 import { IdentifyFigure } from '../diagram/IdentifyFigure'
+import { PartsOfCircleFigure } from '../diagram/PartsOfCircleFigure'
 import { ProofDiagram } from '../diagram/ProofDiagram'
+import { PowerOfPointDiagram } from '../diagram/PowerOfPointDiagram'
+import { PowerOfPointProof } from '../diagram/PowerOfPointProof'
 import { StaticAngleDiagram } from '../diagram/StaticAngleDiagram'
-import { TangentRadiusDiagram } from '../diagram/TangentRadiusDiagram'
 import type {
   DiagramConfig,
   IdentifyStep,
@@ -227,15 +229,20 @@ function DiagramView({ config, onInteract }: { config: DiagramConfig; onInteract
       )
     }
 
-    if (config.variant === 'tangent') {
+    if (config.variant === 'power') {
       return (
-        <TangentRadiusDiagram
-          rayAngle={config.tangentRayAngle}
-          showTangentValue={config.showTangentValue}
-          showRadiusValue={config.showRadiusValue}
-          showRightAngle={config.tangentShowRight}
+        <PowerOfPointDiagram
+          pa={config.power?.pa}
+          pb={config.power?.pb}
+          pc={config.power?.pc}
+          pd={config.power?.pd}
+          unknown={config.power?.unknown}
         />
       )
+    }
+
+    if (config.variant === 'parts') {
+      return <PartsOfCircleFigure showAll />
     }
 
     return (
@@ -251,6 +258,12 @@ function DiagramView({ config, onInteract }: { config: DiagramConfig; onInteract
   if (config.variant === 'quad') {
     return (
       <CyclicQuadDiagram interactive showReadout={config.showReadout !== false} onInteract={onInteract} />
+    )
+  }
+
+  if (config.variant === 'power') {
+    return (
+      <PowerOfPointDiagram interactive showReadout={config.showReadout !== false} onInteract={onInteract} />
     )
   }
 
@@ -345,6 +358,8 @@ function ProofLayout({ step, onComplete }: { step: ProofStep; onComplete: () => 
       <div className="diagram-placeholder">
         {step.diagram?.variant === 'quad' ? (
           <CyclicQuadProof revealed={revealed} />
+        ) : step.diagram?.variant === 'power' ? (
+          <PowerOfPointProof revealed={revealed} />
         ) : (
           <ProofDiagram revealed={revealed} centralAngle={centralAngle} />
         )}
@@ -381,7 +396,7 @@ function IdentifyLayout({ step, onComplete }: { step: IdentifyStep; onComplete: 
     }
   }, [done, onComplete])
 
-  function tap(id: 'central' | 'inscribed') {
+  function tap(id: string) {
     if (!current || foundIds.includes(id)) {
       return
     }
@@ -400,17 +415,21 @@ function IdentifyLayout({ step, onComplete }: { step: IdentifyStep; onComplete: 
           <AngleText text={step.prompt} />
         </h1>
         <p className="prompt-subtitle">
-          {done ? 'Both angles found.' : <AngleText text={current.prompt} />}
+          {done ? (step.doneNote ?? 'All found.') : <AngleText text={current.prompt} />}
         </p>
       </div>
 
       <div className="diagram-placeholder">
-        <IdentifyFigure
-          centralAngle={step.centralAngle}
-          foundCentral={foundIds.includes('central')}
-          foundInscribed={foundIds.includes('inscribed')}
-          onTap={tap}
-        />
+        {step.figure === 'parts' ? (
+          <PartsOfCircleFigure foundIds={foundIds} onTap={tap} />
+        ) : (
+          <IdentifyFigure
+            centralAngle={step.centralAngle ?? 120}
+            foundCentral={foundIds.includes('central')}
+            foundInscribed={foundIds.includes('inscribed')}
+            onTap={tap}
+          />
+        )}
       </div>
 
       <div className="interaction-panel">

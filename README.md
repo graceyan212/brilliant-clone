@@ -111,15 +111,28 @@ Other scripts:
 4. In Supabase → Authentication → URL Configuration, add your Vercel domain to the **Site URL** and **Redirect URLs**.
 5. Deploy, then verify production sign-in and that progress persists across a reload.
 
-## Phase 1 no-AI rule
+## Phase 2 — AI features: what we chose and why
 
-Phase 1 contains **no AI features** — no generated hints, chatbot, model calls, or AI-generated feedback. All feedback and hints are authored content.
+Phase 1 shipped with **no AI** — every hint and answer is authored. Phase 2 adds exactly one AI feature, chosen because it is the one that genuinely helps this app:
 
-## Future hooks (Phase 2/3)
+**AI-generated practice problems.** The course is discovery-first and intentionally small, so the real risk is *running dry*: a learner who wants more reps hits the end of a fixed pool. AI generation keeps the "More practice" set endlessly fresh and varied — different givens, numbers, and short real-world framings — at the right difficulty for each lesson.
 
-The content-driven engine and per-user schema are designed to extend later:
+We deliberately did **not** add a chatbot, and we skipped adaptive-path and "explain-my-error" AI for now: the existing structured feedback (a per-answer nudge that doesn't reveal the answer, plus an escalating "bigger hint" after repeated misses) already covers the stuck-learner case without AI risk.
 
-- Additional circle theorems as new lesson JSON files (the `lesson_id` column already scopes progress per lesson).
-- A course/home shell with multiple lessons (a locked "coming soon" card is already in place).
-- Optional Google OAuth (email auth is implemented today).
-- Richer resume via the existing `step_data` JSON column.
+### How it stays safe (grounded + verified)
+
+- **Structured state, not raw text.** The model never returns prose problems. It returns small JSON *specs* — `{ given, value, context? }` — describing only the setup: which quantity is given, its number, and an optional short real-world phrase.
+- **The AI never produces the math.** The answer, the diagram, and the targeted hints are all computed in code ([`src/lib/practice.ts`](src/lib/practice.ts) `buildProblem`) — the same function the deterministic pool uses. A bad model response can never surface a wrong answer or a generic hint.
+- **Verified against the subject's logic.** The edge function validates every spec against per-topic allow-lists and integer ranges (e.g. an inscribed-angle central value must be even so its half is a whole number); non-conforming specs are dropped, and a `context` phrase is rejected if it contains any digit (so it can't leak a number).
+- **Server-side key.** The LLM call runs in a Supabase Edge Function ([`supabase/functions/generate-practice`](supabase/functions/generate-practice/index.ts)); the API key never reaches the browser.
+- **Works with AI off.** "More practice" tries AI first, then falls back to the built-in deterministic pool on any failure. With no API key set, the whole app behaves exactly as in Phase 1.
+
+### Enabling AI generation
+
+Set an `OPENAI_API_KEY` secret on the Supabase Edge Function (default model `gpt-4o-mini`, swappable). Until it is set, "More practice" uses the deterministic pool.
+
+## Future hooks (Phase 3)
+
+- Adaptive path: choose the next lesson from what a learner misses (per-lesson progress + streaks are already stored).
+- AI "explain my answer," tuned to the learner's specific wrong input.
+- More lessons as new JSON files; optional Google OAuth.

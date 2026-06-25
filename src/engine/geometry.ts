@@ -29,6 +29,21 @@ export function angleFromCenter(circle: Circle, point: Point) {
   return normalizeDegrees((radians * 180) / Math.PI)
 }
 
+export function distance(a: Point, b: Point): number {
+  return Math.hypot(a.x - b.x, a.y - b.y)
+}
+
+// Intersection of the infinite lines through A-B and C-D. Returns null when the
+// lines are parallel. Used to find where two chords cross.
+export function lineIntersection(a: Point, b: Point, c: Point, d: Point): Point | null {
+  const denominator = (a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x)
+  if (Math.abs(denominator) < 1e-9) {
+    return null
+  }
+  const t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denominator
+  return { x: a.x + t * (b.x - a.x), y: a.y + t * (b.y - a.y) }
+}
+
 export function angleBetweenPoints(vertex: Point, firstPoint: Point, secondPoint: Point) {
   const firstVector = {
     x: firstPoint.x - vertex.x,

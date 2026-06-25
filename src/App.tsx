@@ -19,14 +19,14 @@ function App() {
   )
 }
 
-function progressView(progress: LessonProgress | null | undefined, total: number) {
+function progressView(progress: LessonProgress | null | undefined, total: number, noun = 'lesson') {
   const stepsDone = progress ? (progress.completed ? total : progress.currentStep) : 0
   const percent = Math.round((stepsDone / total) * 100)
   const cta = progress?.completed
-    ? 'Review lesson'
+    ? `Review ${noun}`
     : stepsDone > 0
-      ? 'Continue lesson'
-      : 'Start lesson'
+      ? `Continue ${noun}`
+      : `Start ${noun}`
   return { stepsDone, percent, cta }
 }
 
@@ -66,7 +66,12 @@ function HomePage() {
 
   const featured = lessons[0]
   const rest = lessons.slice(1)
-  const { stepsDone, percent, cta } = progressView(progressById[featured.id], featured.content.totalSteps)
+  const isPrequiz = featured.kind === 'prequiz'
+  const { stepsDone, percent, cta } = progressView(
+    progressById[featured.id],
+    featured.content.totalSteps,
+    isPrequiz ? 'prequiz' : 'lesson',
+  )
 
   return (
     <main className="app-shell home">
@@ -79,9 +84,10 @@ function HomePage() {
           <PreviewDiagram />
         </div>
         <div className="lesson-entry__body">
+          {isPrequiz && <span className="lesson-entry__eyebrow">Prequiz</span>}
           <h1>{featured.title}</h1>
           <p>{featured.tagline}</p>
-          <div className="progress" role="group" aria-label="Lesson progress">
+          <div className="progress" role="group" aria-label={`${isPrequiz ? 'Prequiz' : 'Lesson'} progress`}>
             <div className="progress__track">
               <span style={{ width: `${percent}%` }} />
             </div>
@@ -102,8 +108,8 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="course-next" aria-label="More lessons">
-        <h2 className="course-next__heading">More lessons</h2>
+      <section className="course-next" aria-label="Lessons">
+        <h2 className="course-next__heading">{isPrequiz ? 'Lessons' : 'More lessons'}</h2>
         <div className="course-list">
           {rest.map((lesson) => (
             <LessonCard key={lesson.id} lesson={lesson} progress={progressById[lesson.id] ?? null} />
@@ -429,7 +435,7 @@ function LessonView({ registered }: { registered: RegisteredLesson }) {
           <div className="complete__badge" aria-hidden="true">
             <CheckIcon />
           </div>
-          <h1>Lesson complete</h1>
+          <h1>{registered.kind === 'prequiz' ? 'Prequiz complete' : 'Lesson complete'}</h1>
           <p className="complete__text">{registered.summary.text}</p>
 
           <p className="summary-formula">

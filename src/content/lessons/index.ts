@@ -1,7 +1,8 @@
 import type { Lesson } from '../../types/lesson'
 import cyclicContent from './cyclic-quadrilaterals.json'
 import inscribedContent from './inscribed-angle-theorem.json'
-import tangentContent from './tangent-radius.json'
+import partsContent from './parts-of-a-circle.json'
+import powerContent from './power-of-point.json'
 
 export type LessonSummary = {
   /** One-line recap shown on the completion screen. */
@@ -16,9 +17,25 @@ export type RegisteredLesson = {
   title: string
   tagline: string
   summary: LessonSummary
+  /** Marks a short warm-up presented as a "prequiz" rather than a full lesson. */
+  kind?: 'prequiz'
   /** The lesson surfaced as "Up next" after completion (and on the home screen). */
   nextLessonId?: string
   content: Lesson
+}
+
+const parts: RegisteredLesson = {
+  id: 'parts-of-a-circle',
+  path: '/lesson/parts-of-a-circle',
+  title: 'Parts of a circle',
+  tagline: 'The vocabulary: radius, chord, diameter, secant, tangent.',
+  kind: 'prequiz',
+  nextLessonId: 'inscribed-angle-theorem',
+  content: partsContent as Lesson,
+  summary: {
+    text: 'A radius runs from the center to the edge; a diameter is a chord through the center, twice as long as the radius.',
+    formula: { left: 'diameter', op: '=', right: '2 \u00d7 radius' },
+  },
 }
 
 const inscribed: RegisteredLesson = {
@@ -39,7 +56,7 @@ const cyclic: RegisteredLesson = {
   path: '/lesson/cyclic-quadrilaterals',
   title: 'Cyclic quadrilaterals',
   tagline: 'Opposite angles when four points share a circle.',
-  nextLessonId: 'tangent-radius',
+  nextLessonId: 'power-of-point',
   content: cyclicContent as Lesson,
   summary: {
     text: 'Opposite angles of a cyclic quadrilateral are supplementary: each pair sums to 180\u00b0, because the two arcs they open onto fill the whole circle.',
@@ -47,19 +64,19 @@ const cyclic: RegisteredLesson = {
   },
 }
 
-const tangent: RegisteredLesson = {
-  id: 'tangent-radius',
-  path: '/lesson/tangent-radius',
-  title: 'Tangents and radii',
-  tagline: 'A tangent meets the radius at the point of contact.',
-  content: tangentContent as Lesson,
+const power: RegisteredLesson = {
+  id: 'power-of-point',
+  path: '/lesson/power-of-point',
+  title: 'Crossing chords',
+  tagline: 'When two chords cross, the products of their parts match.',
+  content: powerContent as Lesson,
   summary: {
-    text: 'A tangent always meets the radius at the point of contact at a right angle: 90\u00b0.',
-    formula: { left: 'tangent', op: '\u27c2', right: 'radius' },
+    text: 'When two chords cross inside a circle, the products of their two pieces are equal.',
+    formula: { left: 'PA \u00d7 PB', op: '=', right: 'PC \u00d7 PD' },
   },
 }
 
-export const lessons: RegisteredLesson[] = [inscribed, cyclic, tangent]
+export const lessons: RegisteredLesson[] = [parts, inscribed, cyclic, power]
 
 export function getLesson(id: string | undefined): RegisteredLesson | undefined {
   return lessons.find((lesson) => lesson.id === id)
