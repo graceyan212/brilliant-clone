@@ -62,7 +62,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { error: error?.message ?? null, needsConfirmation: !error && !data.session }
       },
       async signOut() {
-        await supabase.auth.signOut()
+        // Sign out locally and force the session to clear so the UI always
+        // updates, even if the server-side revocation call fails or the
+        // session is already stale.
+        try {
+          await supabase.auth.signOut({ scope: 'local' })
+        } finally {
+          setSession(null)
+        }
       },
     }),
     [session, loading],
