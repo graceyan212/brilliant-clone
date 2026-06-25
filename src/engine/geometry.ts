@@ -29,10 +29,6 @@ export function angleFromCenter(circle: Circle, point: Point) {
   return normalizeDegrees((radians * 180) / Math.PI)
 }
 
-export function snapToCircle(circle: Circle, point: Point): Point {
-  return pointOnCircle(circle, angleFromCenter(circle, point))
-}
-
 export function angleBetweenPoints(vertex: Point, firstPoint: Point, secondPoint: Point) {
   const firstVector = {
     x: firstPoint.x - vertex.x,
@@ -49,25 +45,6 @@ export function angleBetweenPoints(vertex: Point, firstPoint: Point, secondPoint
   const cosine = dotProduct / (firstMagnitude * secondMagnitude)
 
   return radiansToDegrees(Math.acos(clamp(cosine, -1, 1)))
-}
-
-export function inscribedAngle(pointA: Point, pointB: Point, pointC: Point) {
-  return angleBetweenPoints(pointC, pointA, pointB)
-}
-
-export function arcMeasure(startDegrees: number, endDegrees: number, excludedDegrees?: number) {
-  const start = normalizeDegrees(startDegrees)
-  const end = normalizeDegrees(endDegrees)
-  const counterClockwiseArc = normalizeDegrees(end - start)
-  const clockwiseArc = fullTurn - counterClockwiseArc
-
-  if (excludedDegrees === undefined) {
-    return Math.min(counterClockwiseArc, clockwiseArc)
-  }
-
-  return isAngleOnCounterClockwiseArc(start, end, excludedDegrees)
-    ? clockwiseArc
-    : counterClockwiseArc
 }
 
 export function arcPath(circle: Circle, startDegrees: number, arcDegrees: number) {
@@ -112,7 +89,7 @@ export function angleSectorPath(vertex: Point, towardA: Point, towardB: Point, r
   return `M ${vertex.x} ${vertex.y} L ${start.x} ${start.y} A ${radius} ${radius} 0 0 ${sweepFlag} ${end.x} ${end.y} Z`
 }
 
-export function pointAlongRay(start: Point, end: Point, distance: number): Point {
+function pointAlongRay(start: Point, end: Point, distance: number): Point {
   const vector = {
     x: end.x - start.x,
     y: end.y - start.y,
@@ -123,17 +100,6 @@ export function pointAlongRay(start: Point, end: Point, distance: number): Point
     x: start.x + (vector.x / magnitude) * distance,
     y: start.y + (vector.y / magnitude) * distance,
   }
-}
-
-function isAngleOnCounterClockwiseArc(
-  startDegrees: number,
-  endDegrees: number,
-  testDegrees: number,
-) {
-  const arc = normalizeDegrees(endDegrees - startDegrees)
-  const test = normalizeDegrees(testDegrees - startDegrees)
-
-  return test > 0 && test < arc
 }
 
 function radiansToDegrees(radians: number) {

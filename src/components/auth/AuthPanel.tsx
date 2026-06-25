@@ -1,6 +1,6 @@
 import { type FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../lib/AuthProvider'
+import { useAuth } from '../../lib/auth-context'
 import './AuthPanel.css'
 
 type Mode = 'sign_in' | 'sign_up'
