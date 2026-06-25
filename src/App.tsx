@@ -405,6 +405,8 @@ function LessonView({ registered }: { registered: RegisteredLesson }) {
   function restart() {
     setIsFinished(false)
     setCurrentStepIndex(0)
+    setMaxStepReached(0)
+    persist(0, false)
   }
 
   if (hydrating) {
