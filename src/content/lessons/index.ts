@@ -1,6 +1,7 @@
 import type { Lesson } from '../../types/lesson'
 import cyclicContent from './cyclic-quadrilaterals.json'
 import inscribedContent from './inscribed-angle-theorem.json'
+import tangentContent from './tangent-radius.json'
 
 export type LessonSummary = {
   /** One-line recap shown on the completion screen. */
@@ -38,6 +39,7 @@ const cyclic: RegisteredLesson = {
   path: '/lesson/cyclic-quadrilaterals',
   title: 'Cyclic quadrilaterals',
   tagline: 'Opposite angles when four points share a circle.',
+  nextLessonId: 'tangent-radius',
   content: cyclicContent as Lesson,
   summary: {
     text: 'Opposite angles of a cyclic quadrilateral are supplementary: each pair sums to 180\u00b0, because the two arcs they open onto fill the whole circle.',
@@ -45,7 +47,19 @@ const cyclic: RegisteredLesson = {
   },
 }
 
-export const lessons: RegisteredLesson[] = [inscribed, cyclic]
+const tangent: RegisteredLesson = {
+  id: 'tangent-radius',
+  path: '/lesson/tangent-radius',
+  title: 'Tangents and radii',
+  tagline: 'A tangent meets the radius at the point of contact.',
+  content: tangentContent as Lesson,
+  summary: {
+    text: 'A tangent always meets the radius at the point of contact at a right angle: 90\u00b0.',
+    formula: { left: 'tangent', op: '\u27c2', right: 'radius' },
+  },
+}
+
+export const lessons: RegisteredLesson[] = [inscribed, cyclic, tangent]
 
 export function getLesson(id: string | undefined): RegisteredLesson | undefined {
   return lessons.find((lesson) => lesson.id === id)

@@ -1,0 +1,115 @@
+{
+  "lessonId": "tangent-radius",
+  "title": "Tangents and radii",
+  "totalSteps": 7,
+  "steps": [
+    {
+      "stepId": "intro",
+      "interactionType": "statement",
+      "prompt": "A tangent touches at one point",
+      "diagram": { "mode": "static", "variant": "tangent", "tangentShowRight": false },
+      "body": "A tangent is a line that touches a circle at exactly one point, called the point of contact, P.\nThe radius OP runs from the center O out to that point.\nWhat angle do the tangent and the radius make where they meet?"
+    },
+    {
+      "stepId": "prediction",
+      "interactionType": "multiple_choice",
+      "advanceOn": "select",
+      "prompt": "Where the tangent touches, the tangent and radius meet at\u2026",
+      "subtitle": "Commit to an answer, then see why.",
+      "diagram": { "mode": "static", "variant": "tangent", "tangentShowRight": false },
+      "options": [
+        { "id": "right", "label": "Exactly 90\u00b0 \u2014 they are perpendicular." },
+        { "id": "acute", "label": "A sharp angle that changes as P moves." },
+        { "id": "depends", "label": "It depends on the circle's size." }
+      ],
+      "correctAnswer": "right",
+      "commitNote": "Prediction saved. See why on the next step.",
+      "feedback": {
+        "correct": "Right \u2014 the tangent is perpendicular to the radius.",
+        "incorrect": "See the next step: the tangent is perpendicular to the radius."
+      }
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "Tangent is perpendicular to radius",
+      "diagram": { "mode": "static", "variant": "tangent" },
+      "body": "At the point of contact, a tangent is always perpendicular to the radius: the angle between them is exactly 90\u00b0. It does not matter where the point of contact is or how big the circle is."
+    },
+    {
+      "stepId": "why",
+      "interactionType": "statement",
+      "prompt": "Why it has to be 90\u00b0",
+      "diagram": { "mode": "static", "variant": "tangent" },
+      "body": "The radius is the shortest line from the center to the tangent.\nThe shortest line from a point to a straight line is always the perpendicular one.\nSo the radius must meet the tangent at 90\u00b0 \u2014 any other angle would dip inside and cross the circle twice, making it a secant, not a tangent."
+    },
+    {
+      "stepId": "worked_example",
+      "interactionType": "statement",
+      "prompt": "Splitting the right angle",
+      "diagram": { "mode": "static", "variant": "tangent", "tangentRayAngle": 40, "showTangentValue": true, "showRadiusValue": true },
+      "body": "A second line from P splits the 90\u00b0 into two parts. Here it makes 40\u00b0 with the tangent, so it makes 90\u00b0 \u2212 40\u00b0 = 50\u00b0 with the radius. The two parts always add to 90\u00b0."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "tangent-radius",
+      "problems": [
+        {
+          "id": "tangent_from_tangent_40",
+          "prompt": "A line from the point of contact makes 40\u00b0 with the tangent. What angle does it make with the radius?",
+          "diagram": { "mode": "static", "variant": "tangent", "tangentRayAngle": 40, "showTangentValue": true, "showRadiusValue": false },
+          "correctAnswer": 50,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. 90\u00b0 \u2212 40\u00b0 = 50\u00b0.",
+            "incorrect": "The tangent meets the radius at 90\u00b0, so the two parts add to 90\u00b0."
+          },
+          "strongHint": "Tangent and radius meet at 90\u00b0, so subtract: 90\u00b0 \u2212 40\u00b0."
+        },
+        {
+          "id": "tangent_from_radius_30",
+          "prompt": "A line from the point of contact makes 30\u00b0 with the radius. What angle does it make with the tangent?",
+          "diagram": { "mode": "static", "variant": "tangent", "tangentRayAngle": 60, "showRadiusValue": true, "showTangentValue": false },
+          "correctAnswer": 60,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. 90\u00b0 \u2212 30\u00b0 = 60\u00b0.",
+            "incorrect": "The tangent meets the radius at 90\u00b0, so the two parts add to 90\u00b0."
+          },
+          "strongHint": "Tangent and radius meet at 90\u00b0, so subtract: 90\u00b0 \u2212 30\u00b0."
+        },
+        {
+          "id": "tangent_from_tangent_65",
+          "prompt": "A line from the point of contact makes 65\u00b0 with the tangent. What angle does it make with the radius?",
+          "diagram": { "mode": "static", "variant": "tangent", "tangentRayAngle": 65, "showTangentValue": true, "showRadiusValue": false },
+          "correctAnswer": 25,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. 90\u00b0 \u2212 65\u00b0 = 25\u00b0.",
+            "incorrect": "The tangent meets the radius at 90\u00b0, so the two parts add to 90\u00b0."
+          },
+          "strongHint": "Tangent and radius meet at 90\u00b0, so subtract: 90\u00b0 \u2212 65\u00b0."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "A line from the point of contact makes 55\u00b0 with the radius. What angle does it make with the tangent?",
+      "problem": {
+        "id": "tangent_challenge_55",
+        "prompt": "Angle with the tangent",
+        "diagram": { "mode": "static", "variant": "tangent", "tangentRayAngle": 35, "showRadiusValue": true, "showTangentValue": false },
+        "correctAnswer": 35,
+        "unit": "\u00b0",
+        "feedback": {
+          "correct": "Done. 90\u00b0 \u2212 55\u00b0 = 35\u00b0.",
+          "incorrect": "The tangent and radius meet at 90\u00b0, so the two parts add to 90\u00b0."
+        }
+      }
+    }
+  ]
+}

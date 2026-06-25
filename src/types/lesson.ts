@@ -17,7 +17,7 @@ export type LessonStep =
 export type DiagramConfig = {
   mode: 'interactive' | 'static'
   /** Non-default figure to draw. Omit for the inscribed/central angle figure. */
-  variant?: 'quad'
+  variant?: 'quad' | 'tangent'
   centralAngle?: number
   showCentralValue?: boolean
   showAngleValue?: boolean
@@ -33,6 +33,24 @@ export type DiagramConfig = {
   quadShow?: ('A' | 'C')[]
   /** Quad static only: rotate the whole figure (degrees) for visual variety. */
   quadRotate?: number
+  /** Tangent variant (static): acute angle (deg) of the ray PR from the tangent; omit for the plain 90° figure. */
+  tangentRayAngle?: number
+  /** Tangent variant: show the tangent-side sub-angle value (else "?"). */
+  showTangentValue?: boolean
+  /** Tangent variant: show the radius-side sub-angle value (else "?"). */
+  showRadiusValue?: boolean
+  /** Tangent variant: draw the 90° right-angle marker. Set false to hide it (e.g. before the prediction). Defaults true. */
+  tangentShowRight?: boolean
+}
+
+/** Topics that the practice generator (deterministic pool + AI) can produce. */
+export type PracticeTopic = 'inscribed' | 'cyclic' | 'tangent-radius'
+
+/** Minimal problem descriptor: which value is given + the number, plus optional AI flavor text. The answer/diagram/hints are always computed in code from this. */
+export type PracticeSpec = {
+  given: string
+  value: number
+  context?: string
 }
 
 type BaseStep = {
@@ -96,7 +114,7 @@ export type PracticeStep = BaseStep & {
   interactionType: 'practice'
   problems: NumericProblem[]
   /** Which extra problems the "More practice" button generates. Omit to hide it. */
-  morePracticeKind?: 'inscribed' | 'cyclic'
+  morePracticeKind?: PracticeTopic
 }
 
 export type IdentifyTarget = {
