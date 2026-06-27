@@ -108,6 +108,17 @@
   background: var(--surface);
 }
 
+.home-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.home-stats .streak-badge {
+  margin-bottom: 0;
+}
+
 .flame {
   display: block;
   color: var(--ink-3);
@@ -156,11 +167,6 @@
 .course-card.is-locked {
   border-style: dashed;
   background: transparent;
-}
-
-.course-list {
-  display: grid;
-  gap: 10px;
 }
 
 .course-card--active {
@@ -221,107 +227,339 @@
   color: var(--ink-3);
 }
 
+/* Journey map */
+.journey {
+  display: grid;
+  gap: 24px;
+}
+
+.jm-unit__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.jm-unit__title {
+  margin: 0;
+  min-width: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.jm-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jm-node__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: stretch;
+  gap: 12px;
+  padding: 0 10px;
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+.jm-node__link:hover {
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+/* Rail: the climbing line plus the state dot, centered in the first column. */
+.jm-rail {
+  position: relative;
+  align-self: stretch;
+  min-height: 58px;
+}
+
+.jm-rail__seg {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: var(--line);
+}
+
+.jm-rail__seg--top {
+  top: 0;
+  height: 50%;
+}
+
+.jm-rail__seg--bottom {
+  top: 50%;
+  bottom: 0;
+}
+
+.jm-rail__seg.is-filled {
+  background: var(--accent);
+}
+
+.jm-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-3);
+  transform: translate(-50%, -50%);
+}
+
+.jm-dot__num {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.jm-dot svg {
+  width: 15px;
+  height: 15px;
+}
+
+.jm-node__body {
+  align-self: center;
+  display: grid;
+  gap: 2px;
+  padding: 11px 0;
+}
+
+.jm-node__title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink-2);
+}
+
+.jm-node__status {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+
+.jm-node__cta {
+  align-self: center;
+  flex: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Done */
+.jm-node--done .jm-dot {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.jm-node--done .jm-node__title {
+  color: var(--ink);
+}
+
+/* Current: the highlighted call-to-action rung */
+.jm-node--current .jm-dot {
+  border-width: 2px;
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+  animation: jm-pulse 2.4s ease-in-out infinite;
+}
+
+.jm-node--current .jm-node__title {
+  color: var(--ink);
+}
+
+@keyframes jm-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 6%, transparent);
+  }
+}
+
+.jm-node__link:hover .jm-node__title {
+  color: var(--ink);
+}
+
+.jm-node--upcoming .jm-node__link:hover .jm-dot {
+  border-color: var(--ink-3);
+}
+
+/* Unit badges */
+.jm-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex: none;
+  height: 24px;
+  padding: 0 9px;
+  border-radius: 999px;
+}
+
+.jm-badge.is-earned {
+  background: var(--accent);
+  color: #fff;
+}
+
+.jm-badge.is-earned svg {
+  width: 13px;
+  height: 13px;
+}
+
+.jm-badge__label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.jm-badge.is-locked {
+  border: 1px dashed var(--line);
+  color: var(--ink-3);
+}
+
+.jm-badge__count {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jm-node--current .jm-dot {
+    animation: none;
+  }
+}
+
 /* Home */
-.lesson-entry {
+.course-intro {
   display: grid;
   gap: 28px;
+  margin-bottom: 36px;
 }
 
-.lesson-entry__diagram {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 18px;
-  background:
-    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 22px 22px,
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 22px 22px,
-    var(--surface);
+.course-intro__text {
+  min-width: 0;
 }
 
-.lesson-entry__diagram svg {
-  display: block;
-  width: 100%;
+.course-intro__visual {
+  min-width: 0;
+}
+
+.course-intro__visual .hero-emblem {
   max-width: 300px;
   margin: 0 auto;
 }
 
-.lesson-entry__body p {
-  margin-bottom: 24px;
-  color: var(--ink-2);
+/* Two-column hero once there's room: copy on the left, emblem on the right. */
+@media (min-width: 720px) {
+  .course-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+    align-items: center;
+    gap: 44px;
+  }
+
+  .course-intro__visual .hero-emblem {
+    max-width: 320px;
+    margin: 0;
+    margin-inline-start: auto;
+  }
 }
 
-.lesson-entry__eyebrow {
-  display: inline-block;
+/* On the narrowest phones the emblem crowds the copy — drop it and let the
+   text masthead stand on its own. Common 360/375px phones still show it. */
+@media (max-width: 340px) {
+  .course-intro__visual {
+    display: none;
+  }
+}
+
+.course-intro__eyebrow {
   margin-bottom: 12px;
-  padding: 4px 11px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  color: var(--accent);
+  color: var(--ink-3);
   font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.pv-circle {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 2;
+.course-intro__title {
+  margin: 0 0 14px;
 }
 
-.pv-chord {
-  stroke: var(--ink);
-  stroke-width: 2;
+.course-intro__lead {
+  margin-bottom: 24px;
+  max-width: 54ch;
+  color: var(--ink-2);
+  font-size: 1.05rem;
+  line-height: 1.55;
 }
 
-.pv-base {
-  stroke: var(--ink-3);
-  stroke-width: 1.5;
-  stroke-dasharray: 4 5;
-}
-
-.pv-point circle {
-  fill: var(--ink);
-}
-
-.pv-point.is-accent circle {
-  fill: var(--accent);
-}
-
-.pv-point text {
-  fill: var(--ink-2);
-  font-family: var(--mono);
-  font-size: 13px;
-  text-anchor: middle;
-}
-
-/* Progress */
-.progress {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* Overall course progress, sitting just under the masthead. */
+.course-progress {
   margin-bottom: 28px;
 }
 
-.progress__track {
-  flex: 1;
-  height: 6px;
-  border-radius: 2px;
+.course-progress__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 14px;
+  margin-bottom: 10px;
+}
+
+.course-progress__label {
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.course-progress__value {
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.course-progress__track {
+  height: 8px;
+  border-radius: 999px;
   background: var(--line);
   overflow: hidden;
 }
 
-.progress__track span {
+.course-progress__fill {
   display: block;
   height: 100%;
   background: var(--accent);
+  transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.progress__count {
-  flex: none;
-  color: var(--ink-3);
-  font-family: var(--mono);
-  font-size: 0.8rem;
+@media (prefers-reduced-motion: reduce) {
+  .course-progress__fill {
+    transition: none;
+  }
 }
 
 /* Buttons */
@@ -441,6 +679,68 @@
   cursor: not-allowed;
 }
 
+/* Dev-only step controls. Rendered solely under import.meta.env.DEV (stripped
+   from the production bundle). Deliberately dashed + muted with a "Dev" tag so
+   they never read as real product UI. */
+.dev-skip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 720px;
+  margin: 0 auto 10px;
+  padding: 6px 8px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 6px,
+    color-mix(in srgb, var(--ink) 3%, transparent) 6px,
+    color-mix(in srgb, var(--ink) 3%, transparent) 12px
+  );
+}
+
+.dev-skip__tag {
+  flex: none;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--ink-3);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dev-skip__btn {
+  flex: none;
+  padding: 5px 12px;
+  border: 1px dashed var(--ink-3);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.dev-skip__btn:hover {
+  border-color: var(--ink-2);
+  color: var(--ink);
+}
+
+.dev-skip__btn:last-child {
+  margin-left: auto;
+}
+
+/* Dev-only unlocked progress segment: clickable, but visibly "not yet earned". */
+.step-progress__seg-btn.is-dev .step-progress__seg {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ink-3);
+  opacity: 0.5;
+}
+
 /* Notice screens */
 .notice-shell {
   display: flex;
@@ -466,6 +766,7 @@
 
 /* Lesson complete summary */
 .notice.complete {
+  position: relative;
   margin-top: 6vh;
   max-width: 30rem;
 }
@@ -479,6 +780,30 @@
   border-radius: 50%;
   background: var(--accent);
   color: #fff;
+}
+
+.complete__badge.is-celebrate {
+  animation: badge-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes badge-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .complete__badge.is-celebrate {
+    animation: none;
+  }
 }
 
 .complete__text {
@@ -509,12 +834,6 @@
 @media (min-width: 680px) {
   .app-shell {
     padding-top: 32px;
-  }
-
-  .lesson-entry {
-    grid-template-columns: 280px 1fr;
-    align-items: center;
-    gap: 40px;
   }
 
   .lesson-stage {

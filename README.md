@@ -1,8 +1,8 @@
 # Angle Attack
 
-A Brilliant-style, learn-by-doing geometry lesson that teaches one concept deeply: the **Inscribed Angle Theorem** — an inscribed angle is half the central angle that shares the same two endpoints.
+A Brilliant-style, learn-by-doing geometry course. It now spans **17 lessons across 4 units** — from angle-chasing and the Pythagorean theorem through polygon area and the circle theorems — with the **Inscribed Angle Theorem** as its flagship lesson.
 
-Instead of being handed a formula, learners manipulate a circle, predict, discover the pattern themselves, see a visual proof, and then practice.
+Every lesson uses the same discovery loop: instead of being handed a formula, learners manipulate an interactive figure, predict, discover the pattern themselves, see a staged visual proof, and then practice with code-checked problems (plus optional AI-generated extra practice).
 
 **Live demo:** https://brilliant-clone-psi.vercel.app/
 
@@ -16,9 +16,44 @@ Geometry — discovering the relationship between a **central angle** (vertex at
 
 The primary learner is **Maya**, a 12–14 year old who understands basic angle measurement but hasn't learned circle theorems yet. She prefers visual exploration and pattern recognition over memorizing formulas, and learns primarily on mobile in short sessions.
 
-## The lesson (8 steps)
+## Course outline
 
-The lesson is driven by structured content (`src/content/lessons/inscribed-angle-theorem.json`) and follows a Predict → Explore → Discover → Explain → Practice loop:
+The course is registered in [`src/content/lessons/index.ts`](src/content/lessons/index.ts) and the home screen groups it into four units. The recommended path opens with the **Parts of a circle** prequiz, then runs in this order:
+
+**Foundations**
+
+1. Angles & angle-chasing — vertical, corresponding, and alternate angles across crossing lines.
+2. Angles in a triangle — the three angles add to 180°, plus the exterior-angle theorem.
+
+**Triangles & Pythagoras**
+
+3. The Pythagorean theorem — `a² + b² = c²` and Pythagorean triples.
+4. Special right triangles — the 45-45-90 (`1 : 1 : √2`) and 30-60-90 (`1 : √3 : 2`) ratios.
+5. Similar triangles & scaling — equal angles ⇒ proportional sides; area scales by `k²`.
+
+**Polygons & area**
+
+6. Polygon angles — interior-angle sum `(n − 2) × 180°` and regular-polygon angles.
+7. Areas of polygons — triangle, equilateral, parallelogram, trapezoid, and kite areas.
+
+**Circles**
+
+- Parts of a circle *(prequiz)* — radius, chord, diameter, secant, tangent.
+8. Central angles & arc measure — an arc has the same measure as its central angle.
+9. The inscribed angle theorem — an inscribed angle is half its central angle (flagship lesson).
+10. Cyclic quadrilaterals — opposite angles are supplementary.
+11. Angles from intersecting chords — the angle is half the sum of the intercepted arcs.
+12. Secants & the secant angle — from outside, the angle is half the difference of the arcs.
+13. Tangents to a circle — perpendicular radius, tangent–chord angle, and equal tangents.
+14. Crossing chords — the products of the two chord segments are equal.
+15. Circumscribed circle — the perpendicular bisectors meet at the circumcenter.
+16. Arcs and sectors — a sector is the fraction `θ/360` of its circle.
+
+Each lesson ships with an interactive diagram, a staged proof, and code-checked practice (see the standard lesson flow below).
+
+## The standard lesson flow (8 steps)
+
+Every lesson is driven by structured JSON content and follows a Predict → Explore → Discover → Explain → Practice loop. Using the flagship inscribed-angle lesson (`src/content/lessons/inscribed-angle-theorem.json`) as the example:
 
 1. **Terminology** — meet the two angles by name (central ∠AOB, inscribed ∠ACB).
 2. **Prediction** — drag point C and predict what happens to ∠ACB.

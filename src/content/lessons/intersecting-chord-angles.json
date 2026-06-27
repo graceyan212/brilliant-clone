@@ -1,0 +1,210 @@
+{
+  "lessonId": "intersecting-chord-angles",
+  "title": "Angles from intersecting chords",
+  "totalSteps": 9,
+  "steps": [
+    {
+      "stepId": "terminology",
+      "interactionType": "statement",
+      "prompt": "Two chords crossing like an X",
+      "graphic": {
+        "name": "x-cross",
+        "caption": "Two chords can cross inside a circle, making an X — like a railroad diamond. The angle at the crossing opens onto two arcs."
+      },
+      "legend": [
+        { "color": "teal", "label": "arc AC" },
+        { "color": "orange", "label": "arc BD" },
+        { "color": "magenta", "label": "the angle at P" }
+      ],
+      "body": "A chord is a straight line joining two points on a circle. Two chords can cross inside it at a point P.\nThe [angle at P](magenta) opens onto two arcs: the [arc AC](teal) tucked inside it, and the [arc BD](orange) inside its mirror-image twin straight across the X.\nThe arc an angle opens onto is called its 'intercepted arc'."
+    },
+    {
+      "stepId": "exploration",
+      "interactionType": "explore",
+      "prompt": "Drag C and D. Compare the angle to the half-sum.",
+      "subtitle": "The arcs change as you drag, but keep comparing the [angle at P](magenta) with ½ ([arc AC](teal) + [arc BD](orange)).",
+      "diagram": { "mode": "interactive", "variant": "chordAngle", "showReadout": true, "chordAngle": { "arc1": 70, "arc2": 90, "tint": true } }
+    },
+    {
+      "stepId": "which_arcs",
+      "interactionType": "multi_select",
+      "prompt": "Which arcs does the angle open onto?",
+      "subtitle": "Chords AB and CD cross at P. Select the TWO arcs that the [angle at P](magenta) intercepts (opens onto).",
+      "diagram": { "mode": "static", "variant": "chordAngle", "chordAngle": { "arc1": 70, "arc2": 90, "unknown": "angle", "tint": true } },
+      "options": [
+        { "id": "ac", "label": "[Arc AC](teal) — tucked inside the angle", "correct": true },
+        { "id": "bd", "label": "[Arc BD](orange) — inside the twin angle across the X", "correct": true },
+        { "id": "ab", "label": "Arc AB — lying along one of the chords", "correct": false },
+        { "id": "cd", "label": "Arc CD — lying along the other chord", "correct": false }
+      ],
+      "feedback": {
+        "correct": "Yes — the angle at P opens onto [arc AC](teal) on one side and [arc BD](orange) straight across. Those are its two intercepted arcs.",
+        "incorrect": "An intercepted arc is the one the angle OPENS ONTO — not the ones running along the chords. It opens onto arc AC and, across the X, arc BD."
+      },
+      "doneNote": "Those two — arc AC and arc BD — are the arcs this angle will add together."
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "Inside the circle: half the SUM",
+      "diagram": { "mode": "static", "variant": "chordAngle", "chordAngle": { "arc1": 60, "arc2": 100, "tint": true } },
+      "legend": [
+        { "color": "teal", "label": "arc AC" },
+        { "color": "orange", "label": "arc BD" },
+        { "color": "magenta", "label": "angle at P" }
+      ],
+      "body": "When two chords cross INSIDE a circle, the [angle at P](magenta) is half the SUM of the two arcs it intercepts:\n[angle at P](magenta) = ½ ([arc AC](teal) + [arc BD](orange)).\nHere ½ (60° + 100°) = 80°. Inside the circle, you ADD the two arcs."
+    },
+    {
+      "stepId": "why",
+      "interactionType": "proof",
+      "prompt": "Why it's half the sum",
+      "diagram": { "mode": "static", "variant": "chord-angle" },
+      "proofMode": "reason",
+      "gates": [
+        {
+          "prompt": "To bring inscribed angles in, which extra chord should we draw?",
+          "choices": [
+            { "id": "ad", "label": "Chord AD, making triangle APD." },
+            { "id": "diam", "label": "A diameter through P." },
+            { "id": "tan", "label": "A tangent at A." }
+          ],
+          "answer": "ad",
+          "hint": "We want a triangle whose exterior angle at P is ∠APC."
+        },
+        {
+          "prompt": "∠DAB is an inscribed angle. It is half of which arc?",
+          "choices": [
+            { "id": "bd", "label": "Arc BD." },
+            { "id": "ac", "label": "Arc AC." },
+            { "id": "whole", "label": "The whole circle." }
+          ],
+          "answer": "bd",
+          "hint": "An inscribed angle is half the arc it opens onto — here, BD."
+        },
+        {
+          "prompt": "∠ADC is an inscribed angle. It is half of which arc?",
+          "choices": [
+            { "id": "ac", "label": "Arc AC." },
+            { "id": "bd", "label": "Arc BD." },
+            { "id": "ab", "label": "Arc AB." }
+          ],
+          "answer": "ac",
+          "hint": "It opens onto arc AC."
+        },
+        {
+          "prompt": "∠APC is the exterior angle of triangle APD, so it equals…",
+          "choices": [
+            { "id": "sum", "label": "½ arc BD + ½ arc AC = ½ (arc AC + arc BD)." },
+            { "id": "diff", "label": "½ (arc AC − arc BD)." },
+            { "id": "full", "label": "arc AC + arc BD." }
+          ],
+          "answer": "sum",
+          "hint": "An exterior angle equals the sum of the two remote interior angles."
+        }
+      ],
+      "stages": [
+        "Two chords AB and CD cross at P. We will measure the angle ∠APC.",
+        "Draw the chord AD. Now ∠APC is the exterior angle of triangle APD at P.",
+        "∠DAB sits at A and opens onto arc BD, so as an inscribed angle it is ½ of arc BD.",
+        "∠ADC sits at D and opens onto arc AC, so as an inscribed angle it is ½ of arc AC.",
+        "An exterior angle equals the sum of the two remote interior angles: ∠APC = ½·arc BD + ½·arc AC = ½ (arc AC + arc BD)."
+      ]
+    },
+    {
+      "stepId": "sort_inside_outside",
+      "interactionType": "categorize",
+      "prompt": "Add the arcs, or subtract them?",
+      "subtitle": "When the crossing is INSIDE the circle, you ADD the two arcs. When it's OUTSIDE, you SUBTRACT. Sort each case.",
+      "buckets": [
+        { "id": "add", "label": "Inside → ADD the arcs (½ of the sum)" },
+        { "id": "sub", "label": "Outside → SUBTRACT the arcs (½ of the difference)" }
+      ],
+      "items": [
+        { "id": "chords", "label": "Two chords cross inside the circle", "bucket": "add" },
+        { "id": "vin", "label": "The vertex P is inside the circle", "bucket": "add" },
+        { "id": "xmark", "label": "An X formed where two chords meet in the middle", "bucket": "add" },
+        { "id": "secants", "label": "Two secants meet at a point outside the circle", "bucket": "sub" },
+        { "id": "vout", "label": "The vertex P is outside the circle", "bucket": "sub" }
+      ],
+      "doneNote": "Inside the circle you ADD the arcs (½ of the sum); outside you SUBTRACT them. The outside case is the whole next lesson."
+    },
+    {
+      "stepId": "debug_difference",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the mistake",
+      "subtitle": "Two chords cross inside a circle, cutting off arcs of 50° and 80°. One line is wrong — tap it.",
+      "lines": [
+        { "id": "l1", "text": "The two chords cross inside the circle at P." },
+        { "id": "l2", "text": "The intercepted arcs are 50 and 80 degrees." },
+        { "id": "l3", "text": "The vertex is inside, so the angle = 1/2 (80 - 50) = 15 degrees.", "wrong": true },
+        { "id": "l4", "text": "So the angle at P = 15 degrees." }
+      ],
+      "explanation": "Inside the circle you ADD the arcs, not subtract. The [angle at P](magenta) = ½ ([arc AC](teal) + [arc BD](orange)) = ½ (50° + 80°) = 65°. Half the DIFFERENCE is the rule for a vertex OUTSIDE the circle.",
+      "hint": "Is the crossing inside or outside the circle? Inside means ADD the two arcs.",
+      "doneNote": "Right — inside the circle, the arcs ADD."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "chord-angle",
+      "problems": [
+        {
+          "id": "chord_angle_70_90",
+          "prompt": "Two chords cross inside a circle, cutting off arcs of 70° and 90°. Find the angle where they meet.",
+          "diagram": { "mode": "static", "variant": "chordAngle", "chordAngle": { "arc1": 70, "arc2": 90, "unknown": "angle", "tint": true } },
+          "correctAnswer": 80,
+          "unit": "°",
+          "feedback": {
+            "correct": "Correct. ½ (70° + 90°) = 80°.",
+            "incorrect": "Inside the circle, the angle is half the SUM of the two intercepted arcs."
+          },
+          "strongHint": "Add the arcs and halve: (70° + 90°) ÷ 2."
+        },
+        {
+          "id": "chord_angle_40_100",
+          "prompt": "Two chords cross inside a circle, cutting off arcs of 40° and 100°. Find the angle where they meet.",
+          "diagram": { "mode": "static", "variant": "chordAngle", "chordAngle": { "arc1": 40, "arc2": 100, "unknown": "angle", "tint": true } },
+          "correctAnswer": 70,
+          "unit": "°",
+          "feedback": {
+            "correct": "Correct. ½ (40° + 100°) = 70°.",
+            "incorrect": "Inside the circle, the angle is half the SUM of the two intercepted arcs."
+          },
+          "strongHint": "Add the arcs and halve: (40° + 100°) ÷ 2."
+        },
+        {
+          "id": "chord_angle_find_arc",
+          "prompt": "Two chords meet at 80° inside a circle. One intercepted arc is 70°. Find the other intercepted arc.",
+          "diagram": { "mode": "static", "variant": "chordAngle", "chordAngle": { "arc1": 70, "arc2": 90, "unknown": "arc2", "tint": true } },
+          "correctAnswer": 90,
+          "unit": "°",
+          "feedback": {
+            "correct": "Correct. The two arcs add to 2 × 80° = 160°, so the other is 160° − 70° = 90°.",
+            "incorrect": "The angle is half the sum of the arcs, so the arcs add to twice the angle."
+          },
+          "strongHint": "Twice the angle is the total of both arcs: 2 × 80° − 70°."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "Two chords cross inside a circle, cutting off arcs of 88° and 96°. Find the angle where they meet.",
+      "diagram": { "mode": "static", "variant": "chordAngle", "chordAngle": { "arc1": 88, "arc2": 96, "unknown": "angle", "tint": true } },
+      "problem": {
+        "id": "chord_angle_challenge_88_96",
+        "prompt": "Angle at P",
+        "correctAnswer": 92,
+        "unit": "°",
+        "feedback": {
+          "correct": "Done. ½ (88° + 96°) = 92°.",
+          "incorrect": "Add the two arcs and take half."
+        },
+        "strongHint": "(88° + 96°) ÷ 2."
+      }
+    }
+  ]
+}

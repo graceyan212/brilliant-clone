@@ -1,0 +1,22 @@
+.scene {
+  margin: 0 0 18px;
+}
+
+.scene__svg {
+  width: 100%;
+  max-width: 420px;
+}
+
+.scene__svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+.scene__caption {
+  margin-top: 8px;
+  color: var(--ink-3);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}

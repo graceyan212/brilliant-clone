@@ -8,8 +8,28 @@
   --grid: #dde3ea;
   --accent: #e2533a;
   --accent-press: #c8462f;
+  /* Darker accent tuned for small/inline text: meets WCAG AA on both --surface
+     and --paper, where --accent itself falls short. Used for math variables. */
+  --accent-ink: #b23a25;
   --arc: #2f7d8c;
   --good: #2f7d5b;
+  --vertical: #8e44ad;
+  --corresponding: #2f6fb5;
+
+  /* Shared semantic token palette. Prose (MathText), legend chips, and SVG
+     diagram labels all reference these EXACT hues so a colour means the same
+     thing in the words and in the picture. Tuned for contrast on white and to
+     stay distinguishable for the most common colour-vision types. */
+  --tok-blue: #2f6fb5;
+  --tok-orange: #d9772b;
+  --tok-green: #2f7d5b;
+  --tok-magenta: #c0278f;
+  --tok-teal: #2f7d8c;
+  --tok-purple: #8e44ad;
+  --tok-amber: #b7791f;
+  --tok-red: #e2533a;
+  --tok-pink: #d6336c;
+  --tok-slate: #51607a;
 
   --ui: 'Space Grotesk Variable', system-ui, sans-serif;
   --mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;

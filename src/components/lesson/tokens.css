@@ -1,0 +1,167 @@
+/* Semantic colour tokens shared by prose (MathText), legend chips, and SVG
+   diagram labels. Drive everything from the --tok-* custom properties in
+   index.css so a colour reads identically in the words and in the figure.
+
+   - .tok--<name>      colour inline prose text (used by MathText / legend label)
+   - .tok-bg--<name>   solid fill for a legend swatch or chip background
+   (SVG diagram marks colour-match via inline styles: tokenColorVar() -> var(--tok-*).) */
+
+.tok--blue,
+.tok--orange,
+.tok--green,
+.tok--magenta,
+.tok--teal,
+.tok--purple,
+.tok--amber,
+.tok--red,
+.tok--pink,
+.tok--slate {
+  font-weight: 600;
+}
+
+.tok--blue {
+  color: var(--tok-blue);
+}
+.tok--orange {
+  color: var(--tok-orange);
+}
+.tok--green {
+  color: var(--tok-green);
+}
+.tok--magenta {
+  color: var(--tok-magenta);
+}
+.tok--teal {
+  color: var(--tok-teal);
+}
+.tok--purple {
+  color: var(--tok-purple);
+}
+.tok--amber {
+  color: var(--tok-amber);
+}
+.tok--red {
+  color: var(--tok-red);
+}
+.tok--pink {
+  color: var(--tok-pink);
+}
+.tok--slate {
+  color: var(--tok-slate);
+}
+
+.tok-bg--blue {
+  background: var(--tok-blue);
+}
+.tok-bg--orange {
+  background: var(--tok-orange);
+}
+.tok-bg--green {
+  background: var(--tok-green);
+}
+.tok-bg--magenta {
+  background: var(--tok-magenta);
+}
+.tok-bg--teal {
+  background: var(--tok-teal);
+}
+.tok-bg--purple {
+  background: var(--tok-purple);
+}
+.tok-bg--amber {
+  background: var(--tok-amber);
+}
+.tok-bg--red {
+  background: var(--tok-red);
+}
+.tok-bg--pink {
+  background: var(--tok-pink);
+}
+.tok-bg--slate {
+  background: var(--tok-slate);
+}
+
+/* Colour key / legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0;
+  padding: 10px 12px;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend__swatch {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.legend__label {
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+/* Math typesetting -----------------------------------------------------------
+   Inline formulas (auto-detected in prose) and authored featured blocks are set
+   in the mono math face so equations read distinctly from the Space Grotesk
+   prose. Colour encodes role; it never carries the meaning on its own (the math
+   face + the glyph already do, and the featured block adds size, a tinted
+   surface, and a left rule):
+     .mathx__var  variables / symbols (letters, ∠AOB, π, ?, segment names)
+     .mathx__num  numbers / values (digits, ½, 120°, √2)
+     .mathx__op   operators + relations (+ − × ÷ = : < > …)  */
+.mathx {
+  font-family: var(--mono);
+  font-size: 0.94em;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.mathx__var {
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.mathx__num {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.mathx__op {
+  padding: 0 0.06em;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+/* Featured equation: the one signature treatment for a key formula. Sits on its
+   own line as a tinted card with a left accent rule; very wide formulas scroll
+   horizontally rather than breaking the layout on small screens. */
+.mathx--block {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 16px 0;
+  padding: 13px 18px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  font-size: clamp(1.15rem, 1.02rem + 1vw, 1.45rem);
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.mathx--block .mathx__op {
+  padding: 0 0.12em;
+}

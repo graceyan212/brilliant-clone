@@ -1,0 +1,29 @@
+/* Arc-measure figure: the bold rim arc and the central-angle marker share the
+   teal --arc color to drive home that the angle and the arc are one number. The
+   shared diagram__* classes (circle, radius, center, point, handle, readout)
+   come from CircleDiagram.css, imported alongside this file. */
+
+.arcm-arc {
+  fill: none;
+  stroke: var(--arc);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+/* The major arc the other way around the circle (360 - central angle). */
+.arcm-arc.is-major {
+  stroke: var(--accent);
+}
+
+.arcm-angle {
+  fill: none;
+  stroke: var(--arc);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.arcm-wedge {
+  fill: var(--arc);
+  fill-opacity: 0.16;
+  stroke: none;
+}

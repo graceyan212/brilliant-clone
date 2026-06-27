@@ -1,0 +1,178 @@
+{
+  "lessonId": "similar-triangles",
+  "title": "Similar triangles & scaling",
+  "totalSteps": 9,
+  "steps": [
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "Blow up a photo",
+      "graphic": {
+        "name": "photo-enlarge",
+        "caption": "Enlarge a 4\u00d76 photo to 8\u00d712 and it still looks right \u2014 same shape, just bigger. That's similarity."
+      },
+      "legend": [
+        { "color": "blue", "label": "original" },
+        { "color": "orange", "label": "scaled copy" }
+      ],
+      "body": "Two triangles are similar when they have the same shape \u2014 the same three angles \u2014 even if one is bigger.\nThe bigger one is just a scaled copy of the smaller. Here an [original triangle](blue) and a [scaled copy](orange).\nYou'll discover the trap that catches almost everyone: the sides and the area do NOT grow by the same amount."
+    },
+    {
+      "stepId": "explore",
+      "interactionType": "explore",
+      "prompt": "Drag the corners and watch the angles",
+      "subtitle": "Any other triangle with these same three angles is similar to this one \u2014 same shape, any size.",
+      "diagram": { "mode": "interactive", "variant": "triangle", "triangle": { "showAngles": true }, "showReadout": true }
+    },
+    {
+      "stepId": "discover_aa",
+      "interactionType": "multiple_choice",
+      "prompt": "Two triangles each have a 50\u00b0 angle and a 60\u00b0 angle. Same shape?",
+      "subtitle": "Same shape means similar \u2014 you don't need to know any side lengths.",
+      "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 180, "y": 150 }, "b": { "x": 120, "y": 250 }, "c": { "x": 240, "y": 250 } }, "overlayScale": 1.6, "overlayLabel": "\u00d7k", "overlayColor": "orange", "sideColors": { "a": "blue", "b": "blue", "c": "blue" } } },
+      "options": [
+        { "id": "yes", "label": "Yes \u2014 if two angles match, the third must match too, so all three agree." },
+        {
+          "id": "no_size",
+          "label": "Only if they are the same size.",
+          "feedback": "Similar means same shape, not same size. Equal angles are all you need."
+        },
+        {
+          "id": "need_side",
+          "label": "Not unless we know a side.",
+          "feedback": "Two equal angles are enough: the third is 180\u00b0 \u2212 50\u00b0 \u2212 60\u00b0 = 70\u00b0 in both triangles."
+        }
+      ],
+      "correctAnswer": "yes",
+      "feedback": {
+        "correct": "Exactly. Two matching angles \u2014 the AA test \u2014 force the third to match, so the triangles are similar.",
+        "incorrect": "If two angles match, the third does too (all three add to 180\u00b0). That's the AA test."
+      }
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "AA similarity, and the k\u00b2 surprise",
+      "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 180, "y": 150 }, "b": { "x": 120, "y": 250 }, "c": { "x": 240, "y": 250 } }, "overlayScale": 2, "overlayLabel": "\u00d72", "overlayColor": "orange", "sideColors": { "a": "blue", "b": "blue", "c": "blue" } } },
+      "legend": [
+        { "color": "magenta", "label": "scale factor k" },
+        { "color": "green", "label": "area" }
+      ],
+      "body": "AA test: if two angles of one triangle match two angles of another, the triangles are similar.\nThen every pair of matching sides shares one [scale factor k](magenta), but the [area](green) scales by [k](magenta)\u00b2.\nDouble the sides ([k](magenta) = 2) and the [area](green) becomes 2\u00b2 = 4 times as big \u2014 not 2. That's the whole trick."
+    },
+    {
+      "stepId": "match_scaling",
+      "interactionType": "match",
+      "prompt": "Match each length scale to its area scale",
+      "subtitle": "Lengths scale by k; areas scale by k\u00b2. Tap a length scale, then its area scale.",
+      "legend": [
+        { "color": "magenta", "label": "length scale k" },
+        { "color": "green", "label": "area scale k\u00b2" }
+      ],
+      "leftHeading": "Length scale",
+      "rightHeading": "Area scale",
+      "doneNote": "Area always grows by k\u00b2 \u2014 the square of the length factor.",
+      "pairs": [
+        { "id": "k2", "left": "Sides scale by 2", "right": "Area scales by 4" },
+        { "id": "k3", "left": "Sides scale by 3", "right": "Area scales by 9" },
+        { "id": "k4", "left": "Sides scale by 4", "right": "Area scales by 16" },
+        { "id": "k5", "left": "Sides scale by 5", "right": "Area scales by 25" }
+      ]
+    },
+    {
+      "stepId": "estimate_area",
+      "interactionType": "estimate",
+      "prompt": "Guess the big triangle's area",
+      "subtitle": "A small [triangle](blue) has [area](green) 6. You scale every side by [k](magenta) = 2 to make the [copy](orange). Drag to estimate the copy's [area](green).",
+      "legend": [
+        { "color": "magenta", "label": "scale factor k" },
+        { "color": "green", "label": "area" }
+      ],
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "answer": 24,
+      "tolerance": 2,
+      "unit": "",
+      "start": 10,
+      "visual": "bar",
+      "feedback": {
+        "correct": "",
+        "incorrect": "Area grows faster than length. Doubling the sides quadruples the area \u2014 picture a 1\u00d71 square becoming a 2\u00d72 square."
+      },
+      "revealText": "It's 24. Scaling the sides by 2 scales the area by 2\u00b2 = 4, so 6 \u00d7 4 = 24 \u2014 not 12. Lengths scale by k, area by k\u00b2."
+    },
+    {
+      "stepId": "debug_area_scale",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the mistake",
+      "subtitle": "A student enlarges a photo and reasons about its area. One line is wrong \u2014 tap it.",
+      "lines": [
+        { "id": "l1", "text": "The photo is enlarged so every side is 3x longer (k = 3)." },
+        { "id": "l2", "text": "Its width and its height each get 3x bigger." },
+        { "id": "l3", "text": "So the area also gets 3x bigger.", "wrong": true },
+        { "id": "l4", "text": "The big photo's area is 3x the small one." }
+      ],
+      "explanation": "Area scales by k^2, not k. With k = 3 the area grows 3^2 = 9 times. A 1x1 square scaled by 3 becomes a 3x3 grid of 9 little squares.",
+      "hint": "Lengths scale by k, but area scales by k squared. What is 3 squared?",
+      "doneNote": "Right \u2014 area scales by k\u00b2 = 9, not 3."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "similar-triangle",
+      "problems": [
+        {
+          "id": "sim_side_6_2",
+          "prompt": "Two triangles are similar. A side of the smaller is 6, and the larger is 2 times as big. Find the corresponding side of the larger triangle.",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 180, "y": 185 }, "b": { "x": 146, "y": 250 }, "c": { "x": 214, "y": 250 } }, "overlayScale": 2, "overlayLabel": "\u00d72", "sideLabels": { "a": "6" }, "overlayColor": "orange", "sideColors": { "a": "blue", "b": "blue", "c": "blue" } } },
+          "correctAnswer": 12,
+          "feedback": {
+            "correct": "Correct. Corresponding sides scale by the same factor: 6 \u00d7 2 = 12.",
+            "incorrect": "In similar triangles, every pair of corresponding sides shares the same ratio."
+          },
+          "strongHint": "Multiply the side by the scale factor: 6 \u00d7 2."
+        },
+        {
+          "id": "sim_area_ratio_3",
+          "prompt": "Two similar triangles have corresponding sides in the ratio 3 : 1. Find the ratio of their areas (larger : smaller).",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 180, "y": 185 }, "b": { "x": 146, "y": 250 }, "c": { "x": 214, "y": 250 } }, "overlayScale": 3, "overlayLabel": "\u00d73", "overlayColor": "orange", "sideColors": { "a": "blue", "b": "blue", "c": "blue" } } },
+          "correctAnswer": 9,
+          "feedback": {
+            "correct": "Correct. Area scales by the square of the side ratio: 3\u00b2 = 9.",
+            "incorrect": "When lengths scale by k, areas scale by k\u00b2."
+          },
+          "strongHint": "Square the side ratio: 3\u00b2 = 9."
+        },
+        {
+          "id": "sim_area_6_2",
+          "prompt": "Two triangles are similar. The smaller has area 6 and the larger is 2 times as large in length. Find the larger triangle's area.",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 180, "y": 185 }, "b": { "x": 146, "y": 250 }, "c": { "x": 214, "y": 250 } }, "overlayScale": 2, "overlayLabel": "\u00d72", "overlayColor": "orange", "sideColors": { "a": "blue", "b": "blue", "c": "blue" } } },
+          "correctAnswer": 24,
+          "feedback": {
+            "correct": "Correct. Area scales by k\u00b2: 6 \u00d7 2\u00b2 = 6 \u00d7 4 = 24.",
+            "incorrect": "Multiply the smaller area by k\u00b2, where k is the length scale factor."
+          },
+          "strongHint": "Multiply by the square of the scale: 6 \u00d7 2\u00b2."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "Two similar triangles have corresponding sides in the ratio 4 : 1. Find the ratio of their areas (larger : smaller).",
+      "problem": {
+        "id": "sim_challenge_area_ratio_4",
+        "prompt": "Area ratio",
+        "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 180, "y": 185 }, "b": { "x": 146, "y": 250 }, "c": { "x": 214, "y": 250 } }, "overlayScale": 4, "overlayLabel": "\u00d74", "overlayColor": "orange", "sideColors": { "a": "blue", "b": "blue", "c": "blue" } } },
+        "correctAnswer": 16,
+        "feedback": {
+          "correct": "Done. 4\u00b2 = 16 \u2014 area scales by the square of the side ratio.",
+          "incorrect": "Square the side ratio: 4\u00b2."
+        }
+      }
+    }
+  ]
+}

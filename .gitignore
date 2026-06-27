@@ -30,3 +30,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Internal planning/notes — not shipped
+BRAINLIFT.md
+OVERHAUL_PLAN.md
+
+# Session dev/QA tooling + headless-screenshot temp — not shipped
+scripts/
+.mathshot/

@@ -1,0 +1,210 @@
+{
+  "lessonId": "polygon-angles",
+  "title": "Polygon angles",
+  "totalSteps": 9,
+  "steps": [
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "Why do hexagons tile a floor but pentagons don't?",
+      "graphic": {
+        "name": "tiles",
+        "caption": "Hexagons lock together with no gaps. Try the same with regular pentagons and you always get a leftover wedge. The secret is the angle sitting in each corner."
+      },
+      "legend": [
+        { "color": "blue", "label": "interior angle (inside a corner)" }
+      ],
+      "body": "A polygon is a closed shape made of straight sides. Every corner is a vertex, and the [interior angle](blue) is the angle inside the shape at that corner.\nThree hexagons meet snugly because their corners add up to exactly 360\u00b0 around the point \u2014 pentagons can't. To find out why, we'll learn to total up a polygon's angles. (\u201cRegular\u201d just means every side and every angle is equal.)"
+    },
+    {
+      "stepId": "explore",
+      "interactionType": "explore",
+      "prompt": "Add sides and watch the angle sum climb",
+      "subtitle": "Start from the triangle (180\u00b0) and tap + to add sides. Each new side gives the shape one more triangle's worth of angle, so the Angle sum jumps by 180\u00b0 every time.",
+      "diagram": { "mode": "interactive", "variant": "polygon", "polygon": { "sides": 3, "minSides": 3, "maxSides": 10, "showInteriorAngle": true, "interiorAngleColor": "blue", "showAngleSum": true }, "showReadout": true }
+    },
+    {
+      "stepId": "estimate_pentagon",
+      "interactionType": "estimate",
+      "prompt": "How big is one corner of a regular pentagon?",
+      "subtitle": "A regular pentagon has 5 equal corners. On a scale from 0\u00b0 (flat) to 180\u00b0 (a straight line), drag the bar to where you think one [interior angle](blue) sits. A square corner is 90\u00b0.",
+      "legend": [
+        { "color": "blue", "label": "interior angle" }
+      ],
+      "min": 0,
+      "max": 180,
+      "step": 1,
+      "answer": 108,
+      "tolerance": 10,
+      "unit": "\u00b0",
+      "start": 55,
+      "visual": "bar",
+      "feedback": {
+        "correct": "",
+        "incorrect": "A pentagon's corner is obtuse \u2014 wider than a square corner (90\u00b0) but well short of a straight line (180\u00b0)."
+      },
+      "revealText": "Each corner of a regular pentagon is 108\u00b0. The five angles add to (5 \u2212 2) \u00d7 180\u00b0 = 540\u00b0, and 540\u00b0 \u00f7 5 = 108\u00b0."
+    },
+    {
+      "stepId": "discover_sum",
+      "interactionType": "multiple_choice",
+      "prompt": "However many sides n a polygon has, its interior angles always add up to\u2026",
+      "subtitle": "You watched the Angle sum jump by 180\u00b0 for every extra side. Which rule matches that pattern?",
+      "diagram": { "mode": "static", "variant": "polygon", "polygon": { "sides": 6, "showInteriorAngle": true, "interiorAngleColor": "blue", "showTriangleFan": true, "triangleFanColor": "green", "showAngleSum": true, "showReadout": true, "name": "Hexagon" } },
+      "options": [
+        { "id": "n_minus_2", "label": "(n \u2212 2) \u00d7 180\u00b0" },
+        {
+          "id": "n_times_180",
+          "label": "n \u00d7 180\u00b0",
+          "feedback": "Test it on a square: 4 \u00d7 180\u00b0 = 720\u00b0, but four square corners only make 360\u00b0. You have to subtract 2 from n first."
+        },
+        {
+          "id": "always_360",
+          "label": "360\u00b0, no matter what",
+          "feedback": "A square totals 360\u00b0, but the hexagon above already totals 720\u00b0 \u2014 the sum keeps climbing as you add sides."
+        }
+      ],
+      "correctAnswer": "n_minus_2",
+      "feedback": {
+        "correct": "Exactly. Every polygon splits into n \u2212 2 triangles, and each triangle holds 180\u00b0.",
+        "incorrect": "Each extra side adds one more triangle \u2014 another 180\u00b0. The rule is (n \u2212 2) \u00d7 180\u00b0."
+      }
+    },
+    {
+      "stepId": "triangle_proof",
+      "interactionType": "proof",
+      "prompt": "Proof: slice the polygon into triangles",
+      "diagram": { "mode": "static", "variant": "polygon-angle-sum" },
+      "proofMode": "fill-value",
+      "blanks": [
+        {
+          "stage": 1,
+          "prompt": "From one corner of the hexagon, draw a diagonal to every corner you can reach (not itself or its two neighbours). How many diagonals is that?",
+          "answer": 3,
+          "hint": "6 corners \u2212 the corner itself \u2212 its 2 neighbours = 3."
+        },
+        {
+          "stage": 2,
+          "prompt": "Those diagonals fan the hexagon into how many [triangles](green)?",
+          "answer": 4,
+          "hint": "An n-gon splits into n \u2212 2 triangles; here n = 6, so 6 \u2212 2."
+        },
+        {
+          "stage": 3,
+          "prompt": "Each of the 4 [triangles](green) holds 180\u00b0, so the hexagon's angles total 4 \u00d7 180\u00b0 = ?",
+          "answer": 720,
+          "unit": "\u00b0",
+          "hint": "Multiply: 4 \u00d7 180."
+        }
+      ],
+      "stages": [
+        "Take any polygon \u2014 here a hexagon \u2014 and pick a single corner.",
+        "Draw a diagonal from that corner to every other corner it can reach. A hexagon needs three of them.",
+        "The diagonals slice the hexagon into 4 [triangles](green), and every interior angle of the hexagon is built from those triangle angles \u2014 none is left over.",
+        "Each triangle holds 180\u00b0, so the total is 4 \u00d7 180\u00b0 = 720\u00b0. In general an n-gon splits into n \u2212 2 [triangles](green): (n \u2212 2) \u00d7 180\u00b0."
+      ]
+    },
+    {
+      "stepId": "sort_formulas",
+      "interactionType": "categorize",
+      "prompt": "Which formula does each job?",
+      "subtitle": "Three different questions, three different formulas. An [exterior angle](orange) is the turn you'd make walking around a corner; at each corner the [interior angle](blue) and [exterior angle](orange) add to 180\u00b0.",
+      "diagram": { "mode": "static", "variant": "polygon", "polygon": { "sides": 6, "name": "Hexagon", "showInteriorAngle": true, "interiorAngleColor": "blue", "showExteriorAngle": true, "exteriorAngleColor": "orange", "showAngleSum": false, "showReadout": false } },
+      "legend": [
+        { "color": "green", "label": "all interior angles added up" },
+        { "color": "blue", "label": "one interior angle" },
+        { "color": "orange", "label": "one exterior angle" }
+      ],
+      "buckets": [
+        { "id": "sum", "label": "All interior angles" },
+        { "id": "one_in", "label": "One interior angle (regular)" },
+        { "id": "one_ex", "label": "One exterior angle (regular)" }
+      ],
+      "items": [
+        { "id": "f_sum", "label": "[(n \u2212 2) \u00d7 180\u00b0](green)", "bucket": "sum" },
+        { "id": "n_hex_sum", "label": "[Hexagon: 720\u00b0](green)", "bucket": "sum" },
+        { "id": "f_one_in", "label": "[(n \u2212 2) \u00d7 180\u00b0 \u00f7 n](blue)", "bucket": "one_in" },
+        { "id": "n_hex_in", "label": "[Hexagon: 120\u00b0](blue)", "bucket": "one_in" },
+        { "id": "f_one_ex", "label": "[360\u00b0 \u00f7 n](orange)", "bucket": "one_ex" },
+        { "id": "n_hex_ex", "label": "[Hexagon: 60\u00b0](orange)", "bucket": "one_ex" }
+      ],
+      "doneNote": "Sorted! Add up every corner: (n \u2212 2) \u00d7 180\u00b0. One corner of a regular n-gon: divide that by n. One exterior angle: 360\u00b0 \u00f7 n."
+    },
+    {
+      "stepId": "debug_sum",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the slip in this working",
+      "subtitle": "A student works out each interior angle of a regular hexagon. One line is wrong \u2014 tap it.",
+      "lines": [
+        { "id": "l1", "text": "A hexagon has n = 6 sides." },
+        { "id": "l2", "text": "Interior angle sum = n x 180 = 6 x 180 = 1080 degrees.", "wrong": true },
+        { "id": "l3", "text": "Each of the 6 angles is 1080 / 6 = 180 degrees." },
+        { "id": "l4", "text": "So each interior angle is 180 degrees." }
+      ],
+      "explanation": "The sum is (n \u2212 2) \u00d7 180\u00b0, not n \u00d7 180\u00b0 \u2014 a hexagon splits into 6 \u2212 2 = 4 triangles. So the real sum is 720\u00b0 and each angle is 720\u00b0 \u00f7 6 = 120\u00b0. (A 180\u00b0 \u201ccorner\u201d would be a flat straight line \u2014 not a corner at all.)",
+      "hint": "How many triangles does a hexagon split into \u2014 6, or 6 \u2212 2?",
+      "doneNote": "Right \u2014 that's where it goes wrong."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "polygon-angle",
+      "problems": [
+        {
+          "id": "poly_sum_5",
+          "prompt": "Find the sum of the interior angles of a pentagon (5 sides).",
+          "diagram": { "mode": "static", "variant": "polygon", "polygon": { "sides": 5, "showInteriorAngle": false, "showAngleSum": false, "showReadout": false, "name": "Pentagon" } },
+          "correctAnswer": 540,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. (5 \u2212 2) \u00d7 180\u00b0 = 540\u00b0.",
+            "incorrect": "The interior angles of an n-gon add to (n \u2212 2) \u00d7 180\u00b0."
+          },
+          "strongHint": "Multiply: (5 \u2212 2) \u00d7 180\u00b0."
+        },
+        {
+          "id": "poly_regular_6",
+          "prompt": "Find each interior angle of a regular hexagon (6 sides).",
+          "diagram": { "mode": "static", "variant": "polygon", "polygon": { "sides": 6, "showInteriorAngle": false, "showAngleSum": false, "showReadout": false, "name": "Hexagon" } },
+          "correctAnswer": 120,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. (6 \u2212 2) \u00d7 180\u00b0 = 720\u00b0, and 720\u00b0 \u00f7 6 = 120\u00b0.",
+            "incorrect": "Each interior angle of a regular n-gon is (n \u2212 2) \u00d7 180\u00b0 \u00f7 n."
+          },
+          "strongHint": "First the sum (6 \u2212 2) \u00d7 180\u00b0 = 720\u00b0, then \u00f7 6."
+        },
+        {
+          "id": "poly_exterior_8",
+          "prompt": "Find each exterior angle of a regular octagon (8 sides).",
+          "diagram": { "mode": "static", "variant": "polygon", "polygon": { "sides": 8, "showInteriorAngle": false, "showAngleSum": false, "showReadout": false, "name": "Octagon" } },
+          "correctAnswer": 45,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. The exterior angles always total 360\u00b0, so each is 360\u00b0 \u00f7 8 = 45\u00b0.",
+            "incorrect": "The exterior angles of any polygon add to 360\u00b0, so each is 360\u00b0 \u00f7 n."
+          },
+          "strongHint": "Divide: 360\u00b0 \u00f7 8."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "A regular decagon has 10 sides. Find each interior angle.",
+      "problem": {
+        "id": "poly_challenge_regular_10",
+        "prompt": "Each interior angle",
+        "diagram": { "mode": "static", "variant": "polygon", "polygon": { "sides": 10, "showInteriorAngle": false, "showAngleSum": false, "showReadout": false, "name": "Decagon" } },
+        "correctAnswer": 144,
+        "unit": "\u00b0",
+        "feedback": {
+          "correct": "Done. (10 \u2212 2) \u00d7 180\u00b0 = 1440\u00b0, and 1440\u00b0 \u00f7 10 = 144\u00b0.",
+          "incorrect": "Find the sum (n \u2212 2) \u00d7 180\u00b0, then divide by the number of angles, 10."
+        }
+      }
+    }
+  ]
+}

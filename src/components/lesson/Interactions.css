@@ -1,0 +1,355 @@
+/* Shared styles for the data-driven interaction types: categorize, multi_select,
+   estimate, and spot_the_mistake. Mobile-first, large touch targets, and they
+   reuse the existing .btn and .feedback-panel styles from the renderer. */
+
+.interaction__progress {
+  margin: 0 0 12px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.interaction__status {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+}
+
+.interaction__status.is-correct {
+  color: var(--good);
+  font-weight: 600;
+}
+
+.interaction__status.is-wrong {
+  color: var(--accent);
+}
+
+/* Chips (shared by categorize tray + placed items) */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.chip.is-selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+
+.chip.is-placed {
+  border-color: var(--good);
+  background: color-mix(in srgb, var(--good) 10%, var(--surface));
+  cursor: default;
+}
+
+.chip__check {
+  color: var(--good);
+  font-weight: 700;
+}
+
+/* Categorize */
+.categorize__tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  margin-bottom: 14px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ink) 2%, var(--surface));
+}
+
+.categorize__buckets {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 460px) {
+  .categorize__buckets {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+.categorize__bucket {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 96px;
+  padding: 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  text-align: left;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.categorize__bucket:hover {
+  border-color: var(--ink-3);
+}
+
+.categorize__bucket.is-wrong {
+  border-color: var(--accent);
+  animation: shake 0.32s ease-in-out;
+}
+
+.categorize__bucket-label {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.categorize__bucket-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Multi-select */
+.multi-select__options {
+  display: grid;
+  gap: 10px;
+}
+
+.multi-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+}
+
+.multi-option__box {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--ink-3);
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--surface);
+}
+
+.multi-option.is-selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.multi-option.is-selected .multi-option__box {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.multi-option.is-correct {
+  border-color: var(--good);
+  box-shadow: inset 0 0 0 1px var(--good);
+}
+
+.multi-option.is-correct .multi-option__box {
+  border-color: var(--good);
+  background: var(--good);
+}
+
+.multi-option.is-wrong {
+  border-color: var(--accent);
+}
+
+.multi-option.is-wrong .multi-option__box {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.multi-select__check {
+  width: 100%;
+  margin-top: 14px;
+}
+
+/* Estimate */
+.estimate {
+  display: grid;
+  gap: 14px;
+}
+
+.estimate__svg {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.estimate__ray {
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.estimate__wedge {
+  fill: color-mix(in srgb, var(--accent) 22%, transparent);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.estimate__vertex {
+  fill: var(--ink);
+}
+
+.estimate__answer-ray {
+  stroke: var(--good);
+  stroke-width: 3;
+  stroke-dasharray: 6 5;
+  stroke-linecap: round;
+}
+
+.estimate__bar {
+  position: relative;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.estimate__bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 80ms linear;
+}
+
+.estimate__bar-answer {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 3px;
+  background: var(--good);
+  transform: translateX(-50%);
+}
+
+.estimate__readout {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 1rem;
+}
+
+.estimate__readout strong {
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  color: var(--ink);
+}
+
+.estimate__answer-text {
+  color: var(--good);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+.estimate__slider {
+  width: 100%;
+  height: 44px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.estimate__check {
+  width: 100%;
+}
+
+/* Spot the mistake */
+.spot__lines {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: spot;
+}
+
+.spot__line {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.spot__line:not(:disabled):hover {
+  border-color: var(--ink-3);
+}
+
+.spot__line::before {
+  counter-increment: spot;
+  content: counter(spot);
+  flex: none;
+  color: var(--ink-3);
+  font-weight: 700;
+}
+
+.spot__mark {
+  flex: none;
+  width: 1.1em;
+  font-weight: 700;
+}
+
+.spot__line.is-fine {
+  color: var(--ink-3);
+  background: color-mix(in srgb, var(--ink) 3%, var(--surface));
+}
+
+.spot__line.is-fine .spot__mark {
+  color: var(--good);
+}
+
+.spot__line.is-wrong {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  color: var(--ink);
+}
+
+.spot__line.is-wrong .spot__mark {
+  color: var(--accent);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .categorize__bucket.is-wrong {
+    animation: none;
+  }
+  .estimate__bar-fill {
+    transition: none;
+  }
+}

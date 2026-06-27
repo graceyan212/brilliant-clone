@@ -1,0 +1,69 @@
+.angles__line {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.angles__transversal {
+  stroke: var(--ink-2);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.angles__wedge {
+  fill: var(--accent);
+  fill-opacity: 0.5;
+  stroke: none;
+}
+
+.angles__wedge.is-arc {
+  fill: var(--arc);
+  fill-opacity: 0.22;
+}
+
+.angles__wedge.is-vertical {
+  fill: var(--vertical);
+  fill-opacity: 0.5;
+}
+
+.angles__wedge.is-corresponding {
+  fill: var(--corresponding);
+  fill-opacity: 0.5;
+}
+
+.angles__arc {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.angles__arc.is-arc {
+  stroke: var(--arc);
+}
+
+.angles__arc.is-vertical {
+  stroke: var(--vertical);
+}
+
+.angles__arc.is-corresponding {
+  stroke: var(--corresponding);
+}
+
+/* Per-relationship colour for the on-wedge degree labels and the live readout
+   (base typography lives in CircleDiagram.css; only the colour differs here). */
+.diagram__value.is-vertical {
+  fill: var(--vertical);
+}
+
+.diagram__value.is-corresponding {
+  fill: var(--corresponding);
+}
+
+.diagram__readout dd.is-vertical {
+  color: var(--vertical);
+}
+
+.diagram__readout dd.is-corresponding {
+  color: var(--corresponding);
+}

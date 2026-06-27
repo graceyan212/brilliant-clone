@@ -1,0 +1,168 @@
+{
+  "lessonId": "pythagorean-theorem",
+  "title": "The Pythagorean theorem",
+  "totalSteps": 9,
+  "steps": [
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "How high does the ladder reach?",
+      "graphic": {
+        "name": "ladder",
+        "caption": "A ladder leans against a wall. The wall, the ground, and the ladder make a right triangle \u2014 and the three sides are linked by one exact rule."
+      },
+      "legend": [
+        { "color": "blue", "label": "leg a" },
+        { "color": "orange", "label": "leg b" },
+        { "color": "green", "label": "hypotenuse c" }
+      ],
+      "body": "A right triangle has one square corner (a 90\u00b0 angle). The two sides that meet there are the legs, [a](blue) and [b](orange).\nThe side across from the square corner \u2014 always the longest \u2014 is the [hypotenuse c](green).\nThis whole lesson is one rule that links the two legs to the hypotenuse."
+    },
+    {
+      "stepId": "explore",
+      "interactionType": "explore",
+      "prompt": "Drag a corner and watch the sides",
+      "subtitle": "The longest side always sits opposite the biggest angle. When one corner is a square corner (90\u00b0), that longest side is the hypotenuse. Drag and see the lengths change together.",
+      "diagram": { "mode": "interactive", "variant": "triangle", "triangle": { "showAngles": false, "showSides": true }, "showReadout": false }
+    },
+    {
+      "stepId": "estimate_hyp",
+      "interactionType": "estimate",
+      "prompt": "Guess the ramp's length",
+      "subtitle": "A skate ramp rises [6 m](blue) straight up over an [8 m](orange) run along the ground. Drag to estimate the length of the [sloping ramp](green) \u2014 that's the hypotenuse.",
+      "legend": [
+        { "color": "blue", "label": "rise (leg)" },
+        { "color": "orange", "label": "run (leg)" },
+        { "color": "green", "label": "ramp (hypotenuse)" }
+      ],
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "answer": 10,
+      "tolerance": 1,
+      "unit": " m",
+      "start": 4,
+      "visual": "bar",
+      "feedback": {
+        "correct": "",
+        "incorrect": "The slope is longer than each leg but shorter than 6 + 8 = 14. Square the legs, add, then take the square root."
+      },
+      "revealText": "It's 10 m. 6\u00b2 + 8\u00b2 = 36 + 64 = 100, and \u221A100 = 10. Notice the hypotenuse is longer than either leg, but less than 6 + 8."
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "The Pythagorean theorem",
+      "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 70, "y": 70 }, "b": { "x": 320, "y": 290 }, "c": { "x": 70, "y": 290 } }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "3", "b": "4", "c": "5" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+      "legend": [
+        { "color": "blue", "label": "leg a" },
+        { "color": "orange", "label": "leg b" },
+        { "color": "green", "label": "hypotenuse c" }
+      ],
+      "body": "In any right triangle, the squares of the two legs add up to the square of the [hypotenuse](green):\n[a](blue)\u00b2 + [b](orange)\u00b2 = [c](green)\u00b2.\nThink of a real square built on each side \u2014 the two smaller squares exactly fill the big one.\nFor legs [3](blue) and [4](orange): 3\u00b2 + 4\u00b2 = 9 + 16 = 25, so [c](green)\u00b2 = 25. To get [c](green) itself, take the square root: \u221A25 = 5."
+    },
+    {
+      "stepId": "visual_proof",
+      "interactionType": "proof",
+      "proofMode": "reveal",
+      "prompt": "Proof: rearranging four triangles",
+      "diagram": { "mode": "static", "variant": "pythagorean" },
+      "stages": [
+        "Take four copies of our right triangle, each with legs a and b and hypotenuse c.",
+        "Pack all four into a square of side a + b. The tilted gap left in the middle is a square on the hypotenuse, so its area is c\u00b2.",
+        "Now slide the same four triangles into the corners a different way. The leftover space is two squares \u2014 one a by a, the other b by b.",
+        "Same four triangles, same big square, so the two leftover areas must be equal: a\u00b2 + b\u00b2 = c\u00b2."
+      ]
+    },
+    {
+      "stepId": "sort_triples",
+      "interactionType": "categorize",
+      "prompt": "Which triples make a right triangle?",
+      "subtitle": "Square the two shorter sides and add them. If the total equals the longest side squared, the triple is a right triangle. Tap a card, then tap its group.",
+      "buckets": [
+        { "id": "right", "label": "Right triangle" },
+        { "id": "not", "label": "Not a right triangle" }
+      ],
+      "items": [
+        { "id": "t345", "label": "3, 4, 5", "bucket": "right" },
+        { "id": "t6810", "label": "6, 8, 10", "bucket": "right" },
+        { "id": "t51213", "label": "5, 12, 13", "bucket": "right" },
+        { "id": "t234", "label": "2, 3, 4", "bucket": "not" },
+        { "id": "t456", "label": "4, 5, 6", "bucket": "not" }
+      ],
+      "doneNote": "A triple is a right triangle exactly when a\u00b2 + b\u00b2 = c\u00b2. 3-4-5, 6-8-10, and 5-12-13 all fit; 2-3-4 (4 + 9 \u2260 16) and 4-5-6 (16 + 25 \u2260 36) fall short."
+    },
+    {
+      "stepId": "debug_pythag",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the mistake",
+      "subtitle": "A student finds the hypotenuse of a right triangle with legs 6 and 8. One line is wrong \u2014 tap it.",
+      "lines": [
+        { "id": "l1", "text": "The legs are a = 6 and b = 8." },
+        { "id": "l2", "text": "Pythagoras: a^2 + b^2 = c^2." },
+        { "id": "l3", "text": "So c = 6 + 8 = 14.", "wrong": true },
+        { "id": "l4", "text": "The hypotenuse is 14." }
+      ],
+      "explanation": "You have to square the legs first: 6^2 + 8^2 = 36 + 64 = 100. Then take the square root: c = sqrt(100) = 10, not 14. Adding 6 + 8 skips both the squaring and the square root.",
+      "hint": "Line 2 squares the legs, but the next line just adds them. Square first, add, then take the square root.",
+      "doneNote": "Exactly \u2014 square the legs before adding, and don't forget the square root."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "pythagorean",
+      "problems": [
+        {
+          "id": "pyth_leg_3_4",
+          "prompt": "A right triangle has legs of 3 and 4. Find the hypotenuse.",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 70, "y": 70 }, "b": { "x": 320, "y": 290 }, "c": { "x": 70, "y": 290 } }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "3", "b": "4", "c": "?" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+          "correctAnswer": 5,
+          "feedback": {
+            "correct": "Correct. 3\u00b2 + 4\u00b2 = 9 + 16 = 25 = 5\u00b2.",
+            "incorrect": "In a right triangle, leg\u00b2 + leg\u00b2 = hypotenuse\u00b2."
+          },
+          "strongHint": "The hypotenuse c has c\u00b2 = 3\u00b2 + 4\u00b2 = 25. Take the square root."
+        },
+        {
+          "id": "pyth_hyp_5_13",
+          "prompt": "A right triangle has a leg of 5 and a hypotenuse of 13. Find the other leg.",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 70, "y": 70 }, "b": { "x": 320, "y": 290 }, "c": { "x": 70, "y": 290 } }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "5", "c": "13", "b": "?" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+          "correctAnswer": 12,
+          "feedback": {
+            "correct": "Correct. 5\u00b2 + 12\u00b2 = 25 + 144 = 169 = 13\u00b2.",
+            "incorrect": "Rearrange a\u00b2 + b\u00b2 = c\u00b2: the missing leg\u00b2 = hypotenuse\u00b2 \u2212 known leg\u00b2."
+          },
+          "strongHint": "The missing leg b has b\u00b2 = 13\u00b2 \u2212 5\u00b2 = 144. Take the square root."
+        },
+        {
+          "id": "pyth_leg_8_15",
+          "prompt": "A right triangle has legs of 8 and 15. Find the hypotenuse.",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 70, "y": 70 }, "b": { "x": 320, "y": 290 }, "c": { "x": 70, "y": 290 } }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "8", "b": "15", "c": "?" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+          "correctAnswer": 17,
+          "feedback": {
+            "correct": "Correct. 8\u00b2 + 15\u00b2 = 64 + 225 = 289 = 17\u00b2.",
+            "incorrect": "In a right triangle, leg\u00b2 + leg\u00b2 = hypotenuse\u00b2."
+          },
+          "strongHint": "The hypotenuse c has c\u00b2 = 8\u00b2 + 15\u00b2 = 289. Take the square root."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "A right triangle has a leg of 9 and a hypotenuse of 15. Find the other leg.",
+      "problem": {
+        "id": "pyth_challenge_9_15",
+        "prompt": "Other leg",
+        "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 70, "y": 70 }, "b": { "x": 320, "y": 290 }, "c": { "x": 70, "y": 290 } }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "9", "c": "15", "b": "?" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+        "correctAnswer": 12,
+        "feedback": {
+          "correct": "Done. 9\u00b2 + 12\u00b2 = 81 + 144 = 225 = 15\u00b2.",
+          "incorrect": "The missing leg\u00b2 = hypotenuse\u00b2 \u2212 known leg\u00b2 = 15\u00b2 \u2212 9\u00b2."
+        }
+      }
+    }
+  ]
+}

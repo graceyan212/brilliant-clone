@@ -1,0 +1,184 @@
+{
+  "lessonId": "special-right-triangles",
+  "title": "Special right triangles",
+  "totalSteps": 9,
+  "steps": [
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "The drafting triangle",
+      "graphic": {
+        "name": "set-square",
+        "caption": "A set-square is a drafting tool shaped like a 45\u00b0 right triangle. Two special triangles like this show up so often that their side ratios are worth memorizing."
+      },
+      "legend": [
+        { "color": "blue", "label": "short leg" },
+        { "color": "orange", "label": "long leg" },
+        { "color": "green", "label": "hypotenuse" }
+      ],
+      "body": "Two right triangles appear everywhere, so it pays to know them by heart.\nThe 45-45-90 is half of a square \u2014 two equal [legs](blue) and a [hypotenuse](green).\nThe 30-60-90 is half of an equilateral triangle \u2014 a [short leg](blue), a [long leg](orange), and the [hypotenuse](green).\nA handy rule: the [short leg](blue) is always opposite the smallest angle."
+    },
+    {
+      "stepId": "sort_clues",
+      "interactionType": "categorize",
+      "prompt": "Which triangle is it?",
+      "subtitle": "Each clue describes one of the two special triangles. Tap a card, then tap the triangle it belongs to.",
+      "buckets": [
+        { "id": "t4590", "label": "45-45-90" },
+        { "id": "t3060", "label": "30-60-90" }
+      ],
+      "items": [
+        { "id": "half_square", "label": "Half of a square", "bucket": "t4590" },
+        { "id": "two_equal", "label": "Two equal legs", "bucket": "t4590" },
+        { "id": "ratio112", "label": "Sides 1 : 1 : \u221A2", "bucket": "t4590" },
+        { "id": "half_equi", "label": "Half of an equilateral triangle", "bucket": "t3060" },
+        { "id": "short_long", "label": "A short leg and a long leg", "bucket": "t3060" },
+        { "id": "ratio1r32", "label": "Sides 1 : \u221A3 : 2", "bucket": "t3060" }
+      ],
+      "doneNote": "Sorted! The 45-45-90 is half a square (two equal legs, 1 : 1 : \u221A2). The 30-60-90 is half an equilateral triangle (a short and a long leg, 1 : \u221A3 : 2)."
+    },
+    {
+      "stepId": "explore",
+      "interactionType": "explore",
+      "prompt": "Drag to build a 45-45-90",
+      "subtitle": "Make the two legs equal and the angles read 45\u00b0, 45\u00b0, 90\u00b0. Triangles with the same angles always share the same side ratios.",
+      "diagram": { "mode": "interactive", "variant": "triangle", "triangle": { "showAngles": true }, "showReadout": true }
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "The two ratios",
+      "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 90, "y": 70 }, "b": { "x": 206, "y": 270 }, "c": { "x": 90, "y": 270 } }, "angleLabels": { "a": "30\u00b0", "b": "60\u00b0" }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "1", "b": "\u221A3", "c": "2" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+      "legend": [
+        { "color": "blue", "label": "short leg" },
+        { "color": "orange", "label": "long leg" },
+        { "color": "green", "label": "hypotenuse" }
+      ],
+      "body": "Two ratios to remember (\u221A2 \u2248 1.41 and \u221A3 \u2248 1.73):\n45-45-90 \u2192 sides 1 : 1 : \u221A2, so the [hypotenuse](green) is a [leg](blue) \u00d7 \u221A2.\n30-60-90 \u2192 sides 1 : \u221A3 : 2, so the [hypotenuse](green) is 2 \u00d7 the [short leg](blue), and the [long leg](orange) is the [short leg](blue) \u00d7 \u221A3."
+    },
+    {
+      "stepId": "match_ratios",
+      "interactionType": "match",
+      "prompt": "Match each relationship to its value",
+      "subtitle": "Pin down the two special triangles. Tap a relationship, then its value.",
+      "leftHeading": "Relationship",
+      "rightHeading": "Equals",
+      "doneNote": "Memorize these two ratios and the rest follows.",
+      "pairs": [
+        { "id": "r4590", "left": "45-45-90 side ratio", "right": "1 : 1 : \u221A2" },
+        { "id": "r3060", "left": "30-60-90 side ratio", "right": "1 : \u221A3 : 2" },
+        { "id": "hyp45", "left": "45-45-90 hypotenuse", "right": "leg \u00d7 \u221A2" },
+        { "id": "hyp30", "left": "30-60-90 hypotenuse", "right": "2 \u00d7 short leg" },
+        { "id": "long30", "left": "30-60-90 long leg", "right": "short leg \u00d7 \u221A3" }
+      ]
+    },
+    {
+      "stepId": "visual_proof",
+      "interactionType": "proof",
+      "proofMode": "fill-value",
+      "prompt": "Proof: from a square and an equilateral triangle",
+      "diagram": { "mode": "static", "variant": "special-triangles" },
+      "blanks": [
+        {
+          "stage": 1,
+          "prompt": "Cut a unit square along its diagonal d. By the Pythagorean theorem d\u00b2 = 1\u00b2 + 1\u00b2 = ?",
+          "answer": 2,
+          "hint": "1 + 1 = 2, so the diagonal is \u221A2."
+        },
+        {
+          "stage": 2,
+          "prompt": "An equilateral triangle has three equal angles that add to 180\u00b0. Each one is 180 \u00f7 3 = ?",
+          "answer": 60,
+          "unit": "\u00b0",
+          "hint": "180 \u00f7 3."
+        },
+        {
+          "stage": 3,
+          "prompt": "Drop the height h of that side-2 triangle. By the Pythagorean theorem h\u00b2 = 2\u00b2 \u2212 1\u00b2 = ?",
+          "answer": 3,
+          "hint": "4 \u2212 1 = 3, so the long leg is \u221A3."
+        }
+      ],
+      "stages": [
+        "Start with a square of side 1 and draw a diagonal. It splits the square into two identical right triangles, each with two 45\u00b0 angles.",
+        "By the Pythagorean theorem the diagonal is \u221A(1\u00b2 + 1\u00b2) = \u221A2. So a 45-45-90 triangle has sides 1 : 1 : \u221A2.",
+        "Now take an equilateral triangle of side 2 \u2014 every angle 60\u00b0 \u2014 and drop a height from the top. It cuts the base into two 1's and splits the top angle into two 30\u00b0s.",
+        "By the Pythagorean theorem that height is \u221A(2\u00b2 \u2212 1\u00b2) = \u221A3. So a 30-60-90 triangle has sides 1 : \u221A3 : 2."
+      ]
+    },
+    {
+      "stepId": "debug_long_leg",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the mistake",
+      "subtitle": "A student works with a 30-60-90 triangle whose short leg is 5. One line is wrong \u2014 tap it.",
+      "lines": [
+        { "id": "l1", "text": "30-60-90 triangle, short leg = 5 (opposite the 30 degree angle)." },
+        { "id": "l2", "text": "Hypotenuse = 2 x 5 = 10." },
+        { "id": "l3", "text": "Long leg = 2 x 5 = 10.", "wrong": true },
+        { "id": "l4", "text": "So the long leg is 10." }
+      ],
+      "explanation": "The long leg is the short leg times sqrt(3) (about 1.73), not times 2. So it is 5 x sqrt(3), which is about 8.66. Only the hypotenuse is 2x the short leg \u2014 they can't both be 10.",
+      "hint": "Which side is twice the short leg \u2014 the hypotenuse or the long leg? Only one of them can be.",
+      "doneNote": "Right \u2014 the long leg is the short leg \u00d7 \u221A3 (\u2248 8.66); only the hypotenuse is 2\u00d7 the short leg."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "special-triangle",
+      "problems": [
+        {
+          "id": "spec_45_leg_5",
+          "prompt": "A 45-45-90 right triangle has legs of length 5. Find the hypotenuse (in terms of \u221A2).",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 100, "y": 80 }, "b": { "x": 280, "y": 260 }, "c": { "x": 100, "y": 260 } }, "angleLabels": { "a": "45\u00b0", "b": "45\u00b0" }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "5", "b": "5", "c": "?" }, "sideColors": { "a": "blue", "b": "blue", "c": "green" } } },
+          "correctAnswer": 5,
+          "unit": "\u221A2",
+          "feedback": {
+            "correct": "Correct. The hypotenuse is a leg times \u221A2: 5\u221A2.",
+            "incorrect": "In a 45-45-90 triangle the hypotenuse equals a leg times \u221A2."
+          },
+          "strongHint": "Hypotenuse = leg \u00d7 \u221A2 = 5\u221A2, so enter 5."
+        },
+        {
+          "id": "spec_30_short_hyp_6",
+          "prompt": "A 30-60-90 right triangle has a short leg of 6 (opposite the 30\u00b0 angle). Find the hypotenuse.",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 90, "y": 70 }, "b": { "x": 206, "y": 270 }, "c": { "x": 90, "y": 270 } }, "angleLabels": { "a": "30\u00b0", "b": "60\u00b0" }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "6", "c": "?" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+          "correctAnswer": 12,
+          "feedback": {
+            "correct": "Correct. The hypotenuse is twice the short leg: 2 \u00d7 6 = 12.",
+            "incorrect": "In a 30-60-90 triangle the hypotenuse is twice the short leg."
+          },
+          "strongHint": "Hypotenuse = 2 \u00d7 short leg = 2 \u00d7 6."
+        },
+        {
+          "id": "spec_30_short_long_4",
+          "prompt": "A 30-60-90 right triangle has a short leg of 4. Find the long leg (in terms of \u221A3).",
+          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 90, "y": 70 }, "b": { "x": 206, "y": 270 }, "c": { "x": 90, "y": 270 } }, "angleLabels": { "a": "30\u00b0", "b": "60\u00b0" }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "a": "4", "b": "?" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+          "correctAnswer": 4,
+          "unit": "\u221A3",
+          "feedback": {
+            "correct": "Correct. The long leg is the short leg times \u221A3: 4\u221A3.",
+            "incorrect": "In a 30-60-90 triangle the long leg (opposite 60\u00b0) is the short leg times \u221A3."
+          },
+          "strongHint": "Long leg = short leg \u00d7 \u221A3 = 4\u221A3, so enter 4."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "A 30-60-90 triangle has a hypotenuse of 14. Find the short leg (opposite the 30\u00b0 angle).",
+      "problem": {
+        "id": "spec_challenge_30_hyp_14",
+        "prompt": "Short leg",
+        "diagram": { "mode": "static", "variant": "triangle", "triangle": { "vertices": { "a": { "x": 90, "y": 70 }, "b": { "x": 206, "y": 270 }, "c": { "x": 90, "y": 270 } }, "angleLabels": { "a": "30\u00b0", "b": "60\u00b0" }, "rightAngleAt": "c", "rightAngleColor": "green", "sideLabels": { "c": "14", "a": "?" }, "sideColors": { "a": "blue", "b": "orange", "c": "green" } } },
+        "correctAnswer": 7,
+        "feedback": {
+          "correct": "Done. The short leg is half the hypotenuse: 14 \u00f7 2 = 7.",
+          "incorrect": "In a 30-60-90 triangle the short leg is half the hypotenuse."
+        }
+      }
+    }
+  ]
+}

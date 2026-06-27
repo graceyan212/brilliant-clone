@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, Route, Routes, useParams } from 'react-router-dom'
 import { AuthPanel } from './components/auth/AuthPanel'
+import { Confetti } from './components/celebrate/Confetti'
+import { HeroIllustration } from './components/HeroIllustration'
 import { StepRenderer } from './components/lesson/StepRenderer'
 import { getLesson, lessons, type RegisteredLesson } from './content/lessons'
 import { useAuth } from './lib/auth-context'
@@ -29,6 +31,53 @@ function progressView(progress: LessonProgress | null | undefined, total: number
       : `Start ${noun}`
   return { stepsDone, percent, cta }
 }
+
+// The journey map groups lessons under unit headings. The prequiz opens the
+// climb as its own "Warm-up" leg; the rest are keyed by id so the section labels
+// stay correct regardless of progress state.
+function unitFor(lesson: RegisteredLesson): string {
+  if (lesson.kind === 'prequiz') {
+    return 'Warm-up'
+  }
+  const { id } = lesson
+  if (id === 'angles-and-angle-chasing' || id === 'angles-in-a-triangle') {
+    return 'Foundations'
+  }
+  if (id === 'pythagorean-theorem' || id === 'special-right-triangles' || id === 'similar-triangles') {
+    return 'Triangles & Pythagoras'
+  }
+  if (id === 'polygon-angles' || id === 'areas-of-polygons') {
+    return 'Polygons & area'
+  }
+  return 'Circles'
+}
+
+type UnitGroup = { title: string; items: RegisteredLesson[] }
+
+// Groups consecutive lessons by their unit, preserving the course order and never
+// dropping a lesson (anything unmapped falls into the trailing "Circles" group).
+function groupByUnit(items: RegisteredLesson[]): UnitGroup[] {
+  const groups: UnitGroup[] = []
+  for (const lesson of items) {
+    const title = unitFor(lesson)
+    const last = groups[groups.length - 1]
+    if (last && last.title === title) {
+      last.items.push(lesson)
+    } else {
+      groups.push({ title, items: [lesson] })
+    }
+  }
+  return groups
+}
+
+// 1-based position of each lesson in the overall course, used to number the
+// nodes on the journey map so the 17-step climb reads in order.
+const courseNumber = new Map(lessons.map((lesson, index) => [lesson.id, index + 1] as const))
+
+// Lessons counted by the overall progress bar. The prequiz ("Parts of a circle")
+// is a warm-up rather than a graded lesson, so it is excluded and the bar tracks
+// the 16 lessons that make up the four units.
+const progressLessons = lessons.filter((lesson) => lesson.kind !== 'prequiz')
 
 function HomePage() {
   const { user } = useAuth()
@@ -64,41 +113,48 @@ function HomePage() {
     }
   }, [user])
 
-  const featured = lessons[0]
-  const rest = lessons.slice(1)
-  const isPrequiz = featured.kind === 'prequiz'
-  const { stepsDone, percent, cta } = progressView(
-    progressById[featured.id],
-    featured.content.totalSteps,
-    isPrequiz ? 'prequiz' : 'lesson',
-  )
+  const unitGroups = groupByUnit(lessons)
+
+  // Overall course progress, reusing the completion state already fetched above.
+  const completedLessons = progressLessons.filter(
+    (lesson) => progressById[lesson.id]?.completed,
+  ).length
+
+  // The "current" rung is the first lesson the learner has not finished; it is
+  // the highlighted call-to-action on the map and the target of the intro CTA.
+  // null means the course is done.
+  const currentIndex = lessons.findIndex((lesson) => !progressById[lesson.id]?.completed)
+  const currentId = currentIndex === -1 ? null : lessons[currentIndex].id
+
+  // The intro's primary action points at that current rung (or back to the first
+  // lesson once everything is complete), labelled to match whether the learner
+  // has started the course yet.
+  const courseComplete = currentIndex === -1
+  const nextLesson = lessons[courseComplete ? 0 : currentIndex]
+  const courseStarted = lessons.some((lesson) => {
+    const progress = progressById[lesson.id]
+    return Boolean(progress?.completed) || (progress?.currentStep ?? 0) > 0
+  })
+  const primaryCta = courseComplete
+    ? 'Review course'
+    : courseStarted
+      ? 'Continue course'
+      : 'Start course'
 
   return (
     <main className="app-shell home">
       <Header />
 
-      {user && <StreakBadge count={activeStreak(streak)} />}
-
-      <section className="lesson-entry">
-        <div className="lesson-entry__diagram">
-          <PreviewDiagram />
-        </div>
-        <div className="lesson-entry__body">
-          {isPrequiz && <span className="lesson-entry__eyebrow">Prequiz</span>}
-          <h1>{featured.title}</h1>
-          <p>{featured.tagline}</p>
-          <div className="progress" role="group" aria-label={`${isPrequiz ? 'Prequiz' : 'Lesson'} progress`}>
-            <div className="progress__track">
-              <span style={{ width: `${percent}%` }} />
-            </div>
-            <span className="progress__count">
-              {progressById[featured.id]?.completed
-                ? 'Completed'
-                : `${stepsDone} of ${featured.content.totalSteps} steps`}
-            </span>
-          </div>
-          <Link className="btn btn--primary" to={featured.path}>
-            {cta}
+      <section className="course-intro">
+        <div className="course-intro__text">
+          <p className="course-intro__eyebrow">Geometry course</p>
+          <h1 className="course-intro__title">Angle Attack</h1>
+          <p className="course-intro__lead">
+            17 lessons across 4 units, from angle-chasing and the Pythagorean theorem to the
+            circle theorems.
+          </p>
+          <Link className="btn btn--primary" to={nextLesson.path}>
+            {primaryCta}
           </Link>
           {!user && (
             <p className="home__hint">
@@ -106,18 +162,200 @@ function HomePage() {
             </p>
           )}
         </div>
-      </section>
-
-      <section className="course-next" aria-label="Lessons">
-        <h2 className="course-next__heading">{isPrequiz ? 'Lessons' : 'More lessons'}</h2>
-        <div className="course-list">
-          {rest.map((lesson) => (
-            <LessonCard key={lesson.id} lesson={lesson} progress={progressById[lesson.id] ?? null} />
-          ))}
-          <ComingSoonCard />
+        <div className="course-intro__visual">
+          <HeroIllustration />
         </div>
       </section>
+
+      <CourseProgress completed={completedLessons} total={progressLessons.length} />
+
+      {user && (
+        <div className="home-stats">
+          <StreakBadge count={activeStreak(streak)} />
+        </div>
+      )}
+
+      <section className="course-next" aria-label="Course journey">
+        <h2 className="course-next__heading">Your journey</h2>
+        <JourneyMap groups={unitGroups} progressById={progressById} currentId={currentId} />
+      </section>
     </main>
+  )
+}
+
+function CourseProgress({ completed, total }: { completed: number; total: number }) {
+  const percent = total > 0 ? Math.round((completed / total) * 100) : 0
+
+  return (
+    <div className="course-progress">
+      <div className="course-progress__head" aria-hidden="true">
+        <span className="course-progress__label">Course progress</span>
+        <span className="course-progress__value">
+          {completed} / {total} lessons &middot; {percent}%
+        </span>
+      </div>
+      <div
+        className="course-progress__track"
+        role="progressbar"
+        aria-label="Course progress"
+        aria-valuemin={0}
+        aria-valuemax={total}
+        aria-valuenow={completed}
+        aria-valuetext={`${completed} of ${total} lessons complete, ${percent}%`}
+      >
+        <span className="course-progress__fill" style={{ width: `${percent}%` }} />
+      </div>
+    </div>
+  )
+}
+
+type NodeState = 'done' | 'current' | 'upcoming'
+
+function JourneyMap({
+  groups,
+  progressById,
+  currentId,
+}: {
+  groups: UnitGroup[]
+  progressById: Record<string, LessonProgress | null>
+  currentId: string | null
+}) {
+  return (
+    <nav className="journey" aria-label="Course map">
+      {groups.map((group) => {
+        const completed = group.items.filter((lesson) => progressById[lesson.id]?.completed).length
+
+        return (
+          <section className="jm-unit" key={group.title}>
+            <div className="jm-unit__head">
+              <h3 className="jm-unit__title">{group.title}</h3>
+              <UnitBadge title={group.title} completed={completed} total={group.items.length} />
+            </div>
+            <ol className="jm-list">
+              {group.items.map((lesson, index) => {
+                const done = progressById[lesson.id]?.completed ?? false
+                const prevDone = index > 0 && (progressById[group.items[index - 1].id]?.completed ?? false)
+                const state: NodeState = done ? 'done' : lesson.id === currentId ? 'current' : 'upcoming'
+
+                return (
+                  <JourneyNode
+                    key={lesson.id}
+                    lesson={lesson}
+                    number={courseNumber.get(lesson.id) ?? index + 1}
+                    progress={progressById[lesson.id] ?? null}
+                    state={state}
+                    showTopRail={index > 0}
+                    showBottomRail={index < group.items.length - 1}
+                    topFilled={prevDone}
+                    bottomFilled={done}
+                  />
+                )
+              })}
+            </ol>
+          </section>
+        )
+      })}
+    </nav>
+  )
+}
+
+function JourneyNode({
+  lesson,
+  number,
+  progress,
+  state,
+  showTopRail,
+  showBottomRail,
+  topFilled,
+  bottomFilled,
+}: {
+  lesson: RegisteredLesson
+  number: number
+  progress: LessonProgress | null
+  state: NodeState
+  showTopRail: boolean
+  showBottomRail: boolean
+  topFilled: boolean
+  bottomFilled: boolean
+}) {
+  const total = lesson.content.totalSteps
+  const { stepsDone } = progressView(progress, total)
+
+  const status =
+    state === 'done'
+      ? 'Completed'
+      : state === 'current'
+        ? stepsDone > 0
+          ? `${stepsDone} of ${total} steps`
+          : 'Start now'
+        : `${total} steps`
+
+  const stateLabel =
+    state === 'done' ? 'Completed' : state === 'current' ? 'Current lesson' : 'Upcoming'
+
+  return (
+    <li className={`jm-node jm-node--${state}`}>
+      <Link
+        className="jm-node__link"
+        to={lesson.path}
+        aria-label={`Lesson ${number}: ${lesson.title}. ${stateLabel}.`}
+        aria-current={state === 'current' ? 'step' : undefined}
+      >
+        <span className="jm-rail" aria-hidden="true">
+          {showTopRail && (
+            <span className={`jm-rail__seg jm-rail__seg--top${topFilled ? ' is-filled' : ''}`} />
+          )}
+          {showBottomRail && (
+            <span
+              className={`jm-rail__seg jm-rail__seg--bottom${bottomFilled ? ' is-filled' : ''}`}
+            />
+          )}
+          <span className="jm-dot">
+            {state === 'done' ? <CheckIcon /> : <span className="jm-dot__num">{number}</span>}
+          </span>
+        </span>
+        <span className="jm-node__body">
+          <span className="jm-node__title">{lesson.title}</span>
+          <span className="jm-node__status">{status}</span>
+        </span>
+        {state === 'current' && (
+          <span className="jm-node__cta">{stepsDone > 0 ? 'Continue' : 'Start'}</span>
+        )}
+      </Link>
+    </li>
+  )
+}
+
+function UnitBadge({
+  title,
+  completed,
+  total,
+}: {
+  title: string
+  completed: number
+  total: number
+}) {
+  const earned = total > 0 && completed === total
+
+  if (earned) {
+    return (
+      <span className="jm-badge is-earned" title={`${title} complete`} aria-label={`${title} unit complete`}>
+        <CheckIcon />
+        <span className="jm-badge__label">Earned</span>
+      </span>
+    )
+  }
+
+  return (
+    <span
+      className="jm-badge is-locked"
+      title={`${completed} of ${total} lessons complete`}
+      aria-label={`${title} unit: ${completed} of ${total} lessons complete`}
+    >
+      <span className="jm-badge__count">
+        {completed}/{total}
+      </span>
+    </span>
   )
 }
 
@@ -282,41 +520,6 @@ function HouseIcon() {
   )
 }
 
-function PreviewDiagram() {
-  return (
-    <svg viewBox="0 0 200 168" role="img" aria-label="A circle with points A, B, and C">
-      <circle className="pv-circle" cx="100" cy="84" r="60" />
-      <line className="pv-chord" x1="110.4" y1="143.1" x2="43.6" y2="63.5" />
-      <line className="pv-chord" x1="110.4" y1="143.1" x2="156.4" y2="63.5" />
-      <line className="pv-base" x1="43.6" y1="63.5" x2="156.4" y2="63.5" />
-      <PreviewPoint x={43.6} y={63.5} label="A" />
-      <PreviewPoint x={156.4} y={63.5} label="B" />
-      <PreviewPoint x={110.4} y={143.1} label="C" accent />
-    </svg>
-  )
-}
-
-function PreviewPoint({
-  x,
-  y,
-  label,
-  accent = false,
-}: {
-  x: number
-  y: number
-  label: string
-  accent?: boolean
-}) {
-  return (
-    <g transform={`translate(${x} ${y})`} className={accent ? 'pv-point is-accent' : 'pv-point'}>
-      <circle r="6" />
-      <text x={label === 'B' ? 12 : label === 'C' ? 0 : -12} y={label === 'C' ? 20 : 4}>
-        {label}
-      </text>
-    </g>
-  )
-}
-
 function LessonPage() {
   const { lessonId } = useParams()
   const registered = getLesson(lessonId)
@@ -335,6 +538,7 @@ function LessonView({ registered }: { registered: RegisteredLesson }) {
   const [maxStepReached, setMaxStepReached] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
   const [hydrating, setHydrating] = useState(true)
+  const [justFinished, setJustFinished] = useState(false)
   const lastIndex = lesson.steps.length - 1
   const currentStep = lesson.steps[currentStepIndex]
 
@@ -384,6 +588,7 @@ function LessonView({ registered }: { registered: RegisteredLesson }) {
     if (currentStepIndex === lastIndex) {
       setIsFinished(true)
       setMaxStepReached(lastIndex)
+      setJustFinished(true)
       persist(lastIndex, true)
       return
     }
@@ -410,9 +615,28 @@ function LessonView({ registered }: { registered: RegisteredLesson }) {
 
   function restart() {
     setIsFinished(false)
+    setJustFinished(false)
     setCurrentStepIndex(0)
     setMaxStepReached(0)
     persist(0, false)
+  }
+
+  // Dev-only navigation shortcuts. `devJump` moves to any step and bumps the
+  // high-water mark so the progress bar stays consistent; `devFinish` drops onto
+  // the completion screen. Both bypass the completion gate without touching the
+  // production logic above (no persistence side effects). Every call site is
+  // wrapped in `import.meta.env.DEV`, so these are stripped from the prod build.
+  function devJump(index: number) {
+    const clamped = Math.min(Math.max(index, 0), lastIndex)
+    setIsFinished(false)
+    setCurrentStepIndex(clamped)
+    setMaxStepReached((reached) => Math.max(reached, clamped))
+  }
+
+  function devFinish() {
+    setCurrentStepIndex(lastIndex)
+    setMaxStepReached(lastIndex)
+    setIsFinished(true)
   }
 
   if (hydrating) {
@@ -432,7 +656,11 @@ function LessonView({ registered }: { registered: RegisteredLesson }) {
       <main className="app-shell notice-shell">
         <Header />
         <section className="notice complete">
-          <div className="complete__badge" aria-hidden="true">
+          {justFinished && <Confetti />}
+          <div
+            className={justFinished ? 'complete__badge is-celebrate' : 'complete__badge'}
+            aria-hidden="true"
+          >
             <CheckIcon />
           </div>
           <h1>{registered.kind === 'prequiz' ? 'Prequiz complete' : 'Lesson complete'}</h1>
@@ -474,6 +702,8 @@ function LessonView({ registered }: { registered: RegisteredLesson }) {
         onContinue={handleContinue}
         onGoToStep={goToStep}
         onBack={goBack}
+        onDevJump={import.meta.env.DEV ? devJump : undefined}
+        onDevFinish={import.meta.env.DEV ? devFinish : undefined}
       />
     </main>
   )

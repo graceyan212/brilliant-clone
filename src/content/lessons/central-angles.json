@@ -1,0 +1,201 @@
+{
+  "lessonId": "central-angles",
+  "title": "Central angles & arc measure",
+  "totalSteps": 9,
+  "steps": [
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "From 12 to 3 is a quarter turn",
+      "graphic": {
+        "name": "clock",
+        "caption": "On a clock, going from 12 to 3 is a quarter of a full turn — a 90° corner at the center. The hands make the angle; the rim they sweep past is the arc."
+      },
+      "legend": [
+        { "color": "teal", "label": "central angle = its arc" }
+      ],
+      "body": "A [central angle](teal) has its corner at the center of the circle, made by two radii — like two clock hands.\nThe [arc](teal) is the curved piece of the rim between the two hands. We measure an arc in DEGREES — the same number as the angle — not in centimeters.\nGo all the way around and you sweep a full turn: 360°."
+    },
+    {
+      "stepId": "exploration",
+      "interactionType": "explore",
+      "prompt": "Drag A and B. Watch the angle and the arc.",
+      "subtitle": "The [central angle](teal) at O and the [arc](teal) it opens onto always read the same number of degrees.",
+      "diagram": { "mode": "interactive", "variant": "arcMeasure", "showReadout": true }
+    },
+    {
+      "stepId": "estimate_arc",
+      "interactionType": "estimate",
+      "prompt": "Open the angle to make a 120° arc",
+      "subtitle": "An [arc](teal) has the same measure as its [central angle](teal). Drag the slider until the angle is about 120° — wider than a square corner (90°) — then check.",
+      "min": 0,
+      "max": 180,
+      "step": 5,
+      "answer": 120,
+      "tolerance": 10,
+      "unit": "°",
+      "start": 40,
+      "visual": "angle",
+      "feedback": {
+        "correct": "",
+        "incorrect": "The arc and the angle are the same number of degrees. Aim for 120° — a bit wider than a right angle."
+      },
+      "revealText": "A 120° central angle opens onto a 120° arc. An arc is measured in degrees, exactly matching the central angle that cuts it off."
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "An arc is measured in degrees",
+      "diagram": {
+        "mode": "static",
+        "variant": "arcMeasure",
+        "centralAngle": 120,
+        "showCentralValue": true,
+        "showArcValue": true
+      },
+      "legend": [
+        { "color": "teal", "label": "central angle = arc" }
+      ],
+      "body": "The measure of an [arc](teal) equals the [central angle](teal) that opens onto it. When the angle is 120°, the arc is 120° too.\nThis is a measure in DEGREES, not a length. A bigger circle has a longer arc in centimeters, but the very same 120° arc measure.\nThe whole circle is one full turn: 360°. So a half circle (a semicircle) is 180°, and a quarter circle is 90°."
+    },
+    {
+      "stepId": "why_arc",
+      "interactionType": "proof",
+      "prompt": "Why the arc matches the angle",
+      "diagram": { "mode": "static", "variant": "central-arc", "centralAngle": 120 },
+      "proofMode": "reveal",
+      "stages": [
+        "Start at the center O. Two radii reach out to A and B, and the angle they make at O is the [central angle](teal) ∠AOB.",
+        "We DEFINE the measure of [arc](teal) AB to be the size of that central angle. So the arc and the angle are the same number — here both 120°.",
+        "Swing one radius all the way around and it turns through one full circle: 360°. That makes a semicircle 180° and a quarter circle 90°."
+      ]
+    },
+    {
+      "stepId": "sort_arcs",
+      "interactionType": "categorize",
+      "prompt": "Minor, major, or semicircle?",
+      "subtitle": "A [minor arc](teal) is less than 180°, a [major arc](red) is more than 180°, and a semicircle is exactly 180° (half the circle). Sort each arc.",
+      "legend": [
+        { "color": "teal", "label": "minor arc (< 180°)" },
+        { "color": "red", "label": "major arc (> 180°)" }
+      ],
+      "buckets": [
+        { "id": "minor", "label": "Minor arc (< 180°)" },
+        { "id": "major", "label": "Major arc (> 180°)" },
+        { "id": "semi", "label": "Semicircle (= 180°)" }
+      ],
+      "items": [
+        { "id": "a40", "label": "40°", "bucket": "minor" },
+        { "id": "a90", "label": "90°", "bucket": "minor" },
+        { "id": "a150", "label": "150°", "bucket": "minor" },
+        { "id": "a180", "label": "180°", "bucket": "semi" },
+        { "id": "a200", "label": "200°", "bucket": "major" },
+        { "id": "a300", "label": "300°", "bucket": "major" }
+      ],
+      "doneNote": "Nice — under 180° is a minor arc, over 180° is a major arc, and exactly 180° is a semicircle."
+    },
+    {
+      "stepId": "debug_arc",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the mistake",
+      "subtitle": "A student measures an arc from its central angle. One line is wrong — tap it.",
+      "lines": [
+        { "id": "l1", "text": "Two radii make a central angle AOB of 80 degrees." },
+        { "id": "l2", "text": "An arc is measured by its central angle, so arc AB = 80 degrees." },
+        { "id": "l3", "text": "The radius is 6 cm, so the arc measure is 6 cm.", "wrong": true },
+        { "id": "l4", "text": "Final answer: arc AB = 6 cm." }
+      ],
+      "explanation": "An [arc](teal) is measured in DEGREES, not centimeters. Arc AB is 80° because its [central angle](teal) is 80°. The 6 cm radius sets how LONG the arc is, but the arc MEASURE stays 80°.",
+      "hint": "An arc measure is an amount of turn in degrees, not a distance. Which line switches to centimeters?",
+      "doneNote": "Exactly — arc measure is in degrees, not a length."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "central-angle",
+      "problems": [
+        {
+          "id": "practice_central_70",
+          "prompt": "The central angle ∠AOB is 70°. Find the measure of arc AB.",
+          "diagram": {
+            "mode": "static",
+            "variant": "arcMeasure",
+            "centralAngle": 70,
+            "showCentralValue": true,
+            "showArcValue": false
+          },
+          "correctAnswer": 70,
+          "unit": "°",
+          "feedback": {
+            "correct": "Correct. An arc has the same measure as its central angle: 70°.",
+            "incorrect": "An arc has the same measure as the central angle that cuts it off."
+          },
+          "strongHint": "The arc equals the central angle, so arc AB = 70°."
+        },
+        {
+          "id": "practice_arc_120",
+          "prompt": "Arc AB measures 120°. Find the central angle ∠AOB.",
+          "diagram": {
+            "mode": "static",
+            "variant": "arcMeasure",
+            "centralAngle": 120,
+            "showCentralValue": false,
+            "showArcValue": true
+          },
+          "correctAnswer": 120,
+          "unit": "°",
+          "feedback": {
+            "correct": "Correct. The central angle matches its arc: 120°.",
+            "incorrect": "The central angle has the same measure as the arc it opens onto."
+          },
+          "strongHint": "The central angle equals the arc, so ∠AOB = 120°."
+        },
+        {
+          "id": "practice_remaining_140",
+          "prompt": "Arc AB measures 140°. Find the major arc from A to B the other way around the circle.",
+          "diagram": {
+            "mode": "static",
+            "variant": "arcMeasure",
+            "centralAngle": 140,
+            "showArcValue": true,
+            "highlightRemaining": true,
+            "showRemainingValue": false
+          },
+          "correctAnswer": 220,
+          "unit": "°",
+          "feedback": {
+            "correct": "Correct. The whole circle is 360°, so 360° − 140° = 220°.",
+            "incorrect": "The two arcs together make the whole circle, 360°."
+          },
+          "strongHint": "Subtract from the whole circle: 360° − 140°."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "The [minor arc](teal) AB measures 95°. Find the [major arc](red) from A to B going the other way around the circle.",
+      "diagram": {
+        "mode": "static",
+        "variant": "arcMeasure",
+        "centralAngle": 95,
+        "showArcValue": true,
+        "highlightRemaining": true,
+        "showRemainingValue": false
+      },
+      "problem": {
+        "id": "challenge_major_95",
+        "prompt": "major arc",
+        "correctAnswer": 265,
+        "unit": "°",
+        "feedback": {
+          "correct": "Done. The whole circle is 360°, so 360° − 95° = 265°.",
+          "incorrect": "The minor and major arcs together fill the whole circle, 360°."
+        },
+        "strongHint": "Subtract from 360°: 360° − 95°."
+      }
+    }
+  ]
+}

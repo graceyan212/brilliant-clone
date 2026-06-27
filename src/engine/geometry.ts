@@ -104,6 +104,43 @@ export function angleSectorPath(vertex: Point, towardA: Point, towardB: Point, r
   return `M ${vertex.x} ${vertex.y} L ${start.x} ${start.y} A ${radius} ${radius} 0 0 ${sweepFlag} ${end.x} ${end.y} Z`
 }
 
+// Area of the triangle ABC via the cross product (half the parallelogram area).
+// The interior angle at a vertex is already covered by `angleBetweenPoints`.
+export function triangleArea(a: Point, b: Point, c: Point): number {
+  return Math.abs((b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y)) / 2
+}
+
+// Area of a simple polygon from its ordered vertices (shoelace formula).
+export function polygonArea(points: Point[]): number {
+  let sum = 0
+  for (let index = 0; index < points.length; index += 1) {
+    const current = points[index]
+    const next = points[(index + 1) % points.length]
+    sum += current.x * next.y - next.x * current.y
+  }
+  return Math.abs(sum) / 2
+}
+
+// Ordered vertices of a regular polygon inscribed in `circle`. `rotationDegrees`
+// is the angle of the first vertex; the default -90 puts a vertex at the top.
+export function regularPolygonPoints(circle: Circle, sides: number, rotationDegrees = -90): Point[] {
+  const points: Point[] = []
+  for (let index = 0; index < sides; index += 1) {
+    points.push(pointOnCircle(circle, rotationDegrees + (fullTurn * index) / sides))
+  }
+  return points
+}
+
+// Sum of the interior angles of an n-gon: (n - 2) x 180.
+export function polygonInteriorAngleSum(sides: number): number {
+  return (sides - 2) * 180
+}
+
+// Each interior angle of a regular n-gon: (n - 2) x 180 / n.
+export function regularPolygonInteriorAngle(sides: number): number {
+  return ((sides - 2) * 180) / sides
+}
+
 function pointAlongRay(start: Point, end: Point, distance: number): Point {
   const vector = {
     x: end.x - start.x,

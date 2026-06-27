@@ -70,6 +70,7 @@ export type Database = {
           current_streak: number
           last_active_date: string | null
           longest_streak: number
+          total_xp: number
           updated_at: string
           user_id: string
         }
@@ -77,6 +78,7 @@ export type Database = {
           current_streak?: number
           last_active_date?: string | null
           longest_streak?: number
+          total_xp?: number
           updated_at?: string
           user_id: string
         }
@@ -84,6 +86,7 @@ export type Database = {
           current_streak?: number
           last_active_date?: string | null
           longest_streak?: number
+          total_xp?: number
           updated_at?: string
           user_id?: string
         }

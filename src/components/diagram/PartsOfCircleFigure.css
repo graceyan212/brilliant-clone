@@ -14,23 +14,23 @@
 }
 
 .part-line.is-radius {
-  stroke: #9c27b0;
+  stroke: var(--tok-purple);
 }
 
 .part-line.is-chord {
-  stroke: #43a047;
+  stroke: var(--tok-green);
 }
 
 .part-line.is-diameter {
-  stroke: #ef6c00;
+  stroke: var(--tok-orange);
 }
 
 .part-line.is-secant {
-  stroke: #1e88e5;
+  stroke: var(--tok-blue);
 }
 
 .part-line.is-tangent {
-  stroke: #c62828;
+  stroke: var(--tok-red);
 }
 
 /* Transparent fat overlay that captures taps for an unfound line. The stroke is
@@ -56,11 +56,11 @@
 }
 
 .part-arrow.is-secant {
-  fill: #1e88e5;
+  fill: var(--tok-blue);
 }
 
 .part-arrow.is-tangent {
-  fill: #c62828;
+  fill: var(--tok-red);
 }
 
 .part-label {
@@ -70,21 +70,21 @@
 }
 
 .part-label.is-radius {
-  fill: #9c27b0;
+  fill: var(--tok-purple);
 }
 
 .part-label.is-chord {
-  fill: #43a047;
+  fill: var(--tok-green);
 }
 
 .part-label.is-diameter {
-  fill: #ef6c00;
+  fill: var(--tok-orange);
 }
 
 .part-label.is-secant {
-  fill: #1e88e5;
+  fill: var(--tok-blue);
 }
 
 .part-label.is-tangent {
-  fill: #c62828;
+  fill: var(--tok-red);
 }

@@ -1,84 +1,101 @@
 {
   "lessonId": "power-of-point",
   "title": "Crossing chords",
-  "totalSteps": 8,
+  "totalSteps": 9,
   "steps": [
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "Two strings crossing in a hoop",
+      "graphic": {
+        "name": "crossing-strings",
+        "caption": "Stretch two strings across a hoop so they cross. The crossing point P chops each string into two pieces — four pieces in all."
+      },
+      "legend": [
+        { "color": "blue", "label": "first chord: pieces PA and PB" },
+        { "color": "orange", "label": "second chord: pieces PC and PD" }
+      ],
+      "body": "A chord is a straight line joining two points on a circle — like a string stretched across a hoop.\nWhen two chords cross at a point P inside the circle, each one is cut into two pieces. On the [first chord](blue) the pieces are PA and PB; on the [second chord](orange) they are PC and PD.\nThis lesson hunts for the rule that ties those four pieces together."
+    },
     {
       "stepId": "terminology",
       "interactionType": "statement",
-      "prompt": "Two chords, four pieces",
-      "diagram": { "mode": "interactive", "variant": "power", "showReadout": false },
-      "body": "When two chords of a circle cross at a point P, they cut each other into four pieces.\nOn one chord the pieces are PA and PB; on the other they are PC and PD.\nDrag a point and watch the four lengths change."
-    },
-    {
-      "stepId": "prediction",
-      "interactionType": "multiple_choice",
-      "advanceOn": "select",
-      "prompt": "As the chords move, what stays true about the four lengths?",
-      "subtitle": "Commit to a guess, then test it.",
-      "diagram": { "mode": "interactive", "variant": "power", "showReadout": false },
-      "options": [
-        { "id": "products", "label": "PA \u00d7 PB always equals PC \u00d7 PD." },
-        { "id": "all_equal", "label": "All four pieces are equal." },
-        { "id": "sums", "label": "PA + PB always equals PC + PD." }
+      "prompt": "Name the four pieces",
+      "diagram": { "mode": "interactive", "variant": "power", "showReadout": false, "power": { "pa": 4, "pb": 6, "pc": 3, "pd": 8, "tint": true } },
+      "legend": [
+        { "color": "blue", "label": "PA and PB (first chord)" },
+        { "color": "orange", "label": "PC and PD (second chord)" }
       ],
-      "correctAnswer": "products",
-      "commitNote": "Prediction saved. Test it in the next step.",
-      "feedback": {
-        "correct": "Test it next: watch PA \u00d7 PB and PC \u00d7 PD as you drag.",
-        "incorrect": "Test it next: watch PA \u00d7 PB and PC \u00d7 PD as you drag."
-      }
+      "body": "Drag a point to reshape the picture. Two chords always cross at P, splitting into [PA](blue), [PB](blue) on the [first chord](blue) and [PC](orange), [PD](orange) on the [second chord](orange).\nEach chord has exactly two pieces. Keep the colours straight: [blue](blue) pieces belong to one chord, [orange](orange) pieces to the other."
     },
     {
       "stepId": "exploration",
       "interactionType": "explore",
-      "prompt": "Drag D. Watch the two products.",
-      "subtitle": "The lengths change, but compare PA \u00d7 PB with PC \u00d7 PD.",
-      "diagram": { "mode": "interactive", "variant": "power", "showReadout": true }
+      "prompt": "Drag D and watch the two products",
+      "subtitle": "The four lengths change as you drag, but compare [PA × PB](blue) with [PC × PD](orange) in the readout.",
+      "legend": [
+        { "color": "blue", "label": "PA × PB" },
+        { "color": "orange", "label": "PC × PD" }
+      ],
+      "diagram": { "mode": "interactive", "variant": "power", "showReadout": true, "power": { "pa": 4, "pb": 6, "pc": 3, "pd": 8, "tint": true } }
     },
     {
-      "stepId": "discover",
-      "interactionType": "multiple_choice",
-      "prompt": "Whatever the shape, PA \u00d7 PB equals\u2026",
-      "diagram": { "mode": "interactive", "variant": "power", "showReadout": true },
-      "options": [
-        { "id": "pcpd", "label": "PC \u00d7 PD." },
-        {
-          "id": "sum",
-          "label": "PC + PD.",
-          "feedback": "Watch the two product readouts as you drag, not the sums."
-        },
-        {
-          "id": "half",
-          "label": "Half of PC \u00d7 PD.",
-          "feedback": "Compare the two readouts directly \u2014 are they equal, or is one half the other?"
-        }
-      ],
-      "correctAnswer": "pcpd",
+      "stepId": "estimate_balance",
+      "interactionType": "estimate",
+      "prompt": "Balance the two products",
+      "subtitle": "On the first chord, [PA × PB](blue) = 24. On the second, [PC](orange) = 3. Drag to set [PD](orange) so [PC × PD](orange) also makes 24.",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "answer": 8,
+      "tolerance": 0,
+      "start": 3,
+      "visual": "bar",
       "feedback": {
-        "correct": "Exactly. PA \u00d7 PB = PC \u00d7 PD, always.",
-        "incorrect": "Watch the two product readouts as you drag D."
-      }
+        "correct": "",
+        "incorrect": "You need 3 × PD = 24. Too small and the product is under 24; too big and it's over."
+      },
+      "revealText": "PD = 8, because 3 × 8 = 24 — exactly matching PA × PB. The two products are always equal."
     },
     {
       "stepId": "state_theorem",
       "interactionType": "statement",
-      "prompt": "The intersecting chords theorem",
-      "diagram": { "mode": "static", "variant": "power", "power": { "pa": 4, "pb": 6, "pc": 3, "pd": 8 } },
-      "body": "When two chords cross at P, the products of their two pieces are equal: PA \u00d7 PB = PC \u00d7 PD. Here 4 \u00d7 6 = 24 and 3 \u00d7 8 = 24."
+      "prompt": "Products, not sums",
+      "diagram": { "mode": "static", "variant": "power", "power": { "pa": 4, "pb": 6, "pc": 3, "pd": 8, "tint": true } },
+      "legend": [
+        { "color": "blue", "label": "PA × PB" },
+        { "color": "orange", "label": "PC × PD" }
+      ],
+      "body": "When two chords cross at P, the two pieces of each chord MULTIPLY to the same value:\n[PA](blue) × [PB](blue) = [PC](orange) × [PD](orange).\nHere [4 × 6](blue) = 24 and [3 × 8](orange) = 24. It is a product of the pieces, never a sum."
     },
     {
       "stepId": "why",
       "interactionType": "proof",
-      "prompt": "Why it works",
+      "prompt": "Why the products match",
       "diagram": { "mode": "static", "variant": "power" },
+      "proofMode": "reorder",
       "stages": [
         "Two chords meet at P, splitting into PA, PB and PC, PD.",
-        "Join A to C and D to B. That makes two triangles, PAC and PDB.",
-        "The angles at P are vertically opposite, so \u2220APC = \u2220DPB.",
-        "\u2220A and \u2220D stand on the same arc CB, so they are equal \u2014 that is last lesson's inscribed-angle idea.",
-        "So triangles PAC and PDB are similar: PA / PD = PC / PB. Cross-multiply to get PA \u00d7 PB = PC \u00d7 PD."
+        "Join A to C and D to B. That builds two triangles, PAC and PDB.",
+        "The angles at P are vertically opposite, so ∠APC = ∠DPB.",
+        "∠A and ∠D open onto the same arc CB, so they are equal — that is last lesson's inscribed-angle idea.",
+        "Two equal angles make triangles PAC and PDB similar, so PA / PD = PC / PB. Cross-multiply: PA × PB = PC × PD."
       ]
+    },
+    {
+      "stepId": "debug",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the slip in this working",
+      "subtitle": "Two chords cross at P with PA = 4, PB = 6, PC = 3. Find PD. One line is wrong — tap it.",
+      "lines": [
+        { "id": "l1", "text": "Crossing chords: PA x PB = PC x PD." },
+        { "id": "l2", "text": "PA x PB = 4 x 6 = 24." },
+        { "id": "l3", "text": "So PC + PD = 24, which gives PD = 24 - 3 = 21.", "wrong": true },
+        { "id": "l4", "text": "So PD = 21." }
+      ],
+      "explanation": "The rule multiplies the pieces: PC × PD, not PC + PD. So 3 × PD = 24, which gives PD = 24 ÷ 3 = 8. You divide, not subtract.",
+      "hint": "Line 1 has a ×, but line 3 switches to +. The two pieces multiply.",
+      "doneNote": "Exactly — it should be 3 × PD = 24, so PD = 8."
     },
     {
       "stepId": "guided_practice",
@@ -89,35 +106,35 @@
         {
           "id": "power_4_6_3",
           "prompt": "Two chords cross at P. PA = 4, PB = 6, and PC = 3. Find PD.",
-          "diagram": { "mode": "static", "variant": "power", "power": { "pa": 4, "pb": 6, "pc": 3, "pd": 8, "unknown": "pd" } },
+          "diagram": { "mode": "static", "variant": "power", "power": { "pa": 4, "pb": 6, "pc": 3, "pd": 8, "unknown": "pd", "tint": true } },
           "correctAnswer": 8,
           "feedback": {
-            "correct": "Correct. 4 \u00d7 6 = 24, and 24 \u00f7 3 = 8.",
+            "correct": "Correct. 4 × 6 = 24, and 24 ÷ 3 = 8.",
             "incorrect": "The two parts of one chord multiply to the same as the other chord's two parts."
           },
-          "strongHint": "PA \u00d7 PB = PC \u00d7 PD, so PD = (4 \u00d7 6) \u00f7 3."
+          "strongHint": "PA × PB = PC × PD, so PD = (4 × 6) ÷ 3."
         },
         {
           "id": "power_6_6_4",
           "prompt": "Two chords cross at P. PA = 6, PB = 6, and PC = 4. Find PD.",
-          "diagram": { "mode": "static", "variant": "power", "power": { "pa": 6, "pb": 6, "pc": 4, "pd": 9, "unknown": "pd" } },
+          "diagram": { "mode": "static", "variant": "power", "power": { "pa": 6, "pb": 6, "pc": 4, "pd": 9, "unknown": "pd", "tint": true } },
           "correctAnswer": 9,
           "feedback": {
-            "correct": "Correct. 6 \u00d7 6 = 36, and 36 \u00f7 4 = 9.",
+            "correct": "Correct. 6 × 6 = 36, and 36 ÷ 4 = 9.",
             "incorrect": "The two parts of one chord multiply to the same as the other chord's two parts."
           },
-          "strongHint": "PA \u00d7 PB = PC \u00d7 PD, so PD = (6 \u00d7 6) \u00f7 4."
+          "strongHint": "PA × PB = PC × PD, so PD = (6 × 6) ÷ 4."
         },
         {
           "id": "power_3_8_6",
           "prompt": "Two chords cross at P. PA = 3, PB = 8, and PC = 6. Find PD.",
-          "diagram": { "mode": "static", "variant": "power", "power": { "pa": 3, "pb": 8, "pc": 6, "pd": 4, "unknown": "pd" } },
+          "diagram": { "mode": "static", "variant": "power", "power": { "pa": 3, "pb": 8, "pc": 6, "pd": 4, "unknown": "pd", "tint": true } },
           "correctAnswer": 4,
           "feedback": {
-            "correct": "Correct. 3 \u00d7 8 = 24, and 24 \u00f7 6 = 4.",
+            "correct": "Correct. 3 × 8 = 24, and 24 ÷ 6 = 4.",
             "incorrect": "The two parts of one chord multiply to the same as the other chord's two parts."
           },
-          "strongHint": "PA \u00d7 PB = PC \u00d7 PD, so PD = (3 \u00d7 8) \u00f7 6."
+          "strongHint": "PA × PB = PC × PD, so PD = (3 × 8) ÷ 6."
         }
       ]
     },
@@ -125,16 +142,18 @@
       "stepId": "challenge",
       "interactionType": "numeric",
       "prompt": "Quiz",
-      "subtitle": "Two chords cross at P. PA = 5, PB = 8, and PC = 4. Find PD.",
+      "subtitle": "Two chords cross at P. [PA](blue) = 5, [PB](blue) = 8, and [PC](orange) = 4. Find [PD](orange).",
+      "diagram": { "mode": "static", "variant": "power", "power": { "pa": 5, "pb": 8, "pc": 4, "pd": 10, "unknown": "pd", "tint": true } },
       "problem": {
         "id": "power_challenge_5_8_4",
         "prompt": "PD",
-        "diagram": { "mode": "static", "variant": "power", "power": { "pa": 5, "pb": 8, "pc": 4, "pd": 10, "unknown": "pd" } },
+        "diagram": { "mode": "static", "variant": "power", "power": { "pa": 5, "pb": 8, "pc": 4, "pd": 10, "unknown": "pd", "tint": true } },
         "correctAnswer": 10,
         "feedback": {
-          "correct": "Done. 5 \u00d7 8 = 40, and 40 \u00f7 4 = 10.",
-          "incorrect": "PA \u00d7 PB = PC \u00d7 PD \u2014 divide the product by PC."
-        }
+          "correct": "Done. 5 × 8 = 40, and 40 ÷ 4 = 10.",
+          "incorrect": "PA × PB = PC × PD — divide the product by PC."
+        },
+        "strongHint": "PD = (5 × 8) ÷ 4."
       }
     }
   ]

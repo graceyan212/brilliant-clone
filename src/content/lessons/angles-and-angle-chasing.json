@@ -1,0 +1,216 @@
+{
+  "lessonId": "angles-and-angle-chasing",
+  "title": "Angles & angle-chasing",
+  "totalSteps": 10,
+  "steps": [
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "Angles show up wherever lines cross",
+      "graphic": {
+        "name": "parallel-roads",
+        "caption": "Two parallel roads crossed by a diagonal one. Everywhere a line crosses another, angles appear \u2014 and they follow a few simple rules."
+      },
+      "legend": [
+        { "color": "purple", "label": "vertical angles" },
+        { "color": "blue", "label": "corresponding angles" }
+      ],
+      "body": "When two lines cross, the angles they make aren't random \u2014 they come in matching pairs.\nIn this lesson you'll learn to \u201cchase\u201d an angle across a diagram: start from one angle you know and hop to the others using a few rules. Each kind of angle keeps its own colour so you can spot it fast."
+    },
+    {
+      "stepId": "explore",
+      "interactionType": "explore",
+      "prompt": "Tilt the crossing line and watch the blue angles",
+      "subtitle": "Drag the handle to rotate the diagonal line. The two [corresponding angles](blue) are highlighted \u2014 see whether they stay equal as you tilt.",
+      "diagram": { "mode": "interactive", "variant": "angles", "angles": { "highlight": "corresponding" }, "showReadout": true }
+    },
+    {
+      "stepId": "estimate_obtuse",
+      "interactionType": "estimate",
+      "prompt": "Train your eye: make a 120\u00b0 angle",
+      "subtitle": "Drag the slider until the angle looks like 120\u00b0 \u2014 a bit wider than a square corner (90\u00b0). Trust your eyes first, then check.",
+      "min": 0,
+      "max": 180,
+      "step": 5,
+      "answer": 120,
+      "tolerance": 10,
+      "unit": "\u00b0",
+      "start": 55,
+      "visual": "angle",
+      "feedback": {
+        "correct": "",
+        "incorrect": "A square corner is 90\u00b0. 120\u00b0 is clearly wider than that \u2014 open it a bit more or less."
+      },
+      "revealText": "That's about 120\u00b0 \u2014 an obtuse angle (wider than 90\u00b0 but less than 180\u00b0). Getting a feel for sizes makes the rules click."
+    },
+    {
+      "stepId": "sort_pairs",
+      "interactionType": "categorize",
+      "prompt": "Equal, or add up to 180\u00b0?",
+      "subtitle": "Some angle pairs are always equal; others are supplementary \u2014 they add to 180\u00b0. Tap a card, then tap its group.",
+      "legend": [
+        { "color": "purple", "label": "vertical" },
+        { "color": "blue", "label": "corresponding" },
+        { "color": "red", "label": "alternate interior" }
+      ],
+      "buckets": [
+        { "id": "equal", "label": "Always equal" },
+        { "id": "supp", "label": "Add up to 180\u00b0" }
+      ],
+      "items": [
+        { "id": "vertical", "label": "[Vertical angles](purple)", "bucket": "equal" },
+        { "id": "corresponding", "label": "[Corresponding angles](blue)", "bucket": "equal" },
+        { "id": "alternate", "label": "[Alternate interior angles](red)", "bucket": "equal" },
+        { "id": "straight", "label": "[Angles on a straight line](orange)", "bucket": "supp" },
+        { "id": "cointerior", "label": "[Co-interior angles](teal)", "bucket": "supp" }
+      ],
+      "doneNote": "Sorted! Equal pairs: vertical, corresponding, alternate. Supplementary (180\u00b0) pairs: straight-line and co-interior."
+    },
+    {
+      "stepId": "rules",
+      "interactionType": "statement",
+      "prompt": "Your angle-chasing toolkit",
+      "diagram": { "mode": "static", "variant": "angles", "angles": { "highlight": "rules", "angle": 32, "showValues": true } },
+      "body": "At any crossing: [vertical angles](purple) (straight across from each other) are equal, and two angles on a straight line add to 180\u00b0.\nAcross two parallel lines: [corresponding angles](blue) (same corner at each crossing) are equal, [alternate interior angles](red) (the Z-shape) are equal, and co-interior angles (the C-shape) add to 180\u00b0."
+    },
+    {
+      "stepId": "find_equal",
+      "interactionType": "multi_select",
+      "prompt": "Which angles must also be 70\u00b0?",
+      "subtitle": "Two parallel lines are cut by a transversal, and one angle is [70\u00b0](orange). Select every angle that has to be 70\u00b0 too.",
+      "diagram": { "mode": "static", "variant": "angles", "angles": { "highlight": "corresponding", "angle": 28, "markedLabel": "70\u00b0", "partnerLabel": "?" } },
+      "options": [
+        { "id": "vert", "label": "Its [vertical angle](purple)", "correct": true },
+        { "id": "corr", "label": "Its [corresponding angle](blue)", "correct": true },
+        { "id": "alt", "label": "Its [alternate interior angle](red)", "correct": true },
+        { "id": "straight", "label": "Its neighbour on the straight line", "correct": false },
+        { "id": "coint", "label": "Its co-interior angle", "correct": false }
+      ],
+      "feedback": {
+        "correct": "Yes! Vertical, corresponding, and alternate angles all copy the 70\u00b0. The straight-line neighbour and the co-interior angle are 110\u00b0 instead \u2014 they fill up to 180\u00b0.",
+        "incorrect": "Equal pairs copy the angle; supplementary pairs make 180\u00b0. The straight-line neighbour and co-interior angle are 110\u00b0, not 70\u00b0."
+      }
+    },
+    {
+      "stepId": "visual_proof",
+      "interactionType": "proof",
+      "proofMode": "reason",
+      "prompt": "Proof: parallel lines make equal angles",
+      "diagram": { "mode": "static", "variant": "parallel-angles" },
+      "gates": [
+        {
+          "prompt": "Slide the top crossing straight down onto the bottom one. Why does the corresponding angle match?",
+          "choices": [
+            { "id": "parallel", "label": "The lines are parallel, so the picture lands exactly on itself." },
+            { "id": "vertical", "label": "Because vertical angles are equal." },
+            { "id": "perp", "label": "Because the transversal is perpendicular." }
+          ],
+          "answer": "parallel",
+          "hint": "Parallel lines make the two crossings identical copies."
+        },
+        {
+          "prompt": "At the bottom crossing, the angle vertically opposite that 70\u00b0 is\u2026",
+          "choices": [
+            { "id": "70", "label": "also 70\u00b0 \u2014 vertical angles are equal." },
+            { "id": "110", "label": "110\u00b0." },
+            { "id": "90", "label": "90\u00b0." }
+          ],
+          "answer": "70",
+          "hint": "Vertical angles are equal."
+        },
+        {
+          "prompt": "That 70\u00b0 and the first 70\u00b0 are alternate interior angles. The 70\u00b0's straight-line neighbour is\u2026",
+          "choices": [
+            { "id": "110", "label": "110\u00b0, so co-interior angles add to 180\u00b0." },
+            { "id": "70", "label": "70\u00b0 as well." },
+            { "id": "90", "label": "90\u00b0." }
+          ],
+          "answer": "110",
+          "hint": "Angles on a straight line sum to 180\u00b0: 180\u00b0 \u2212 70\u00b0."
+        }
+      ],
+      "stages": [
+        "A transversal cuts two parallel lines. Mark one angle where it meets the top line \u2014 here it is 70\u00b0.",
+        "Slide that crossing straight down onto the bottom one. Because the lines are parallel, the picture lands exactly on itself, so the corresponding angle is also 70\u00b0.",
+        "At the bottom crossing, the angle vertically opposite is equal too \u2014 another 70\u00b0. It sits between the lines, on the far side of the transversal.",
+        "That 70\u00b0 is the alternate interior angle of the first, so alternate interior angles are equal. Its neighbour on the straight line is 110\u00b0, so co-interior angles add to 70\u00b0 + 110\u00b0 = 180\u00b0."
+      ]
+    },
+    {
+      "stepId": "debug_chase",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Find the slip in this angle-chase",
+      "subtitle": "Two parallel lines are cut by a transversal, and someone chased the angles to find x. One line is wrong \u2014 tap it.",
+      "lines": [
+        { "id": "l1", "text": "The given angle is 75 degrees." },
+        { "id": "l2", "text": "Its vertical angle is also 75 degrees (vertical angles are equal)." },
+        { "id": "l3", "text": "x is the co-interior angle of that 75 degrees, so x = 75 degrees (co-interior angles are equal).", "wrong": true },
+        { "id": "l4", "text": "So x = 75 degrees." }
+      ],
+      "explanation": "Co-interior angles are supplementary, not equal \u2014 they add to 180\u00b0. So x = 180\u00b0 \u2212 75\u00b0 = 105\u00b0, which makes the final answer wrong too.",
+      "hint": "Check the reason written on each line. Which pair adds to 180\u00b0 instead of being equal?",
+      "doneNote": "Right \u2014 that's exactly where it goes wrong."
+    },
+    {
+      "stepId": "guided_practice",
+      "interactionType": "practice",
+      "prompt": "Practice",
+      "morePracticeKind": "angles",
+      "problems": [
+        {
+          "id": "angles_alt_50",
+          "prompt": "Two parallel lines are cut by a transversal. An interior angle is 50\u00b0. Find its alternate interior angle.",
+          "diagram": { "mode": "static", "variant": "angles", "angles": { "highlight": "alternate", "angle": 40, "markedLabel": "50\u00b0", "partnerLabel": "?" } },
+          "correctAnswer": 50,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. Alternate interior angles (the Z shape) are equal: 50\u00b0.",
+            "incorrect": "Alternate interior angles form a Z between the parallel lines, so they are equal."
+          },
+          "strongHint": "Alternate interior angles are equal, so the answer is 50\u00b0."
+        },
+        {
+          "id": "angles_coint_115",
+          "prompt": "Two parallel lines are cut by a transversal. Two co-interior angles lie on the same side, between the lines. One is 115\u00b0. Find the other.",
+          "diagram": { "mode": "static", "variant": "angles", "angles": { "highlight": "cointerior", "angle": 25, "markedLabel": "115\u00b0", "partnerLabel": "?" } },
+          "correctAnswer": 65,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. Co-interior angles are supplementary: 180\u00b0 \u2212 115\u00b0 = 65\u00b0.",
+            "incorrect": "Co-interior (same-side interior) angles add to 180\u00b0."
+          },
+          "strongHint": "Co-interior angles sum to 180\u00b0: 180\u00b0 \u2212 115\u00b0."
+        },
+        {
+          "id": "angles_chain_62",
+          "prompt": "\u22201 and \u22202 are vertical angles. \u22202 and \u22203 are corresponding angles where a transversal cuts two parallel lines. If \u22201 = 62\u00b0, find \u22203.",
+          "diagram": { "mode": "static", "variant": "angles", "angles": { "highlight": "corresponding", "angle": 28, "markedLabel": "62\u00b0", "partnerLabel": "?" } },
+          "correctAnswer": 62,
+          "unit": "\u00b0",
+          "feedback": {
+            "correct": "Correct. \u22201 = \u22202 (vertical) and \u22202 = \u22203 (corresponding), so \u22203 = 62\u00b0.",
+            "incorrect": "Chase it one link at a time: vertical angles are equal, then corresponding angles are equal."
+          },
+          "strongHint": "Each link keeps the angle the same, so \u22203 = 62\u00b0."
+        }
+      ]
+    },
+    {
+      "stepId": "challenge",
+      "interactionType": "numeric",
+      "prompt": "Quiz",
+      "subtitle": "Two parallel lines are cut by a transversal. One co-interior angle is 130\u00b0. Find the other co-interior angle.",
+      "problem": {
+        "id": "angles_challenge_130",
+        "prompt": "Other angle",
+        "diagram": { "mode": "static", "variant": "angles", "angles": { "highlight": "cointerior", "angle": 40, "markedLabel": "130\u00b0", "partnerLabel": "?" } },
+        "correctAnswer": 50,
+        "unit": "\u00b0",
+        "feedback": {
+          "correct": "Done. Co-interior angles are supplementary, so 180\u00b0 \u2212 130\u00b0 = 50\u00b0.",
+          "incorrect": "Co-interior angles add to 180\u00b0 \u2014 subtract from 180\u00b0."
+        }
+      }
+    }
+  ]
+}

@@ -16,6 +16,7 @@ import {
   normalizeDegrees,
   pointOnCircle,
 } from '../../engine/geometry'
+import { tokenColorVar } from '../lesson/palette'
 import './CircleDiagram.css'
 
 const circle: Circle = {
@@ -88,6 +89,8 @@ type PowerOfPointDiagramProps = {
   pc?: number
   pd?: number
   unknown?: 'pa' | 'pb' | 'pc' | 'pd'
+  /** Colour-match the chords: PA/PB (chord AB) = blue, PC/PD (chord CD) = orange. */
+  tint?: boolean
   onInteract?: () => void
 }
 
@@ -99,6 +102,7 @@ export function PowerOfPointDiagram({
   pc,
   pd,
   unknown,
+  tint = false,
   onInteract,
 }: PowerOfPointDiagramProps) {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -243,8 +247,22 @@ export function PowerOfPointDiagram({
       >
         <circle className="diagram__circle" cx={circle.center.x} cy={circle.center.y} r={circle.radius} />
 
-        <line className="diagram__chord" x1={a.x} y1={a.y} x2={b.x} y2={b.y} />
-        <line className="diagram__chord" x1={c.x} y1={c.y} x2={d.x} y2={d.y} />
+        <line
+          className="diagram__chord"
+          x1={a.x}
+          y1={a.y}
+          x2={b.x}
+          y2={b.y}
+          style={tint ? { stroke: tokenColorVar('blue'), strokeWidth: 3 } : undefined}
+        />
+        <line
+          className="diagram__chord"
+          x1={c.x}
+          y1={c.y}
+          x2={d.x}
+          y2={d.y}
+          style={tint ? { stroke: tokenColorVar('orange'), strokeWidth: 3 } : undefined}
+        />
 
         {p && (
           <g className="diagram__point" transform={`translate(${p.x} ${p.y})`}>
@@ -302,10 +320,14 @@ export function PowerOfPointDiagram({
               return null
             }
             const pos = segmentLabelPos(p, end, labelOffset)
+            const tintFill = tint
+              ? { fill: tokenColorVar(key === 'pa' || key === 'pb' ? 'blue' : 'orange') }
+              : undefined
             return (
               <text
                 key={key}
                 className={`diagram__value ${tone}`}
+                style={tintFill}
                 x={pos.x}
                 y={pos.y}
                 textAnchor="middle"

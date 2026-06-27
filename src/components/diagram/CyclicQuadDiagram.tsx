@@ -16,7 +16,17 @@ import {
   normalizeDegrees,
   pointOnCircle,
 } from '../../engine/geometry'
+import { tokenColorVar } from '../lesson/palette'
 import './CircleDiagram.css'
+
+// Colour-matched (tint) styles: the two opposite angle pairs in distinct hues —
+// A & C = magenta, B & D = orange — so "opposite angles" reads at a glance.
+const acFill = { fill: tokenColorVar('magenta'), fillOpacity: 0.25 }
+const acStroke = { stroke: tokenColorVar('magenta') }
+const acText = { fill: tokenColorVar('magenta') }
+const bdFill = { fill: tokenColorVar('orange'), fillOpacity: 0.25 }
+const bdStroke = { stroke: tokenColorVar('orange') }
+const bdText = { fill: tokenColorVar('orange') }
 
 const circle: Circle = {
   center: { x: 180, y: 180 },
@@ -78,6 +88,11 @@ type CyclicQuadDiagramProps = {
   givenA?: number
   show?: ('A' | 'C')[]
   rotate?: number
+  /**
+   * Colour the two opposite angle pairs distinctly (A & C = magenta, B & D =
+   * orange) and additionally draw the B & D angle marks. Defaults off.
+   */
+  tint?: boolean
   onInteract?: () => void
 }
 
@@ -87,6 +102,7 @@ export function CyclicQuadDiagram({
   givenA,
   show = [],
   rotate = 0,
+  tint = false,
   onInteract,
 }: CyclicQuadDiagramProps) {
   const svgRef = useRef<SVGSVGElement>(null)
@@ -120,6 +136,8 @@ export function CyclicQuadDiagram({
   const d = pointOnCircle(circle, angles.d)
   const angleA = Math.round(angleBetweenPoints(a, d, b))
   const angleC = Math.round(angleBetweenPoints(c, b, d))
+  const angleB = Math.round(angleBetweenPoints(b, a, c))
+  const angleD = Math.round(angleBetweenPoints(d, c, a))
   const sum = angleA + angleC
 
   function moveTo(clientX: number, clientY: number) {
@@ -198,6 +216,8 @@ export function CyclicQuadDiagram({
 
   const aLabelPos = bisector(a, d, b, 42)
   const cLabelPos = bisector(c, b, d, 42)
+  const bLabelPos = bisector(b, a, c, 42)
+  const dLabelPos = bisector(d, c, a, 42)
   const aTextValue = valueText('A')
   const cTextValue = valueText('C')
 
@@ -220,16 +240,28 @@ export function CyclicQuadDiagram({
       >
         <circle className="diagram__circle" cx={circle.center.x} cy={circle.center.y} r={circle.radius} />
 
-        <path className="diagram__angle-fill" d={angleSectorPath(a, d, b, arcRadius)} />
-        <path className="diagram__central-fill" d={angleSectorPath(c, b, d, arcRadius)} />
+        <path className="diagram__angle-fill" style={tint ? acFill : undefined} d={angleSectorPath(a, d, b, arcRadius)} />
+        <path className="diagram__central-fill" style={tint ? acFill : undefined} d={angleSectorPath(c, b, d, arcRadius)} />
+        {tint && (
+          <>
+            <path className="diagram__angle-fill" style={bdFill} d={angleSectorPath(b, a, c, arcRadius)} />
+            <path className="diagram__angle-fill" style={bdFill} d={angleSectorPath(d, c, a, arcRadius)} />
+          </>
+        )}
 
         <line className="diagram__chord" x1={a.x} y1={a.y} x2={b.x} y2={b.y} />
         <line className="diagram__chord" x1={b.x} y1={b.y} x2={c.x} y2={c.y} />
         <line className="diagram__chord" x1={c.x} y1={c.y} x2={d.x} y2={d.y} />
         <line className="diagram__chord" x1={d.x} y1={d.y} x2={a.x} y2={a.y} />
 
-        <path className="diagram__angle" d={angleArcPath(a, d, b, arcRadius)} />
-        <path className="diagram__central" d={angleArcPath(c, b, d, arcRadius)} />
+        <path className="diagram__angle" style={tint ? acStroke : undefined} d={angleArcPath(a, d, b, arcRadius)} />
+        <path className="diagram__central" style={tint ? acStroke : undefined} d={angleArcPath(c, b, d, arcRadius)} />
+        {tint && (
+          <>
+            <path className="diagram__angle" style={bdStroke} d={angleArcPath(b, a, c, arcRadius)} />
+            <path className="diagram__angle" style={bdStroke} d={angleArcPath(d, c, a, arcRadius)} />
+          </>
+        )}
 
         {vertices.map(({ key, label, point, angle }) => {
           const outward = pointOnCircle({ center: circle.center, radius: circle.radius + 18 }, angle)
@@ -274,6 +306,7 @@ export function CyclicQuadDiagram({
         {aTextValue && (
           <text
             className="diagram__value is-angle"
+            style={tint ? acText : undefined}
             x={aLabelPos.x}
             y={aLabelPos.y}
             textAnchor="middle"
@@ -285,6 +318,7 @@ export function CyclicQuadDiagram({
         {cTextValue && (
           <text
             className="diagram__value is-central"
+            style={tint ? acText : undefined}
             x={cLabelPos.x}
             y={cLabelPos.y}
             textAnchor="middle"
@@ -292,6 +326,30 @@ export function CyclicQuadDiagram({
           >
             {cTextValue}
           </text>
+        )}
+        {tint && showValues && (
+          <>
+            <text
+              className="diagram__value is-angle"
+              style={bdText}
+              x={bLabelPos.x}
+              y={bLabelPos.y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+            >
+              {angleB}&deg;
+            </text>
+            <text
+              className="diagram__value is-angle"
+              style={bdText}
+              x={dLabelPos.x}
+              y={dLabelPos.y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+            >
+              {angleD}&deg;
+            </text>
+          </>
         )}
       </svg>
 

@@ -1,0 +1,40 @@
+/* Triangle-specific marks; the base diagram classes come from CircleDiagram.css. */
+
+.triangle__fill {
+  fill: color-mix(in srgb, var(--accent) 7%, transparent);
+  stroke: none;
+}
+
+/* Small square tucked into a 90 deg corner. Pops in once when the angle first
+   reaches a right angle (disabled under reduced motion below). */
+.triangle__right-angle {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  animation: triangle-pop 0.25s ease-out both;
+}
+
+/* Second, scaled similar triangle drawn over the base figure. */
+.triangle__overlay {
+  fill: none;
+  stroke: var(--arc);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  stroke-linejoin: round;
+}
+
+@keyframes triangle-pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .triangle__right-angle {
+    animation: none;
+  }
+}
