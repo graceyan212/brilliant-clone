@@ -14,6 +14,14 @@
   border-radius: 14px;
 }
 
+/* The first <rect> in every scene is its full-bleed backdrop, authored as a
+   near-white (--surface) tint. Override that inline presentation fill so the
+   header illustration blends into the page background (--paper) instead of
+   reading as a white card. CSS beats the SVG `fill` attribute. */
+.scene__svg svg > rect:first-child {
+  fill: transparent;
+}
+
 .scene__caption {
   margin-top: 8px;
   color: var(--ink-3);
