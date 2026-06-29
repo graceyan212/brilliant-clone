@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      concept_reviews: {
+        Row: {
+          box: number
+          clean_correct: number
+          due_date: string | null
+          last_seen: string | null
+          mastered: boolean
+          seen: number
+          topic: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          box?: number
+          clean_correct?: number
+          due_date?: string | null
+          last_seen?: string | null
+          mastered?: boolean
+          seen?: number
+          topic: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          box?: number
+          clean_correct?: number
+          due_date?: string | null
+          last_seen?: string | null
+          mastered?: boolean
+          seen?: number
+          topic?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       lesson_progress: {
         Row: {
           completed: boolean

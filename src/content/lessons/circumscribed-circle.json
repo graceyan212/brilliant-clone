@@ -1,39 +1,41 @@
 {
   "lessonId": "circumscribed-circle",
   "title": "Circumscribed circle",
-  "totalSteps": 10,
+  "totalSteps": 8,
   "steps": [
-    {
-      "stepId": "hook",
-      "interactionType": "statement",
-      "prompt": "One tower for three towns",
-      "graphic": {
-        "name": "three-towns",
-        "caption": "Three towns need one signal tower that reaches all of them equally. Where do you build it?"
-      },
-      "legend": [
-        { "color": "green", "label": "equal distances OA = OB = OC" },
-        { "color": "orange", "label": "perpendicular bisectors" }
-      ],
-      "body": "Three towns want a single tower that is the same distance from all three — equidistant just means \"equally far from each.\"\nThat perfect spot is the circumcenter, O. A circle centred at O passes right through all three towns at once.\nThe circle through all three corners of a triangle is its circumscribed circle, and O is its centre."
-    },
     {
       "stepId": "exploration",
       "interactionType": "explore",
       "prompt": "Drag the corners and watch the three distances",
-      "subtitle": "Compare [OA, OB, and OC](green) in the readout as the triangle changes shape.",
-      "legend": [
-        { "color": "green", "label": "OA = OB = OC" }
-      ],
-      "diagram": { "mode": "interactive", "variant": "circumcircle", "showReadout": true, "circumcircle": { "kind": "general", "tint": true } }
+      "subtitle": "Three towns want one signal tower the same distance from each. Compare [OA, OB, and OC](green) in the readout as the triangle changes shape — that equal-distance spot is the centre O.",
+      "diagram": {
+        "mode": "interactive",
+        "variant": "circumcircle",
+        "showReadout": true,
+        "circumcircle": {
+          "kind": "general",
+          "tint": true
+        }
+      }
     },
     {
       "stepId": "discover",
       "interactionType": "multiple_choice",
       "prompt": "Wherever you drag, the centre O is…",
-      "diagram": { "mode": "interactive", "variant": "circumcircle", "showReadout": true, "circumcircle": { "kind": "general", "tint": true } },
+      "diagram": {
+        "mode": "interactive",
+        "variant": "circumcircle",
+        "showReadout": true,
+        "circumcircle": {
+          "kind": "general",
+          "tint": true
+        }
+      },
       "options": [
-        { "id": "equidistant", "label": "the same distance from all three corners." },
+        {
+          "id": "equidistant",
+          "label": "the same distance from all three corners."
+        },
         {
           "id": "centroid",
           "label": "the average of the three corners (the centroid).",
@@ -55,26 +57,41 @@
       "stepId": "state_theorem",
       "interactionType": "statement",
       "prompt": "Where the perpendicular bisectors meet",
-      "diagram": { "mode": "static", "variant": "circumcircle", "circumcircle": { "kind": "general", "tint": true } },
-      "legend": [
-        { "color": "green", "label": "equal radii OA = OB = OC" },
-        { "color": "orange", "label": "perpendicular bisectors" }
-      ],
-      "body": "A perpendicular bisector of a side is the line that cuts it in half at a right angle. Every point on it is equally far from that side's two endpoints.\nThe three [perpendicular bisectors](orange) of a triangle's sides all pass through one point — the circumcenter O.\nSince O sits on every bisector, it is the same distance from all three corners, so one circle centred at O passes through them all."
+      "diagram": {
+        "mode": "static",
+        "variant": "circumcircle",
+        "circumcircle": {
+          "kind": "general",
+          "tint": true
+        }
+      },
+      "body": "A perpendicular bisector of a side is the line that cuts it in half at a right angle. Every point on it is equally far from that side's two endpoints.\nThe three [perpendicular bisectors](orange) of a triangle's sides all pass through one point — the circumcenter O.\nSince O sits on every bisector, it is the same distance from all three corners, so one circle centred at O passes through them all. That circle is the circumscribed circle."
     },
     {
       "stepId": "why",
       "interactionType": "proof",
       "prompt": "Why the bisectors meet at one point",
-      "diagram": { "mode": "static", "variant": "circumcircle" },
+      "diagram": {
+        "mode": "static",
+        "variant": "circumcircle"
+      },
       "proofMode": "reason",
       "gates": [
         {
           "prompt": "Which line is exactly the set of points equally far from A and B?",
           "choices": [
-            { "id": "perp", "label": "The perpendicular bisector of AB." },
-            { "id": "ab", "label": "The line AB itself." },
-            { "id": "angle", "label": "The angle bisector at C." }
+            {
+              "id": "perp",
+              "label": "The perpendicular bisector of AB."
+            },
+            {
+              "id": "ab",
+              "label": "The line AB itself."
+            },
+            {
+              "id": "angle",
+              "label": "The angle bisector at C."
+            }
           ],
           "answer": "perp",
           "hint": "\"Equally far from two points\" is the perpendicular bisector of the segment joining them."
@@ -82,9 +99,18 @@
         {
           "prompt": "We draw a second such line. For which side?",
           "choices": [
-            { "id": "bc", "label": "BC — its perpendicular bisector (points equally far from B and C)." },
-            { "id": "ab", "label": "AB again." },
-            { "id": "tan", "label": "The tangent at B." }
+            {
+              "id": "bc",
+              "label": "BC — its perpendicular bisector (points equally far from B and C)."
+            },
+            {
+              "id": "ab",
+              "label": "AB again."
+            },
+            {
+              "id": "tan",
+              "label": "The tangent at B."
+            }
           ],
           "answer": "bc",
           "hint": "Use a second side to pin the point down."
@@ -92,9 +118,18 @@
         {
           "prompt": "The two bisectors cross at O. What does lying on both tell us?",
           "choices": [
-            { "id": "equal", "label": "OA = OB and OB = OC, so OA = OB = OC." },
-            { "id": "mid", "label": "O is the midpoint of AB." },
-            { "id": "side", "label": "O lies on side BC." }
+            {
+              "id": "equal",
+              "label": "OA = OB and OB = OC, so OA = OB = OC."
+            },
+            {
+              "id": "mid",
+              "label": "O is the midpoint of AB."
+            },
+            {
+              "id": "side",
+              "label": "O lies on side BC."
+            }
           ],
           "answer": "equal",
           "hint": "Each bisector keeps O equally far from that side's two endpoints."
@@ -102,9 +137,18 @@
         {
           "prompt": "Since OA = OB = OC, the circle centred at O…",
           "choices": [
-            { "id": "through", "label": "passes through all three corners." },
-            { "id": "miss", "label": "misses corner C." },
-            { "id": "tangent", "label": "is tangent to all three sides." }
+            {
+              "id": "through",
+              "label": "passes through all three corners."
+            },
+            {
+              "id": "miss",
+              "label": "misses corner C."
+            },
+            {
+              "id": "tangent",
+              "label": "is tangent to all three sides."
+            }
           ],
           "answer": "through",
           "hint": "All three corners are the same distance from O — exactly the radius."
@@ -123,15 +167,32 @@
       "interactionType": "multi_select",
       "prompt": "What's true at the circumcenter O?",
       "subtitle": "Select every statement that is always true of the circumcenter.",
-      "legend": [
-        { "color": "green", "label": "OA = OB = OC" }
-      ],
       "options": [
-        { "id": "equal", "label": "[OA = OB = OC](green) — the same distance to all three corners.", "correct": true },
-        { "id": "through", "label": "A circle centred at O passes through all three corners.", "correct": true },
-        { "id": "bisectors", "label": "O lies on the perpendicular bisector of every side.", "correct": true },
-        { "id": "inside", "label": "O is always inside the triangle.", "correct": false },
-        { "id": "centroid", "label": "O is the average position of the three corners (the centroid).", "correct": false }
+        {
+          "id": "equal",
+          "label": "[OA = OB = OC](green) — the same distance to all three corners.",
+          "correct": true
+        },
+        {
+          "id": "through",
+          "label": "A circle centred at O passes through all three corners.",
+          "correct": true
+        },
+        {
+          "id": "bisectors",
+          "label": "O lies on the perpendicular bisector of every side.",
+          "correct": true
+        },
+        {
+          "id": "inside",
+          "label": "O is always inside the triangle.",
+          "correct": false
+        },
+        {
+          "id": "centroid",
+          "label": "O is the average position of the three corners (the centroid).",
+          "correct": false
+        }
       ],
       "feedback": {
         "correct": "Yes. O is equidistant from the corners, sits on all three bisectors, and is the centre of the circle through them.",
@@ -142,26 +203,17 @@
       "stepId": "right_triangle",
       "interactionType": "statement",
       "prompt": "A right triangle's shortcut",
-      "diagram": { "mode": "static", "variant": "circumcircle", "circumcircle": { "kind": "right", "hypLabel": "10", "radiusLabel": "5", "tint": true } },
-      "legend": [
-        { "color": "green", "label": "radius = ½ hypotenuse" }
-      ],
+      "diagram": {
+        "mode": "static",
+        "variant": "circumcircle",
+        "circumcircle": {
+          "kind": "right",
+          "hypLabel": "10",
+          "radiusLabel": "5",
+          "tint": true
+        }
+      },
       "body": "If the triangle has a right angle, its hypotenuse (the longest side, opposite the right angle) is a diameter of the circumscribed circle. (That's Thales' theorem, run backwards.)\nSo the radius is simply half the hypotenuse — no bisectors needed.\nA 6–8–10 right triangle has hypotenuse 10, so its circumscribed circle has [radius](green) 5."
-    },
-    {
-      "stepId": "debug",
-      "interactionType": "spot_the_mistake",
-      "prompt": "Find the slip in this working",
-      "subtitle": "A student locates the circumcenter O of triangle ABC. One line is wrong — tap it.",
-      "lines": [
-        { "id": "l1", "text": "O must be the same distance from A, B, and C." },
-        { "id": "l2", "text": "The point equally far from all three is the average of A, B, and C.", "wrong": true },
-        { "id": "l3", "text": "So O is the centroid, the average of the corners." },
-        { "id": "l4", "text": "O is found by averaging the three corners' positions." }
-      ],
-      "explanation": "Equidistant does NOT mean the average. The average of the corners is the centroid, which usually is NOT the same distance from all three. The circumcenter is where the perpendicular bisectors meet.",
-      "hint": "Is the average of the corners really equally far from each corner? Try a long, thin triangle.",
-      "doneNote": "Right — the average is the centroid, not the circumcenter."
     },
     {
       "stepId": "guided_practice",
@@ -172,7 +224,16 @@
         {
           "id": "circumcircle_hyp_10",
           "prompt": "A right triangle has a hypotenuse of 10. Find the radius of its circumscribed circle.",
-          "diagram": { "mode": "static", "variant": "circumcircle", "circumcircle": { "kind": "right", "hypLabel": "10", "radiusLabel": "?", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "circumcircle",
+            "circumcircle": {
+              "kind": "right",
+              "hypLabel": "10",
+              "radiusLabel": "?",
+              "tint": true
+            }
+          },
           "correctAnswer": 5,
           "feedback": {
             "correct": "Correct. The hypotenuse is a diameter, so the radius is 10 ÷ 2 = 5.",
@@ -183,7 +244,16 @@
         {
           "id": "circumcircle_legs_10_24",
           "prompt": "A right triangle has legs 10 and 24. Find the radius of its circumscribed circle.",
-          "diagram": { "mode": "static", "variant": "circumcircle", "circumcircle": { "kind": "right", "hypLabel": "?", "radiusLabel": "?", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "circumcircle",
+            "circumcircle": {
+              "kind": "right",
+              "hypLabel": "?",
+              "radiusLabel": "?",
+              "tint": true
+            }
+          },
           "correctAnswer": 13,
           "feedback": {
             "correct": "Correct. The hypotenuse is √(10² + 24²) = 26, so the radius is 13.",
@@ -194,7 +264,16 @@
         {
           "id": "circumcircle_radius_9",
           "prompt": "The circumscribed circle of a right triangle has radius 9. Find the hypotenuse.",
-          "diagram": { "mode": "static", "variant": "circumcircle", "circumcircle": { "kind": "right", "hypLabel": "?", "radiusLabel": "9", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "circumcircle",
+            "circumcircle": {
+              "kind": "right",
+              "hypLabel": "?",
+              "radiusLabel": "9",
+              "tint": true
+            }
+          },
           "correctAnswer": 18,
           "feedback": {
             "correct": "Correct. The hypotenuse is the diameter, twice the radius: 2 × 9 = 18.",
@@ -205,22 +284,46 @@
       ]
     },
     {
-      "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "A right triangle has a hypotenuse of 14. Find the [radius](green) of its circumscribed circle.",
-      "diagram": { "mode": "static", "variant": "circumcircle", "circumcircle": { "kind": "right", "hypLabel": "14", "radiusLabel": "?", "tint": true } },
-      "problem": {
-        "id": "circumcircle_challenge_hyp_14",
-        "prompt": "Circumradius",
-        "diagram": { "mode": "static", "variant": "circumcircle", "circumcircle": { "kind": "right", "hypLabel": "14", "radiusLabel": "?", "tint": true } },
-        "correctAnswer": 7,
-        "feedback": {
-          "correct": "Done. The hypotenuse is a diameter, so the radius is 14 ÷ 2 = 7.",
-          "incorrect": "The hypotenuse is a diameter, so the circumradius is half of it."
+      "stepId": "wrap_up",
+      "interactionType": "fill_blank",
+      "prompt": "Sum it up",
+      "subtitle": "Fill in the two big ideas. The first names the equal distance OA = OB = OC; the second uses the right-triangle shortcut on a hypotenuse of 14.",
+      "diagram": {
+        "mode": "static",
+        "variant": "circumcircle",
+        "circumcircle": {
+          "kind": "right",
+          "hypLabel": "14",
+          "radiusLabel": "?",
+          "tint": true
+        }
+      },
+      "template": "OA = OB = OC = the {{name}}, and for a right triangle the {{side}} is a diameter — so a hypotenuse of 14 gives radius {{r}}.",
+      "blanks": [
+        {
+          "id": "name",
+          "answer": "radius",
+          "accept": [
+            "circumradius"
+          ],
+          "placeholder": "?"
         },
-        "strongHint": "Halve the hypotenuse: 14 ÷ 2."
-      }
+        {
+          "id": "side",
+          "answer": "hypotenuse",
+          "placeholder": "?"
+        },
+        {
+          "id": "r",
+          "answer": 7,
+          "placeholder": "?"
+        }
+      ],
+      "feedback": {
+        "correct": "",
+        "incorrect": "OA, OB, OC are all the same length — that's the radius (the circumradius). The hypotenuse is the diameter, so the radius is 14 ÷ 2."
+      },
+      "doneNote": "The circumcenter is equidistant from all three corners, and a right triangle's hypotenuse is a diameter — so half of 14 is 7."
     }
   ]
 }

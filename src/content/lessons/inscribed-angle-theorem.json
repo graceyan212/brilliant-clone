@@ -1,31 +1,18 @@
 {
   "lessonId": "inscribed-angle-theorem",
   "title": "The inscribed angle theorem",
-  "totalSteps": 11,
+  "totalSteps": 8,
   "steps": [
     {
-      "stepId": "hook",
-      "interactionType": "statement",
+      "stepId": "identify",
+      "interactionType": "identify",
       "prompt": "A goalkeeper's view of the goal",
+      "subtitle": "Picture the goal posts as two fixed points, A and B, on a circle. A [central angle](teal) has its corner at the center O; an [inscribed angle](red) has its corner ON the circle, at a point C. Tap each one to begin.",
       "graphic": {
         "name": "goal-angle",
         "caption": "From anywhere on the circle, the goal opens up the same angle in a player's view. The center sees a wider angle than the players on the rim."
       },
-      "legend": [
-        { "color": "teal", "label": "central angle (corner at the center O)" },
-        { "color": "red", "label": "inscribed angle (corner on the circle)" }
-      ],
-      "body": "Picture the goal posts as two fixed points, A and B, on a circle. Wherever a player stands ON the circle, the [inscribed angle](red) ∠ACB is how wide the goal looks to them.\nA [central angle](teal) has its corner at the center O. An [inscribed angle](red) has its corner ON the circle, at a point C.\nBoth are built from the same two points, A and B — this lesson finds how they're linked."
-    },
-    {
-      "stepId": "identify",
-      "interactionType": "identify",
-      "prompt": "Identify the two angles",
       "centralAngle": 120,
-      "legend": [
-        { "color": "teal", "label": "central angle" },
-        { "color": "red", "label": "inscribed angle" }
-      ],
       "targets": [
         {
           "id": "central",
@@ -40,57 +27,91 @@
           "hint": "The inscribed angle's corner is on the circle, at C."
         }
       ],
-      "doneNote": "Both found — the central angle's corner is at O, the inscribed angle's corner is on the circle at C."
+      "doneNote": "Both found — the central angle's corner is at O, the inscribed angle's corner is on the circle at C. Both are built from the same two points A and B; this lesson finds how they're linked."
     },
     {
       "stepId": "prediction",
       "interactionType": "explore",
       "prompt": "Drag C around the circle",
       "subtitle": "Keep A and B fixed and slide C along the circle. Watch closely: does the [inscribed angle](red) ∠ACB change, or stay the same?",
-      "diagram": { "mode": "interactive", "highlightAngle": true, "lockAnchors": true }
+      "diagram": {
+        "mode": "interactive",
+        "highlightAngle": true,
+        "lockAnchors": true
+      }
     },
     {
       "stepId": "exploration",
       "interactionType": "explore",
       "prompt": "Now meet O — compare the two angles",
       "subtitle": "The center O makes the [central angle](teal) ∠AOB. Drag any point and compare it with the [inscribed angle](red) ∠ACB. Which is bigger, and by how much?",
-      "diagram": { "mode": "interactive", "highlightAngle": true, "highlightCentral": true }
+      "diagram": {
+        "mode": "interactive",
+        "highlightAngle": true,
+        "highlightCentral": true
+      }
     },
     {
-      "stepId": "diameter_case",
-      "interactionType": "multi_select",
-      "prompt": "When AB is a diameter, what's true?",
-      "subtitle": "Now A and B are the ends of a diameter, so the [central angle](teal) ∠AOB is a straight 180°. C can be anywhere on the circle. Select everything that must be true.",
-      "diagram": { "mode": "static", "centralAngle": 180, "showCentralValue": true, "showAngleValue": true },
-      "options": [
-        { "id": "right", "label": "The [inscribed angle](red) ∠ACB is 90° — a right angle", "correct": true },
-        { "id": "righttri", "label": "Triangle ACB has its right angle at C", "correct": true },
-        { "id": "anywhere", "label": "∠ACB stays 90° wherever C sits on the arc", "correct": true },
-        { "id": "same", "label": "∠ACB is 180°, the same as the central angle", "correct": false },
-        { "id": "depends", "label": "∠ACB depends on where C sits", "correct": false }
+      "stepId": "quick_checks",
+      "interactionType": "true_false",
+      "prompt": "What did you notice? True or false?",
+      "subtitle": "You compared the [inscribed angle](red) with the [central angle](teal) on the same arc. Judge each claim.",
+      "cards": [
+        {
+          "id": "tf_half",
+          "statement": "An inscribed angle is half the central angle that opens onto the same arc.",
+          "answer": true,
+          "note": "Exactly — that's the inscribed angle theorem. The corner on the circle sees half of what the center sees."
+        },
+        {
+          "id": "tf_smaller",
+          "statement": "The central angle is the smaller of the two.",
+          "answer": false,
+          "note": "The other way round — the central angle (at O) is the bigger one; the inscribed angle is half its size."
+        },
+        {
+          "id": "tf_moves",
+          "statement": "As C slides around its arc, the inscribed angle ∠ACB keeps changing size.",
+          "answer": false,
+          "note": "It stays the same. Every point on that arc sees A and B at the same angle — the goalkeeper's view."
+        },
+        {
+          "id": "tf_thales",
+          "statement": "When A and B are the ends of a diameter, the inscribed angle ∠ACB is 90°.",
+          "answer": true,
+          "note": "Yes — the central angle is a straight 180°, and half of 180° is 90°. This is Thales' theorem."
+        },
+        {
+          "id": "tf_double",
+          "statement": "If the central angle ∠AOB is 120°, then ∠ACB is 240°.",
+          "answer": false,
+          "note": "Halve, don't double: 120° ÷ 2 = 60°. The inscribed angle is always the smaller one."
+        }
       ],
-      "feedback": {
-        "correct": "Yes — half of the 180° central angle is 90°, so ∠ACB is always a right angle. This is Thales' theorem.",
-        "incorrect": "The inscribed angle is HALF the central angle. Half of 180° is 90°, no matter where C sits."
-      },
-      "doneNote": "That's Thales' theorem: an angle drawn on a diameter is always a right angle (90°)."
+      "doneNote": "Inscribed is half the central angle, it holds anywhere on the arc, and on a diameter it's always 90°."
     },
     {
       "stepId": "state_theorem",
       "interactionType": "statement",
       "prompt": "The inscribed angle theorem",
-      "diagram": { "mode": "static", "centralAngle": 120, "showCentralValue": true, "showAngleValue": true },
-      "legend": [
-        { "color": "teal", "label": "central angle ∠AOB" },
-        { "color": "red", "label": "inscribed angle ∠ACB" }
-      ],
+      "diagram": {
+        "mode": "static",
+        "centralAngle": 120,
+        "showCentralValue": true,
+        "showAngleValue": true
+      },
       "body": "An [inscribed angle](red) is always HALF the [central angle](teal) that opens onto the same arc.\nWhen ∠AOB is 120°, ∠ACB is 60°. Flip it around: the central angle is double the inscribed angle.\nRemember the corners: the inscribed angle's corner sits ON the circle, the central angle's corner sits at the center O."
     },
     {
       "stepId": "visual_proof",
       "interactionType": "proof",
       "prompt": "Proof: the inscribed angle theorem",
-      "diagram": { "mode": "static", "centralAngle": 120, "showCentralValue": true, "showAngleValue": true },
+      "diagram": {
+        "mode": "static",
+        "centralAngle": 120,
+        "showCentralValue": true,
+        "showAngleValue": true
+      },
       "proofMode": "fill-value",
       "blanks": [
         {
@@ -123,19 +144,57 @@
       ]
     },
     {
-      "stepId": "debug_double",
-      "interactionType": "spot_the_mistake",
-      "prompt": "Find the mistake",
-      "subtitle": "A student finds an inscribed angle from its central angle. One line is wrong — tap it.",
-      "lines": [
-        { "id": "l1", "text": "The central angle AOB is 80 degrees." },
-        { "id": "l2", "text": "The inscribed angle ACB sits on the same arc AB." },
-        { "id": "l3", "text": "An inscribed angle is double the central angle, so ACB = 2 x 80 = 160 degrees.", "wrong": true },
-        { "id": "l4", "text": "So angle ACB = 160 degrees." }
+      "stepId": "guided_solve",
+      "interactionType": "walkthrough",
+      "prompt": "Put the rule to work",
+      "intro": "Use the theorem — [inscribed](red) is half the [central angle](teal) — one step at a time.",
+      "diagram": {
+        "mode": "static",
+        "centralAngle": 120,
+        "showCentralValue": true,
+        "showAngleValue": false
+      },
+      "parts": [
+        {
+          "kind": "numeric",
+          "prompt": "The central angle ∠AOB is 120°. Halve it to find the inscribed angle ∠ACB: 120 ÷ 2 = ?",
+          "answer": 60,
+          "unit": "°",
+          "note": "∠ACB = 60°, half of the 120° central angle."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Now A and B are the ends of a diameter, so ∠AOB = 180°. What is the inscribed angle ∠ACB?",
+          "options": [
+            {
+              "id": "a",
+              "label": "90°",
+              "feedback": ""
+            },
+            {
+              "id": "b",
+              "label": "180°",
+              "feedback": "That's the central angle — the inscribed angle is half of it."
+            },
+            {
+              "id": "c",
+              "label": "360°",
+              "feedback": "Halve the central angle, don't double it."
+            }
+          ],
+          "answer": "a",
+          "note": "Half of 180° is 90° — a right angle. That's Thales' theorem."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "Reverse it: an inscribed angle ∠ACB is 70°. The central angle is double, so ∠AOB = 70 × 2 = ?",
+          "answer": 140,
+          "unit": "°",
+          "hint": "Double the inscribed angle.",
+          "note": "∠AOB = 140°. Going from inscribed to central, you double."
+        }
       ],
-      "explanation": "It's the other way around: an [inscribed angle](red) is HALF the [central angle](teal), not double. So ∠ACB = 80° ÷ 2 = 40°. The central angle is the bigger one.",
-      "hint": "Which angle is bigger — the one at the center, or the one on the circle? The inscribed angle is the smaller, half-size one.",
-      "doneNote": "Right — inscribed is half, not double."
+      "doneNote": "Half to go from central to inscribed, double to go back — and on a diameter the inscribed angle is always 90°."
     },
     {
       "stepId": "guided_practice",
@@ -146,7 +205,12 @@
         {
           "id": "practice_central_90",
           "prompt": "The central angle ∠AOB is 90°. Find ∠ACB.",
-          "diagram": { "mode": "static", "centralAngle": 90, "showCentralValue": true, "showAngleValue": false },
+          "diagram": {
+            "mode": "static",
+            "centralAngle": 90,
+            "showCentralValue": true,
+            "showAngleValue": false
+          },
           "correctAnswer": 45,
           "unit": "°",
           "feedback": {
@@ -158,7 +222,12 @@
         {
           "id": "practice_inscribed_35",
           "prompt": "∠ACB is 35°. Find the central angle ∠AOB.",
-          "diagram": { "mode": "static", "centralAngle": 70, "showCentralValue": false, "showAngleValue": true },
+          "diagram": {
+            "mode": "static",
+            "centralAngle": 70,
+            "showCentralValue": false,
+            "showAngleValue": true
+          },
           "correctAnswer": 70,
           "unit": "°",
           "feedback": {
@@ -170,7 +239,12 @@
         {
           "id": "practice_central_130",
           "prompt": "The central angle ∠AOB is 130°. Find ∠ACB.",
-          "diagram": { "mode": "static", "centralAngle": 130, "showCentralValue": true, "showAngleValue": false },
+          "diagram": {
+            "mode": "static",
+            "centralAngle": 130,
+            "showCentralValue": true,
+            "showAngleValue": false
+          },
           "correctAnswer": 65,
           "unit": "°",
           "feedback": {
@@ -180,42 +254,6 @@
           "strongHint": "Halve the central angle: 130° ÷ 2."
         }
       ]
-    },
-    {
-      "stepId": "thales",
-      "interactionType": "numeric",
-      "prompt": "A special case: Thales' theorem",
-      "subtitle": "A and B sit at the ends of a diameter, so the [central angle](teal) ∠AOB is 180°. What is the [inscribed angle](red) ∠ACB?",
-      "diagram": { "mode": "static", "centralAngle": 180, "showCentralValue": true, "showAngleValue": false },
-      "problem": {
-        "id": "thales_180",
-        "prompt": "∠ACB",
-        "correctAnswer": 90,
-        "unit": "°",
-        "feedback": {
-          "correct": "A right angle! You just used Thales' theorem: when AB is a diameter, ∠ACB is always 90°.",
-          "incorrect": "Use the rule — ∠ACB is half of ∠AOB. What is half of 180°?"
-        },
-        "strongHint": "Halve the central angle: 180° ÷ 2."
-      }
-    },
-    {
-      "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "An [inscribed angle](red) ∠ACB is 70°. What is the [central angle](teal) ∠AOB?",
-      "diagram": { "mode": "static", "centralAngle": 140, "showCentralValue": false, "showAngleValue": true },
-      "problem": {
-        "id": "challenge_70",
-        "prompt": "∠AOB",
-        "correctAnswer": 140,
-        "unit": "°",
-        "feedback": {
-          "correct": "Done. The central angle is double the inscribed angle: 2 × 70° = 140°.",
-          "incorrect": "The central angle is twice the inscribed angle."
-        },
-        "strongHint": "Double the inscribed angle: 70° × 2."
-      }
     }
   ]
 }

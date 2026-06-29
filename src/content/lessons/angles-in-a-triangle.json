@@ -1,172 +1,234 @@
 {
   "lessonId": "angles-in-a-triangle",
   "title": "Angles in a triangle",
-  "totalSteps": 9,
+  "totalSteps": 8,
   "steps": [
-    {
-      "stepId": "hook",
-      "interactionType": "statement",
-      "prompt": "Tear the corners off a triangle",
-      "graphic": {
-        "name": "triangle-tear",
-        "caption": "Rip the three corners off any paper triangle and line them up \u2014 they always settle into one straight line."
-      },
-      "legend": [
-        { "color": "blue", "label": "angle a" },
-        { "color": "orange", "label": "angle b" },
-        { "color": "green", "label": "angle c" }
-      ],
-      "body": "Every triangle has three corner angles: [a](blue), [b](orange), and [c](green). Big or small, fat or thin, they look different in every triangle.\nBut tear the three corners off and lay them side by side, and they always make a straight line. A straight line is 180\u00b0 \u2014 so it looks like [a](blue) + [b](orange) + [c](green) = 180\u00b0, every single time.\nLet's test that, use it, then meet the exterior angle hiding just outside each corner."
-    },
     {
       "stepId": "explore",
       "interactionType": "explore",
       "prompt": "Drag the corners and watch the Sum",
-      "subtitle": "Reshape the triangle however you like. Keep an eye on the Sum of [a](blue), [b](orange), and [c](green) \u2014 does it ever move?",
-      "diagram": { "mode": "interactive", "variant": "triangle", "triangle": { "angleColors": { "a": "blue", "b": "orange", "c": "green" } }, "showReadout": true }
+      "subtitle": "Reshape the triangle however you like. Keep an eye on the Sum of [a](blue), [b](orange), and [c](green) — does it ever move?",
+      "diagram": {
+        "mode": "interactive",
+        "variant": "triangle",
+        "triangle": {
+          "angleColors": {
+            "a": "blue",
+            "b": "orange",
+            "c": "green"
+          }
+        },
+        "showReadout": true
+      }
+    },
+    {
+      "stepId": "hook",
+      "interactionType": "statement",
+      "prompt": "Why it never budges",
+      "graphic": {
+        "name": "triangle-tear",
+        "caption": "Rip the three corners off any paper triangle and line them up — they always settle into one straight line."
+      },
+      "body": "However you dragged it, the Sum stayed pinned at 180°. Here's the picture behind that: every triangle has three corner angles, [a](blue), [b](orange), and [c](green).\nTear the three corners off and lay them side by side, and they always make a straight line. A straight line is 180° — so [a](blue) + [b](orange) + [c](green) = 180°, every single time.\nLet's use that, then meet the exterior angle hiding just outside each corner."
     },
     {
       "stepId": "estimate_third",
       "interactionType": "estimate",
       "prompt": "Set the missing angle",
-      "subtitle": "Two corners are fixed: [a](blue) = 70\u00b0 and [b](orange) = 65\u00b0. Drag the slider to open [c](green) until all three add up to 180\u00b0.",
+      "subtitle": "Two corners are fixed: [a](blue) = 70° and [b](orange) = 65°. Drag the slider to open [c](green) until all three add up to 180°.",
       "min": 0,
       "max": 180,
       "step": 5,
       "answer": 45,
       "tolerance": 5,
-      "unit": "\u00b0",
+      "unit": "°",
       "start": 20,
       "visual": "angle",
       "feedback": {
         "correct": "",
-        "incorrect": "70\u00b0 and 65\u00b0 already use up 135\u00b0. How much more gets you to 180\u00b0?"
+        "incorrect": "70° and 65° already use up 135°. How much more gets you to 180°?"
       },
-      "revealText": "45\u00b0 does it: 70\u00b0 + 65\u00b0 + 45\u00b0 = 180\u00b0. The third angle is just whatever's left over from 180\u00b0."
+      "revealText": "45° does it: 70° + 65° + 45° = 180°. The third angle is just whatever's left over from 180°."
     },
     {
-      "stepId": "valid_triangles",
-      "interactionType": "multi_select",
-      "prompt": "Which sets of three angles make a triangle?",
-      "subtitle": "A triangle's three angles always add to exactly 180\u00b0. Pick every set that works.",
-      "options": [
-        { "id": "s1", "label": "60\u00b0, 60\u00b0, 60\u00b0", "correct": true },
-        { "id": "s2", "label": "90\u00b0, 60\u00b0, 30\u00b0", "correct": true },
-        { "id": "s3", "label": "100\u00b0, 40\u00b0, 40\u00b0", "correct": true },
-        { "id": "s4", "label": "70\u00b0, 70\u00b0, 70\u00b0", "correct": false },
-        { "id": "s5", "label": "90\u00b0, 90\u00b0, 30\u00b0", "correct": false }
+      "stepId": "true_false_sum",
+      "interactionType": "true_false",
+      "prompt": "True or false?",
+      "subtitle": "A triangle's three interior angles always add to exactly 180° — no more, no less. Judge each claim against that.",
+      "cards": [
+        {
+          "id": "tf_60",
+          "statement": "60°, 60°, 60° can be the three angles of a triangle.",
+          "answer": true,
+          "note": "60° + 60° + 60° = 180° — the equilateral triangle. It closes."
+        },
+        {
+          "id": "tf_two_right",
+          "statement": "A triangle can have two right angles.",
+          "answer": false,
+          "note": "Two right angles are 90° + 90° = 180° on their own, leaving 0° for the third corner — so the triangle never closes."
+        },
+        {
+          "id": "tf_70_70_70",
+          "statement": "70°, 70°, 70° can be the three angles of a triangle.",
+          "answer": false,
+          "note": "70° + 70° + 70° = 210°, which is more than 180° — too much to close into a triangle."
+        },
+        {
+          "id": "tf_90_60_30",
+          "statement": "90°, 60°, 30° can be the three angles of a triangle.",
+          "answer": true,
+          "note": "90° + 60° + 30° = 180° — a right triangle."
+        },
+        {
+          "id": "tf_third_leftover",
+          "statement": "If two angles are 40° and 75°, the third must be 65°.",
+          "answer": true,
+          "note": "The third is whatever's left of 180°: 180° − 40° − 75° = 65°."
+        }
       ],
-      "feedback": {
-        "correct": "Every set you kept totals exactly 180\u00b0.",
-        "incorrect": "Add each set up. Only the ones that total exactly 180\u00b0 can close into a triangle \u2014 70+70+70 and 90+90+30 each make 210\u00b0, too much to close."
-      },
-      "doneNote": "Locked in: a triangle's angles total 180\u00b0 \u2014 no more, no less."
+      "doneNote": "Locked in: a triangle's angles total 180° — no more, no less."
     },
     {
       "stepId": "state_exterior",
       "interactionType": "statement",
       "prompt": "Meet the exterior angle",
-      "diagram": { "mode": "static", "variant": "triangle", "triangle": { "angleLabels": { "a": "70\u00b0", "b": "65\u00b0" }, "angleColors": { "a": "blue", "b": "orange" }, "exterior": { "at": "c", "from": "b", "label": "135\u00b0", "color": "magenta" } } },
-      "legend": [
-        { "color": "blue", "label": "angle a" },
-        { "color": "orange", "label": "angle b" },
-        { "color": "magenta", "label": "exterior angle" }
-      ],
-      "body": "Extend one side straight past a corner and you swing open an [exterior angle](magenta) \u2014 like flipping a torn corner outward.\nIt equals the two far corners added together (the remote interior angles): [exterior angle](magenta) = [a](blue) + [b](orange) = 70\u00b0 + 65\u00b0 = 135\u00b0.\nWhy? Because [a](blue) + [b](orange) + c = 180\u00b0, and the [exterior angle](magenta) + c = 180\u00b0 too \u2014 so the [exterior angle](magenta) must equal [a](blue) + [b](orange)."
+      "diagram": {
+        "mode": "static",
+        "variant": "triangle",
+        "triangle": {
+          "angleLabels": {
+            "a": "70°",
+            "b": "65°"
+          },
+          "angleColors": {
+            "a": "blue",
+            "b": "orange"
+          },
+          "exterior": {
+            "at": "c",
+            "from": "b",
+            "label": "135°",
+            "color": "magenta"
+          }
+        }
+      },
+      "body": "Extend one side straight past a corner and you swing open an [exterior angle](magenta) — like flipping a torn corner outward.\nIt equals the two far corners added together (the remote interior angles): [exterior angle](magenta) = [a](blue) + [b](orange) = 70° + 65° = 135°.\nWhy? Because [a](blue) + [b](orange) + c = 180°, and the [exterior angle](magenta) + c = 180° too — so the [exterior angle](magenta) must equal [a](blue) + [b](orange)."
     },
     {
       "stepId": "visual_proof",
       "interactionType": "proof",
-      "prompt": "Proof: why they always total 180\u00b0",
-      "diagram": { "mode": "static", "variant": "triangle-sum" },
+      "prompt": "Proof: why they always total 180°",
+      "diagram": {
+        "mode": "static",
+        "variant": "triangle-sum"
+      },
       "proofMode": "reorder",
       "stages": [
         "Start with any triangle. Its three corner angles are the ones we want to add up.",
         "Through the top corner, draw a line parallel to the base.",
         "The two slanted sides act as transversals, so each base angle reappears at the top as an equal alternate interior angle.",
-        "Now the three angles sit side by side along that straight line, so together they make 180\u00b0."
+        "Now the three angles sit side by side along that straight line, so together they make 180°."
       ]
     },
     {
       "stepId": "debug_exterior",
       "interactionType": "spot_the_mistake",
       "prompt": "Find the mistake in this exterior-angle working",
-      "subtitle": "A student finds the exterior angle at corner C. One line is wrong \u2014 tap it.",
+      "subtitle": "A student finds the exterior angle at corner C. One line is wrong — tap it.",
       "lines": [
-        { "id": "l1", "text": "Angles a and b are 70 and 65, so c = 180 - 70 - 65 = 45." },
-        { "id": "l2", "text": "The exterior angle at C is on a straight line with c." },
-        { "id": "l3", "text": "So the exterior angle = a + b + c = 70 + 65 + 45 = 180.", "wrong": true },
-        { "id": "l4", "text": "So the exterior angle is 180 degrees." }
+        {
+          "id": "l1",
+          "text": "Angles a and b are 70 and 65, so c = 180 - 70 - 65 = 45."
+        },
+        {
+          "id": "l2",
+          "text": "The exterior angle at C is on a straight line with c."
+        },
+        {
+          "id": "l3",
+          "text": "So the exterior angle = a + b + c = 70 + 65 + 45 = 180.",
+          "wrong": true
+        },
+        {
+          "id": "l4",
+          "text": "So the exterior angle is 180 degrees."
+        }
       ],
-      "explanation": "An [exterior angle](magenta) equals only the two remote interior angles \u2014 the two far corners \u2014 not all three. It should be [a](blue) + [b](orange) = 70\u00b0 + 65\u00b0 = 135\u00b0. (Adding c as well always gives 180\u00b0, which is a straight line, not a corner.)",
+      "explanation": "An [exterior angle](magenta) equals only the two remote interior angles — the two far corners — not all three. It should be [a](blue) + [b](orange) = 70° + 65° = 135°. (Adding c as well always gives 180°, which is a straight line, not a corner.)",
       "hint": "An exterior angle pairs with just two of the three interior angles. Which one gets left out?",
-      "doneNote": "Right \u2014 leave c out. The exterior angle = a + b = 135\u00b0."
+      "doneNote": "Right — leave c out. The exterior angle = a + b = 135°."
     },
     {
-      "stepId": "guided_practice",
-      "interactionType": "practice",
-      "prompt": "Practice",
-      "morePracticeKind": "triangle-angle",
-      "problems": [
-        {
-          "id": "tri_missing_40_75",
-          "prompt": "A triangle has two angles of [40\u00b0](blue) and [75\u00b0](orange). Find the third angle [c](green).",
-          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "angleLabels": { "a": "40\u00b0", "b": "75\u00b0", "c": "?" }, "angleColors": { "a": "blue", "b": "orange", "c": "green" } } },
-          "correctAnswer": 65,
-          "unit": "\u00b0",
-          "feedback": {
-            "correct": "Correct. 180\u00b0 \u2212 40\u00b0 \u2212 75\u00b0 = 65\u00b0.",
-            "incorrect": "The three interior angles of a triangle add to 180\u00b0."
+      "stepId": "guided_solve",
+      "interactionType": "walkthrough",
+      "prompt": "Put it together: third angle, then exterior angle",
+      "intro": "A triangle has two corners of [a](blue) = 70° and [b](orange) = 65°. Work out the third corner [c](green), then the [exterior angle](magenta) at C — one move at a time.",
+      "diagram": {
+        "mode": "static",
+        "variant": "triangle",
+        "triangle": {
+          "angleLabels": {
+            "a": "70°",
+            "b": "65°",
+            "c": "?"
           },
-          "strongHint": "Take both away from 180\u00b0: 180\u00b0 \u2212 40\u00b0 \u2212 75\u00b0."
-        },
-        {
-          "id": "tri_ext_sum_55_60",
-          "prompt": "The two remote interior angles are [55\u00b0](blue) and [60\u00b0](orange). Find the [exterior angle](magenta) at the third corner.",
-          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "angleLabels": { "a": "55\u00b0", "b": "60\u00b0" }, "angleColors": { "a": "blue", "b": "orange" }, "exterior": { "at": "c", "from": "b", "label": "?", "color": "magenta" } } },
-          "correctAnswer": 115,
-          "unit": "\u00b0",
-          "feedback": {
-            "correct": "Correct. An exterior angle equals the two remote interior angles: 55\u00b0 + 60\u00b0 = 115\u00b0.",
-            "incorrect": "An exterior angle equals the sum of the two far (remote) interior angles."
-          },
-          "strongHint": "Add the two remote interior angles: 55\u00b0 + 60\u00b0."
-        },
-        {
-          "id": "tri_ext_remote_120_70",
-          "prompt": "An [exterior angle](magenta) is 120\u00b0. One remote interior angle is [70\u00b0](blue). Find the other one, [b](orange).",
-          "diagram": { "mode": "static", "variant": "triangle", "triangle": { "angleLabels": { "a": "70\u00b0", "b": "?" }, "angleColors": { "a": "blue", "b": "orange" }, "exterior": { "at": "c", "from": "b", "label": "120\u00b0", "color": "magenta" } } },
-          "correctAnswer": 50,
-          "unit": "\u00b0",
-          "feedback": {
-            "correct": "Correct. The exterior angle is the sum of the remotes, so the other is 120\u00b0 \u2212 70\u00b0 = 50\u00b0.",
-            "incorrect": "Exterior angle = sum of the two remote interior angles, so subtract the known one."
-          },
-          "strongHint": "Subtract: 120\u00b0 \u2212 70\u00b0."
+          "angleColors": {
+            "a": "blue",
+            "b": "orange",
+            "c": "green"
+          }
         }
-      ]
-    },
-    {
-      "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "Two angles of a triangle are [38\u00b0](blue) and [94\u00b0](orange). Find the third angle [c](green).",
-      "legend": [
-        { "color": "blue", "label": "angle a" },
-        { "color": "orange", "label": "angle b" },
-        { "color": "green", "label": "angle c" }
+      },
+      "parts": [
+        {
+          "kind": "numeric",
+          "prompt": "First add the two known corners: 70° + 65° = ?",
+          "answer": 135,
+          "unit": "°",
+          "note": "Those two corners use up 135° of the 180° total."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "The three corners total 180°. So the third corner [c](green) = 180° − 135° = ?",
+          "answer": 45,
+          "unit": "°",
+          "hint": "Subtract the 135° you just found from 180°.",
+          "note": "[c](green) = 45°, matching the slider you set earlier: 70° + 65° + 45° = 180°."
+        },
+        {
+          "kind": "choice",
+          "prompt": "To find the [exterior angle](magenta) at C, which two angles do you add?",
+          "options": [
+            {
+              "id": "remotes",
+              "label": "The two remote interior angles, a and b",
+              "feedback": "Right — an exterior angle equals the sum of the two far corners."
+            },
+            {
+              "id": "all",
+              "label": "All three angles, a + b + c",
+              "feedback": "That always gives 180° — a straight line, not the exterior angle. Leave c out."
+            },
+            {
+              "id": "with_c",
+              "label": "The third angle c and one remote",
+              "feedback": "No — c is the corner the exterior angle sits beside, so it's left out."
+            }
+          ],
+          "answer": "remotes",
+          "note": "The exterior angle equals the two remote interior angles — the far corners a and b."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "Now compute the [exterior angle](magenta) at C: 70° + 65° = ?",
+          "answer": 135,
+          "unit": "°",
+          "hint": "Add the two remote interior angles, a and b.",
+          "note": "The exterior angle is 135° — and notice it's also 180° − 45°, the straight line beside [c](green)."
+        }
       ],
-      "problem": {
-        "id": "tri_challenge_38_94",
-        "prompt": "Third angle",
-        "diagram": { "mode": "static", "variant": "triangle", "triangle": { "angleLabels": { "a": "38\u00b0", "b": "94\u00b0", "c": "?" }, "angleColors": { "a": "blue", "b": "orange", "c": "green" } } },
-        "correctAnswer": 48,
-        "unit": "\u00b0",
-        "feedback": {
-          "correct": "Done. 180\u00b0 \u2212 38\u00b0 \u2212 94\u00b0 = 48\u00b0.",
-          "incorrect": "The three angles add to 180\u00b0 \u2014 subtract both from 180\u00b0."
-        }
-      }
+      "doneNote": "That's the full chain: third angle = 180° − (a + b) = 45°, and the exterior angle = a + b = 135°."
     }
   ]
 }

@@ -1,4 +1,5 @@
 import type { NumericProblem, PracticeSpec, PracticeTopic } from '../types/lesson'
+import { isAiEnabled } from './ai-settings'
 import { buildProblem } from './practice'
 import { supabase } from './supabase'
 
@@ -11,6 +12,11 @@ export async function generateAiPractice(
   count: number,
   offset: number,
 ): Promise<NumericProblem[] | null> {
+  // Respect the in-app AI toggle: when off, skip generation so the caller falls
+  // back to the deterministic pool, exactly as when no API key is set.
+  if (!isAiEnabled()) {
+    return null
+  }
   try {
     const { data, error } = await supabase.functions.invoke('generate-practice', {
       body: { topic, count },

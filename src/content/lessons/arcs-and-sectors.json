@@ -1,109 +1,133 @@
 {
   "lessonId": "arcs-and-sectors",
   "title": "Arcs and sectors",
-  "totalSteps": 9,
+  "totalSteps": 8,
   "steps": [
+    {
+      "stepId": "estimate_quarter",
+      "interactionType": "estimate",
+      "prompt": "Cut a quarter slice",
+      "subtitle": "A whole pizza is 360°. A quarter of it is a square corner at the centre. Drag the slider until the [central angle](teal) looks like a quarter slice, then check.",
+      "min": 0,
+      "max": 180,
+      "step": 5,
+      "answer": 90,
+      "tolerance": 10,
+      "unit": "°",
+      "start": 40,
+      "visual": "angle",
+      "hideValue": true,
+      "feedback": {
+        "correct": "",
+        "incorrect": "A quarter of the circle is a square corner — 90°. Open the slice until the two sides make an L."
+      },
+      "revealText": "A quarter slice is 90° — because the whole circle is 360°, and 360 ÷ 4 = 90."
+    },
     {
       "stepId": "hook",
       "interactionType": "statement",
       "prompt": "A sector is a slice of pizza",
       "graphic": {
         "name": "pizza",
-        "caption": "A whole pizza is 360\u00b0. Cut from the centre and you get a slice \u2014 a sector. The wider the angle at the centre, the bigger the slice."
+        "caption": "A whole pizza is 360°. Cut from the centre and you get a slice — a sector. The wider the angle at the centre, the bigger the slice."
       },
-      "legend": [
-        { "color": "teal", "label": "central angle & arc" },
-        { "color": "blue", "label": "radius" }
-      ],
       "body": "A [sector](teal) is a pie-slice of a circle, set by the [central angle](teal) at the centre.\nThe [arc](teal) is the curved crust along the edge of the slice, and the [radius](blue) is the straight side from the centre to the rim.\nThe whole lesson is one idea: a slice is just a fraction of the whole circle."
-    },
-    {
-      "stepId": "estimate_quarter",
-      "interactionType": "estimate",
-      "prompt": "Cut a quarter slice",
-      "subtitle": "A quarter of a pizza is a 90\u00b0 slice \u2014 a square corner at the centre. Drag the slider until the angle looks like a quarter, then check.",
-      "min": 0,
-      "max": 180,
-      "step": 5,
-      "answer": 90,
-      "tolerance": 10,
-      "unit": "\u00b0",
-      "start": 40,
-      "visual": "angle",
-      "feedback": {
-        "correct": "",
-        "incorrect": "A quarter of the circle is a square corner \u2014 90\u00b0. Open the slice until the two sides make an L."
-      },
-      "revealText": "A quarter slice is 90\u00b0 \u2014 because the whole circle is 360\u00b0, and 360 \u00f7 4 = 90."
     },
     {
       "stepId": "explore",
       "interactionType": "explore",
       "prompt": "Drag to resize the slice",
       "subtitle": "Drag the handle to change the [central angle](teal), and watch what fraction of the whole circle the [sector](teal) covers.",
-      "diagram": { "mode": "interactive", "variant": "sector", "showReadout": true }
+      "diagram": {
+        "mode": "interactive",
+        "variant": "sector",
+        "showReadout": true
+      }
     },
     {
-      "stepId": "sort_slices",
-      "interactionType": "categorize",
-      "prompt": "Smaller or bigger than half the pizza?",
-      "subtitle": "Half the pizza is a 180\u00b0 slice. Sort each [central angle](teal) by whether its slice is less or more than half.",
-      "buckets": [
-        { "id": "less", "label": "Less than half (< 180\u00b0)" },
-        { "id": "more", "label": "More than half (> 180\u00b0)" }
-      ],
+      "stepId": "order_slices",
+      "interactionType": "sort",
+      "prompt": "Order the slices by size",
+      "subtitle": "Each slice has the same [radius](blue); only the [central angle](teal) differs. A bigger angle is a bigger slice.",
+      "instruction": "Tap the slices from smallest to largest.",
       "items": [
-        { "id": "a60", "label": "60\u00b0", "bucket": "less" },
-        { "id": "a90", "label": "90\u00b0", "bucket": "less" },
-        { "id": "a150", "label": "150\u00b0", "bucket": "less" },
-        { "id": "a210", "label": "210\u00b0", "bucket": "more" },
-        { "id": "a300", "label": "300\u00b0", "bucket": "more" }
+        {
+          "id": "a60",
+          "label": "60° slice"
+        },
+        {
+          "id": "a90",
+          "label": "90° slice"
+        },
+        {
+          "id": "a150",
+          "label": "150° slice"
+        },
+        {
+          "id": "a210",
+          "label": "210° slice"
+        },
+        {
+          "id": "a300",
+          "label": "300° slice"
+        }
       ],
-      "doneNote": "Nice \u2014 anything under 180\u00b0 is less than half the pizza; over 180\u00b0 is more than half."
+      "doneNote": "Right — the slice grows with the central angle: 60° < 90° < 150° < 210° < 300°."
     },
     {
       "stepId": "formulas",
       "interactionType": "statement",
       "prompt": "Arc length and slice area",
-      "diagram": { "mode": "static", "variant": "sector", "centralAngle": 90, "radiusLabel": "r" },
-      "legend": [
-        { "color": "teal", "label": "central angle \u03b8 & arc" },
-        { "color": "blue", "label": "radius r" }
-      ],
-      "body": "A slice is the fraction [\u03b8 / 360](teal) of the whole circle, so it takes that same fraction of the circle's edge and of its area:\n[arc length](teal) = (\u03b8 / 360) \u00d7 2\u03c0[r](blue),  and  [sector area](teal) = (\u03b8 / 360) \u00d7 \u03c0[r](blue)\u00b2.\nA 90\u00b0 slice of a [radius](blue)-6 circle has arc length 3\u03c0 and area 9\u03c0."
+      "diagram": {
+        "mode": "static",
+        "variant": "sector",
+        "centralAngle": 90,
+        "radiusLabel": "r"
+      },
+      "body": "A slice is the fraction [θ / 360](teal) of the whole circle, so it takes that same fraction of the circle's edge and of its area:\n[arc length](teal) = (θ / 360) × 2π[r](blue),  and  [sector area](teal) = (θ / 360) × π[r](blue)².\nA 90° slice of a [radius](blue)-6 circle has arc length 3π and area 9π."
     },
     {
       "stepId": "true_about_quarter",
       "interactionType": "multi_select",
       "prompt": "What's true about this slice?",
-      "subtitle": "A [sector](teal) has [central angle](teal) 90\u00b0 in a circle of [radius](blue) 6. Select every statement that is true.",
-      "diagram": { "mode": "static", "variant": "sector", "centralAngle": 90, "radiusLabel": "6" },
+      "subtitle": "A [sector](teal) has [central angle](teal) 90° in a circle of [radius](blue) 6. Select every statement that is true.",
+      "diagram": {
+        "mode": "static",
+        "variant": "sector",
+        "centralAngle": 90,
+        "radiusLabel": "6"
+      },
       "options": [
-        { "id": "quarter", "label": "It is a quarter of the whole circle", "correct": true },
-        { "id": "arc3pi", "label": "Its arc length is 3\u03c0", "correct": true },
-        { "id": "area9pi", "label": "Its area is 9\u03c0", "correct": true },
-        { "id": "area9", "label": "Its area is just 9", "correct": false },
-        { "id": "half", "label": "It is half of the whole circle", "correct": false }
+        {
+          "id": "quarter",
+          "label": "It is a quarter of the whole circle",
+          "correct": true
+        },
+        {
+          "id": "arc3pi",
+          "label": "Its arc length is 3π",
+          "correct": true
+        },
+        {
+          "id": "area9pi",
+          "label": "Its area is 9π",
+          "correct": true
+        },
+        {
+          "id": "area9",
+          "label": "Its area is just 9",
+          "correct": false
+        },
+        {
+          "id": "half",
+          "label": "It is half of the whole circle",
+          "correct": false
+        }
       ],
       "feedback": {
-        "correct": "All three! 90\u00b0 is 90/360 = \u00bc of the circle. Arc = \u00bc \u00d7 2\u03c0\u00d76 = 3\u03c0, and area = \u00bc \u00d7 \u03c0\u00d76\u00b2 = 9\u03c0.",
-        "incorrect": "90\u00b0 is a quarter, not a half. And the area keeps its \u03c0: \u00bc \u00d7 \u03c0 \u00d7 6\u00b2 = 9\u03c0, not 9."
+        "correct": "All three! 90° is 90/360 = ¼ of the circle. Arc = ¼ × 2π×6 = 3π, and area = ¼ × π×6² = 9π.",
+        "incorrect": "90° is a quarter, not a half. And the area keeps its π: ¼ × π × 6² = 9π, not 9."
       }
-    },
-    {
-      "stepId": "debug_area",
-      "interactionType": "spot_the_mistake",
-      "prompt": "Find the mistake in this area working",
-      "subtitle": "A student finds the area of a 120\u00b0 sector with radius 6. One line is wrong \u2014 tap it.",
-      "lines": [
-        { "id": "l1", "text": "The slice is 120/360 = 1/3 of the circle." },
-        { "id": "l2", "text": "The whole circle's area is pi x r^2 = pi x 6^2 = 36pi." },
-        { "id": "l3", "text": "So the sector area is 1/3 x 2 x pi x 6 = 4pi.", "wrong": true },
-        { "id": "l4", "text": "So the area is 4pi." }
-      ],
-      "explanation": "Line 3 used the arc-length formula (2\u03c0r) instead of the area (\u03c0r\u00b2). The area is 1/3 \u00d7 36\u03c0 = 12\u03c0. (4\u03c0 is actually the arc length, not the area.)",
-      "hint": "Area uses \u03c0r\u00b2, not 2\u03c0r. Which line mixes up the two formulas?",
-      "doneNote": "Exactly \u2014 that line used the wrong formula."
     },
     {
       "stepId": "guided_practice",
@@ -113,59 +137,109 @@
       "problems": [
         {
           "id": "sector_area_6_90",
-          "prompt": "A sector has radius 6 and central angle 90\u00b0. Find its area (in terms of \u03c0).",
-          "diagram": { "mode": "static", "variant": "sector", "centralAngle": 90, "radiusLabel": 6 },
-          "correctAnswer": 9,
-          "unit": "\u03c0",
-          "feedback": {
-            "correct": "Correct. (90\u00f7360) \u00d7 \u03c0(6)\u00b2 = 9\u03c0.",
-            "incorrect": "Sector area is the fraction \u03b8/360 of the whole area, \u03c0r\u00b2."
+          "prompt": "A sector has radius 6 and central angle 90°. Find its area (in terms of π).",
+          "diagram": {
+            "mode": "static",
+            "variant": "sector",
+            "centralAngle": 90,
+            "radiusLabel": 6
           },
-          "strongHint": "Area = (90 \u00f7 360) \u00d7 \u03c0 \u00d7 6\u00b2."
+          "correctAnswer": 9,
+          "unit": "π",
+          "feedback": {
+            "correct": "Correct. (90÷360) × π(6)² = 9π.",
+            "incorrect": "Sector area is the fraction θ/360 of the whole area, πr²."
+          },
+          "strongHint": "Area = (90 ÷ 360) × π × 6²."
         },
         {
           "id": "sector_arc_6_120",
-          "prompt": "A sector has radius 6 and central angle 120\u00b0. Find its arc length (in terms of \u03c0).",
-          "diagram": { "mode": "static", "variant": "sector", "centralAngle": 120, "radiusLabel": 6 },
-          "correctAnswer": 4,
-          "unit": "\u03c0",
-          "feedback": {
-            "correct": "Correct. (120\u00f7360) \u00d7 2\u03c0(6) = 4\u03c0.",
-            "incorrect": "Arc length is the fraction \u03b8/360 of the whole circumference, 2\u03c0r."
+          "prompt": "A sector has radius 6 and central angle 120°. Find its arc length (in terms of π).",
+          "diagram": {
+            "mode": "static",
+            "variant": "sector",
+            "centralAngle": 120,
+            "radiusLabel": 6
           },
-          "strongHint": "Arc = (120 \u00f7 360) \u00d7 2\u03c0 \u00d7 6."
+          "correctAnswer": 4,
+          "unit": "π",
+          "feedback": {
+            "correct": "Correct. (120÷360) × 2π(6) = 4π.",
+            "incorrect": "Arc length is the fraction θ/360 of the whole circumference, 2πr."
+          },
+          "strongHint": "Arc = (120 ÷ 360) × 2π × 6."
         },
         {
           "id": "sector_area_10_180",
-          "prompt": "A sector has radius 10 and central angle 180\u00b0. Find its area (in terms of \u03c0).",
-          "diagram": { "mode": "static", "variant": "sector", "centralAngle": 180, "radiusLabel": 10 },
-          "correctAnswer": 50,
-          "unit": "\u03c0",
-          "feedback": {
-            "correct": "Correct. (180\u00f7360) \u00d7 \u03c0(10)\u00b2 = 50\u03c0.",
-            "incorrect": "A 180\u00b0 sector is half the circle, so take half of \u03c0r\u00b2."
+          "prompt": "A sector has radius 10 and central angle 180°. Find its area (in terms of π).",
+          "diagram": {
+            "mode": "static",
+            "variant": "sector",
+            "centralAngle": 180,
+            "radiusLabel": 10
           },
-          "strongHint": "Area = (180 \u00f7 360) \u00d7 \u03c0 \u00d7 10\u00b2."
+          "correctAnswer": 50,
+          "unit": "π",
+          "feedback": {
+            "correct": "Correct. (180÷360) × π(10)² = 50π.",
+            "incorrect": "A 180° sector is half the circle, so take half of πr²."
+          },
+          "strongHint": "Area = (180 ÷ 360) × π × 10²."
         }
       ]
     },
     {
-      "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "A sector has radius 6 and central angle 150\u00b0. Find its area (in terms of \u03c0).",
-      "diagram": { "mode": "static", "variant": "sector", "centralAngle": 150, "radiusLabel": 6 },
-      "problem": {
-        "id": "sector_challenge_6_150",
-        "prompt": "area",
-        "diagram": { "mode": "static", "variant": "sector", "centralAngle": 150, "radiusLabel": 6 },
-        "correctAnswer": 15,
-        "unit": "\u03c0",
-        "feedback": {
-          "correct": "Done. (150\u00f7360) \u00d7 \u03c0(6)\u00b2 = 15\u03c0.",
-          "incorrect": "Take \u03b8/360 of \u03c0r\u00b2: (150\u00f7360) \u00d7 \u03c0 \u00d7 36."
+      "stepId": "walkthrough_challenge",
+      "interactionType": "walkthrough",
+      "prompt": "Work out the slice area",
+      "intro": "A [sector](teal) has [central angle](teal) 150° in a circle of [radius](blue) 6. Find its area in terms of π — one move at a time.",
+      "diagram": {
+        "mode": "static",
+        "variant": "sector",
+        "centralAngle": 150,
+        "radiusLabel": 6
+      },
+      "parts": [
+        {
+          "kind": "choice",
+          "prompt": "First, what fraction of the whole circle is a 150° slice?",
+          "options": [
+            {
+              "id": "f512",
+              "label": "150 / 360 = 5/12",
+              "feedback": "Yes — divide top and bottom by 30."
+            },
+            {
+              "id": "f13",
+              "label": "150 / 360 = 1/3",
+              "feedback": "1/3 would be 120°, not 150°."
+            },
+            {
+              "id": "f12",
+              "label": "150 / 360 = 1/2",
+              "feedback": "1/2 would be 180° — a half slice."
+            }
+          ],
+          "answer": "f512",
+          "hint": "Simplify 150/360 by dividing both by 30.",
+          "note": "The slice is 5/12 of the whole circle."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "The whole circle's area is πr² = π × 6². What is 6²?",
+          "answer": 36,
+          "note": "The whole circle's area is 36π."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "Now take 5/12 of that whole area: (5/12) × 36 = ?",
+          "answer": 15,
+          "unit": "π",
+          "hint": "36 ÷ 12 = 3, then × 5.",
+          "note": "The sector area is 15π — the fraction θ/360 of πr²."
         }
-      }
+      ],
+      "doneNote": "That's the method: find the fraction θ/360, then take that fraction of the whole circle. (150÷360) × π(6)² = 15π."
     }
   ]
 }

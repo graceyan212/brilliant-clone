@@ -1,59 +1,83 @@
 {
   "lessonId": "secant-angle",
   "title": "Secants & the secant angle",
-  "totalSteps": 10,
+  "totalSteps": 6,
   "steps": [
     {
-      "stepId": "hook",
+      "stepId": "state_theorem",
       "interactionType": "statement",
-      "prompt": "Two beams from outside the circle",
+      "prompt": "Outside ⇒ subtract the arcs",
       "graphic": {
         "name": "slingshot",
         "caption": "Stand outside a circle and aim two secants in, like a slingshot. Each beam slices through, hitting a near point and a far point."
       },
-      "legend": [
-        { "color": "orange", "label": "far arc (between the far points)" },
-        { "color": "teal", "label": "near arc (between the near points)" },
-        { "color": "magenta", "label": "the angle at P" }
-      ],
-      "body": "A secant is a line that slices straight through a circle, crossing it at two points. (A tangent only grazes the edge at one point — a secant cuts twice.)\nFrom a point P outside the circle, two secants reach in. The two far crossing points cup the [far arc](orange); the two near ones cup the [near arc](teal).\nThis whole lesson is about [the angle at P](magenta) — and how it depends on those two arcs."
+      "diagram": {
+        "mode": "static",
+        "variant": "secant",
+        "secant": {
+          "farArc": 120,
+          "nearArc": 40,
+          "tint": true
+        }
+      },
+      "body": "A secant is a line that slices straight through a circle, crossing it at two points. From a point P outside the circle, two secants reach in: the two far crossing points cup the [far arc](orange); the two near ones cup the [near arc](teal).\nFrom outside, [the angle at P](magenta) is half the DIFFERENCE of those two arcs:\n[angle](magenta) = ½ ([far arc](orange) − [near arc](teal)).\nHere the [far arc](orange) is 120° and the [near arc](teal) is 40°, so the angle is ½ (120° − 40°) = 40°."
     },
     {
       "stepId": "exploration",
       "interactionType": "explore",
       "prompt": "Drag P and watch the two arcs",
       "subtitle": "Compare [the angle at P](magenta) with ½ ([far arc](orange) − [near arc](teal)) in the readout as you drag.",
-      "legend": [
-        { "color": "orange", "label": "far arc" },
-        { "color": "teal", "label": "near arc" },
-        { "color": "magenta", "label": "angle at P" }
-      ],
-      "diagram": { "mode": "interactive", "variant": "secant", "showReadout": true, "secant": { "farArc": 120, "nearArc": 40, "tint": true } }
-    },
-    {
-      "stepId": "state_theorem",
-      "interactionType": "statement",
-      "prompt": "Outside ⇒ subtract the arcs",
-      "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 120, "nearArc": 40, "tint": true } },
-      "legend": [
-        { "color": "orange", "label": "far arc" },
-        { "color": "teal", "label": "near arc" },
-        { "color": "magenta", "label": "angle at P" }
-      ],
-      "body": "From a point outside the circle, [the angle](magenta) is half the DIFFERENCE of the two arcs:\n[angle](magenta) = ½ ([far arc](orange) − [near arc](teal)).\nHere the [far arc](orange) is 120° and the [near arc](teal) is 40°, so the angle is ½ (120° − 40°) = 40°."
+      "diagram": {
+        "mode": "interactive",
+        "variant": "secant",
+        "showReadout": true,
+        "secant": {
+          "farArc": 120,
+          "nearArc": 40,
+          "tint": true
+        }
+      }
     },
     {
       "stepId": "find_arcs",
       "interactionType": "multi_select",
       "prompt": "Pick every true statement about these arcs",
       "subtitle": "Two secants leave the outside point P. The [far arc](orange) is 120° and the [near arc](teal) is 40°.",
-      "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 120, "nearArc": 40, "tint": true } },
+      "diagram": {
+        "mode": "static",
+        "variant": "secant",
+        "secant": {
+          "farArc": 120,
+          "nearArc": 40,
+          "tint": true
+        }
+      },
       "options": [
-        { "id": "far_bigger", "label": "The [far arc](orange) is the bigger of the two.", "correct": true },
-        { "id": "near_closest", "label": "The [near arc](teal) is the one tucked closest to P.", "correct": true },
-        { "id": "far_between", "label": "The [far arc](orange) lies between the two far crossing points.", "correct": true },
-        { "id": "near_bigger", "label": "The [near arc](teal) is bigger than the [far arc](orange).", "correct": false },
-        { "id": "add", "label": "To get [the angle at P](magenta), you add the two arcs.", "correct": false }
+        {
+          "id": "far_bigger",
+          "label": "The [far arc](orange) is the bigger of the two.",
+          "correct": true
+        },
+        {
+          "id": "near_closest",
+          "label": "The [near arc](teal) is the one tucked closest to P.",
+          "correct": true
+        },
+        {
+          "id": "far_between",
+          "label": "The [far arc](orange) lies between the two far crossing points.",
+          "correct": true
+        },
+        {
+          "id": "near_bigger",
+          "label": "The [near arc](teal) is bigger than the [far arc](orange).",
+          "correct": false
+        },
+        {
+          "id": "add",
+          "label": "To get [the angle at P](magenta), you add the two arcs.",
+          "correct": false
+        }
       ],
       "feedback": {
         "correct": "Right. The far arc is the larger one, and from outside the circle you subtract the arcs — never add.",
@@ -64,7 +88,10 @@
       "stepId": "why",
       "interactionType": "proof",
       "prompt": "Why outside means subtract",
-      "diagram": { "mode": "static", "variant": "secant-angle" },
+      "diagram": {
+        "mode": "static",
+        "variant": "secant-angle"
+      },
       "proofMode": "fill-value",
       "stages": [
         "Two secants leave the outside point P. Each cuts the circle at a near point and a far point: near M and N, far A and B.",
@@ -91,46 +118,6 @@
       ]
     },
     {
-      "stepId": "inside_outside",
-      "interactionType": "categorize",
-      "prompt": "Inside you add, outside you subtract",
-      "subtitle": "Where the angle's corner sits decides everything. Sort each setup into add or subtract.",
-      "buckets": [
-        { "id": "add", "label": "Inside ⇒ ½ (sum of arcs)" },
-        { "id": "sub", "label": "Outside ⇒ ½ (difference of arcs)" }
-      ],
-      "items": [
-        { "id": "chords_inside", "label": "Two chords crossing inside the circle", "bucket": "add" },
-        { "id": "corner_inside", "label": "The angle's corner is inside the circle", "bucket": "add" },
-        { "id": "two_secants", "label": "Two secants from a point outside", "bucket": "sub" },
-        { "id": "secant_tangent", "label": "A secant and a tangent from a point outside", "bucket": "sub" },
-        { "id": "corner_outside", "label": "The angle's corner is outside the circle", "bucket": "sub" }
-      ],
-      "doneNote": "That's the big idea: corner inside ⇒ add the arcs; corner outside ⇒ subtract them."
-    },
-    {
-      "stepId": "debug",
-      "interactionType": "spot_the_mistake",
-      "prompt": "Find the slip in this working",
-      "subtitle": "Two secants from an outside point cut a far arc of 120° and a near arc of 40°. One line is wrong — tap it.",
-      "lines": [
-        { "id": "l1", "text": "From an outside point, angle = half the difference of the arcs." },
-        { "id": "l2", "text": "The far arc is 120 and the near arc is 40." },
-        { "id": "l3", "text": "So angle = 1/2 x (120 + 40) = 80.", "wrong": true },
-        { "id": "l4", "text": "So the angle at P is 80 degrees." }
-      ],
-      "explanation": "Outside the circle you SUBTRACT the arcs, not add. The angle = ½ (120° − 40°) = 40°. Adding the arcs is the rule for two chords that cross INSIDE the circle.",
-      "hint": "Line 1 says difference, but line 3 adds. Outside ⇒ subtract.",
-      "doneNote": "Exactly — that line added instead of subtracting."
-    },
-    {
-      "stepId": "secant_product",
-      "interactionType": "statement",
-      "prompt": "The same point also balances lengths",
-      "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 120, "nearArc": 40, "tint": true } },
-      "body": "There is a length rule too. Along each secant, the near distance times the far distance is the same for both secants: PA × PB = PC × PD.\nFor example, if one secant gives 4 × 9 = 36, the other must also make 36 — say 3 × 12.\nNotice it is a product, not a sum."
-    },
-    {
       "stepId": "guided_practice",
       "interactionType": "practice",
       "prompt": "Practice",
@@ -139,7 +126,16 @@
         {
           "id": "secant_angle_120_40",
           "prompt": "Two secants from an external point cut off a far arc of 120° and a near arc of 40°. Find the angle at the point.",
-          "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 120, "nearArc": 40, "unknown": "angle", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "secant",
+            "secant": {
+              "farArc": 120,
+              "nearArc": 40,
+              "unknown": "angle",
+              "tint": true
+            }
+          },
           "correctAnswer": 40,
           "unit": "°",
           "feedback": {
@@ -151,7 +147,16 @@
         {
           "id": "secant_angle_100_30",
           "prompt": "Two secants from an external point cut off a far arc of 100° and a near arc of 30°. Find the angle at the point.",
-          "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 100, "nearArc": 30, "unknown": "angle", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "secant",
+            "secant": {
+              "farArc": 100,
+              "nearArc": 30,
+              "unknown": "angle",
+              "tint": true
+            }
+          },
           "correctAnswer": 35,
           "unit": "°",
           "feedback": {
@@ -163,7 +168,16 @@
         {
           "id": "secant_angle_find_near",
           "prompt": "The angle between two secants from an external point is 25°, and the far arc is 110°. Find the near arc.",
-          "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 110, "nearArc": 60, "unknown": "near", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "secant",
+            "secant": {
+              "farArc": 110,
+              "nearArc": 60,
+              "unknown": "near",
+              "tint": true
+            }
+          },
           "correctAnswer": 60,
           "unit": "°",
           "feedback": {
@@ -176,22 +190,39 @@
     },
     {
       "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "Two secants from an external point cut off a [far arc](orange) of 160° and a [near arc](teal) of 70°. Find [the angle at the point](magenta).",
-      "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 160, "nearArc": 70, "unknown": "angle", "tint": true } },
-      "problem": {
-        "id": "secant_angle_challenge_160_70",
-        "prompt": "Angle at P",
-        "diagram": { "mode": "static", "variant": "secant", "secant": { "farArc": 160, "nearArc": 70, "unknown": "angle", "tint": true } },
-        "correctAnswer": 45,
-        "unit": "°",
-        "feedback": {
-          "correct": "Done. ½ (160° − 70°) = 45°.",
-          "incorrect": "Subtract the two arcs and take half."
+      "interactionType": "walkthrough",
+      "prompt": "Work out the angle one move at a time",
+      "intro": "Two secants from an external point cut off a [far arc](orange) of 160° and a [near arc](teal) of 70°. Find [the angle at the point](magenta) — subtract the near arc from the far arc, then halve.",
+      "subtitle": "Outside the circle: [angle](magenta) = ½ ([far arc](orange) − [near arc](teal)).",
+      "diagram": {
+        "mode": "static",
+        "variant": "secant",
+        "secant": {
+          "farArc": 160,
+          "nearArc": 70,
+          "unknown": "angle",
+          "tint": true
+        }
+      },
+      "parts": [
+        {
+          "kind": "numeric",
+          "prompt": "First, subtract the near arc from the far arc: 160° − 70° = ?",
+          "answer": 90,
+          "unit": "°",
+          "hint": "Take the near arc away from the far arc: 160 − 70.",
+          "note": "160° − 70° = 90° — the difference of the two arcs."
         },
-        "strongHint": "(160° − 70°) ÷ 2."
-      }
+        {
+          "kind": "numeric",
+          "prompt": "Now halve that difference to get the angle at P: ½ × 90° = ?",
+          "answer": 45,
+          "unit": "°",
+          "hint": "Divide the difference by 2: 90 ÷ 2.",
+          "note": "½ × 90° = 45°, so the angle at P is 45°."
+        }
+      ],
+      "doneNote": "That's the whole method: subtract the near arc from the far arc, then take half. ½ (160° − 70°) = 45°."
     }
   ]
 }

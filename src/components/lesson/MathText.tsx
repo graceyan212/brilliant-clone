@@ -1,5 +1,4 @@
 import { Fragment, type ReactNode } from 'react'
-import type { LegendItem } from '../../types/lesson'
 import { isTokenColor } from './palette'
 import './tokens.css'
 
@@ -278,24 +277,3 @@ export function MathText({ text }: { text: string }) {
 // Backwards-compatible alias. The renderer historically imported `AngleText`;
 // new code should prefer `MathText`.
 export const AngleText = MathText
-
-/**
- * A small, visible colour key. Diagrams and prompts can show it so a learner
- * can see what each colour stands for. The label text is tinted with its own
- * colour and paired with a solid swatch, reinforcing the mapping.
- */
-export function Legend({ items }: { items?: LegendItem[] }) {
-  if (!items || items.length === 0) {
-    return null
-  }
-  return (
-    <ul className="legend" aria-label="Colour key">
-      {items.map((item, index) => (
-        <li key={`${item.color}-${index}`} className="legend__item">
-          <span className={`legend__swatch tok-bg--${item.color}`} aria-hidden="true" />
-          <span className={`legend__label tok--${item.color}`}>{item.label}</span>
-        </li>
-      ))}
-    </ul>
-  )
-}

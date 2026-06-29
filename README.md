@@ -161,10 +161,11 @@ We deliberately did **not** add a chatbot, and we skipped adaptive-path and "exp
 - **Verified against the subject's logic.** The edge function validates every spec against per-topic allow-lists and integer ranges (e.g. an inscribed-angle central value must be even so its half is a whole number); non-conforming specs are dropped, and a `context` phrase is rejected if it contains any digit (so it can't leak a number).
 - **Server-side key.** The LLM call runs in a Supabase Edge Function ([`supabase/functions/generate-practice`](supabase/functions/generate-practice/index.ts)); the API key never reaches the browser.
 - **Works with AI off.** "More practice" tries AI first, then falls back to the built-in deterministic pool on any failure. With no API key set, the whole app behaves exactly as in Phase 1.
+- **Verifiable in-app.** A visible **AI on/off toggle** in the header (`src/lib/ai-settings.ts`) forces both AI surfaces — extra-practice generation and guided hints — to take the no-AI path on demand, so the fallback behaviour can be confirmed directly in the UI rather than only by unsetting the key. The preference is stored in `localStorage` and respected by `generateAiPractice` and `fetchGuidedHint`.
 
 ### Enabling AI generation
 
-Set an `OPENAI_API_KEY` secret on the Supabase Edge Function (default model `gpt-4o-mini`, swappable). Until it is set, "More practice" uses the deterministic pool.
+Set an `OPENAI_API_KEY` secret on the Supabase Edge Function (default model `gpt-4o-mini`, swappable). Until it is set, "More practice" uses the deterministic pool. The header toggle can also force the no-AI path with the key in place.
 
 ## Future hooks (Phase 3)
 

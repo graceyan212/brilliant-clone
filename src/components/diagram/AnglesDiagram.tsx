@@ -204,12 +204,14 @@ export function AnglesDiagram({
           { id: 'partner', vertex: bottom, dirA: hRight, dirB: up, value: gamma, tone: 'arc' },
         ]
       case 'rules':
-        // The angle-rules summary: the corresponding pair (same upper-right corner
-        // at both crossings, blue) and the vertical pair (the opposite UL/LR wedges
-        // at the top crossing, purple). Kept disjoint so each colour owns its wedges.
+        // The two "equal angle" examples, kept disjoint so each colour owns its
+        // wedges: the alternate-interior Z pair (orange) and the vertical pair at
+        // the top crossing (purple). Corresponding angles share the bottom-right
+        // angle with the alternate pair in this figure, so they're described in
+        // prose rather than given a third overlapping colour.
         return [
-          { id: 'corr-top', vertex: top, dirA: hRight, dirB: up, value: gamma, tone: 'corresponding' },
-          { id: 'corr-bottom', vertex: bottom, dirA: hRight, dirB: up, value: gamma, tone: 'corresponding' },
+          { id: 'alt-top', vertex: top, dirA: hLeft, dirB: down, value: gamma, tone: 'accent' },
+          { id: 'alt-bottom', vertex: bottom, dirA: hRight, dirB: up, value: gamma, tone: 'accent' },
           { id: 'vert-a', vertex: top, dirA: up, dirB: hLeft, value: 180 - gamma, tone: 'vertical' },
           { id: 'vert-b', vertex: top, dirA: down, dirB: hRight, value: 180 - gamma, tone: 'vertical' },
         ]
@@ -234,7 +236,7 @@ export function AnglesDiagram({
         // Static-only composite; the live readout is never rendered for it, but the
         // switch stays exhaustive. Report one angle from each coloured pair.
         return [
-          { id: 'corr', term: <>&ang; corresp.</>, value: gamma, cls: 'is-corresponding' },
+          { id: 'alt', term: <>&ang; alt. interior</>, value: gamma, cls: 'is-angle' },
           { id: 'vert', term: <>&ang; vertical</>, value: 180 - gamma, cls: 'is-vertical' },
         ]
       case 'alternate':
@@ -323,7 +325,7 @@ export function AnglesDiagram({
 
   const figureLabel =
     highlight === 'rules'
-      ? 'Two parallel lines cut by a transversal, with the corresponding-angle pair and the vertical-angle pair highlighted in separate colours'
+      ? 'Two parallel lines cut by a transversal, with the alternate-interior pair and the vertical-angle pair highlighted in separate colours'
       : `Two parallel lines cut by a transversal, highlighting ${highlight} angles`
 
   return (

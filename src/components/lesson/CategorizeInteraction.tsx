@@ -58,14 +58,15 @@ export function CategorizeInteraction({
       return
     }
     if (item.bucket === bucketId) {
+      // The chip visibly moves into the bucket, so no extra "correct" message is
+      // needed — keep the panel quiet on success.
       setPlaced((current) => ({ ...current, [item.id]: bucketId }))
       setSelectedId(undefined)
       setWrongBucket(undefined)
-      setStatus({ correct: true, text: `Yes — "${item.label}" goes there.` })
+      setStatus(undefined)
     } else {
-      const bucket = buckets.find((candidate) => candidate.id === bucketId)
       setWrongBucket(bucketId)
-      setStatus({ correct: false, text: `Not ${bucket?.label ?? 'that group'} — try another.` })
+      setStatus({ correct: false, text: `Not there — try a different group for ${item.label}.` })
     }
   }
 
@@ -125,12 +126,12 @@ export function CategorizeInteraction({
       </div>
 
       {status && !done && (
-        <p
-          className={status.correct ? 'interaction__status is-correct' : 'interaction__status is-wrong'}
-          aria-live="polite"
-        >
-          <MathText text={status.text} />
-        </p>
+        <div className="feedback-panel is-incorrect" aria-live="polite">
+          <strong>Not quite</strong>
+          <p>
+            <MathText text={status.text} />
+          </p>
+        </div>
       )}
     </section>
   )

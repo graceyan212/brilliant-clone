@@ -1,90 +1,101 @@
 {
   "lessonId": "tangents",
   "title": "Tangents to a circle",
-  "totalSteps": 10,
+  "totalSteps": 7,
   "steps": [
-    {
-      "stepId": "terminology",
-      "interactionType": "statement",
-      "prompt": "A line that just touches",
-      "graphic": {
-        "name": "tangent-road",
-        "caption": "A wheel resting on a road touches it at a single point. The spoke down to that point meets the road square-on — a perfect right angle."
-      },
-      "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "radius", "tint": true } },
-      "legend": [
-        { "color": "orange", "label": "tangent" },
-        { "color": "blue", "label": "radius" }
-      ],
-      "body": "A [tangent](orange) is a line that touches a circle at exactly one point — the point of contact T. (A secant would cut right through; a tangent only kisses the edge.)\nThe [radius](blue) drawn to T is always perpendicular to the [tangent](orange) — they make a 90° corner.\nThat right angle is the key that unlocks everything else in this lesson."
-    },
     {
       "stepId": "exploration",
       "interactionType": "explore",
       "prompt": "Drag the outside point and compare the two tangents",
-      "subtitle": "From a point outside, you can draw two [tangents](orange). Watch the lengths PT₁ and PT₂ in the readout as you drag.",
-      "legend": [
-        { "color": "orange", "label": "tangent" },
-        { "color": "blue", "label": "radius" }
-      ],
-      "diagram": { "mode": "interactive", "variant": "tangent", "showReadout": true, "tangent": { "kind": "pair", "tint": true } }
+      "subtitle": "From a point outside, you can draw two [tangents](orange) — lines that each just kiss the circle at a single point. Watch the lengths PT₁ and PT₂ in the readout as you drag.",
+      "diagram": {
+        "mode": "interactive",
+        "variant": "tangent",
+        "showReadout": true,
+        "tangent": {
+          "kind": "pair",
+          "tint": true
+        }
+      }
     },
     {
-      "stepId": "sort_facts",
-      "interactionType": "categorize",
-      "prompt": "Sort each clue under the right tangent fact",
-      "subtitle": "There are three tangent facts. Tap a card, then tap the fact it belongs to.",
-      "buckets": [
-        { "id": "perp", "label": "Radius ⊥ tangent" },
-        { "id": "half", "label": "Tangent–chord = ½ the arc" },
-        { "id": "equal", "label": "Two tangents are equal" }
-      ],
+      "stepId": "three_facts",
+      "interactionType": "statement",
+      "prompt": "Three facts about tangents",
+      "graphic": {
+        "name": "tangent-road",
+        "caption": "A wheel resting on a road touches it at a single point. The spoke down to that point meets the road square-on — a perfect right angle."
+      },
+      "diagram": {
+        "mode": "static",
+        "variant": "tangent",
+        "tangent": {
+          "kind": "radius",
+          "tint": true
+        }
+      },
+      "body": "A [tangent](orange) touches a circle at exactly one point — the point of contact T. This lesson is three facts that all flow from there.\n1. The [radius](blue) drawn to T is always perpendicular to the [tangent](orange) — they make a 90° corner. That right angle is the key that unlocks everything else.\n2. Where a [tangent](orange) meets a [chord](magenta) at T, the angle between them is half the [arc](teal) the chord cuts off — it behaves just like an inscribed angle in the far \"alternate segment\".\n3. Two [tangents](orange) drawn from the same outside point are equal in length, and the line from that point to the centre cuts the angle between them exactly in half."
+    },
+    {
+      "stepId": "order_method",
+      "interactionType": "sort",
+      "prompt": "Order the steps to find a tangent–chord angle",
+      "subtitle": "A [tangent](orange) and a [chord](magenta) meet at the point of contact, and the chord cuts off an [arc](teal) of 100°. Put the method in order.",
+      "diagram": {
+        "mode": "static",
+        "variant": "tangent",
+        "tangent": {
+          "kind": "chord",
+          "arc": 100,
+          "tint": true
+        }
+      },
+      "instruction": "Tap the steps into the right order, first move at the top.",
       "items": [
-        { "id": "corner90", "label": "The radius makes a 90° corner with the tangent at T.", "bucket": "perp" },
-        { "id": "spoke", "label": "A wheel's spoke meets the flat road square-on.", "bucket": "perp" },
-        { "id": "chordhalf", "label": "Where a tangent meets a chord, the angle is half the arc cut off.", "bucket": "half" },
-        { "id": "altseg", "label": "That angle equals an inscribed angle in the far piece of the circle.", "bucket": "half" },
-        { "id": "pt1pt2", "label": "From one outside point, PT₁ = PT₂.", "bucket": "equal" },
-        { "id": "bisect", "label": "The line from that point to the centre splits the angle between the two tangents.", "bucket": "equal" }
+        {
+          "id": "contact",
+          "label": "Locate the point of contact, where the tangent meets the chord."
+        },
+        {
+          "id": "arc",
+          "label": "Read off the arc the chord cuts off: 100°."
+        },
+        {
+          "id": "halve",
+          "label": "Halve that arc: 100° ÷ 2."
+        },
+        {
+          "id": "answer",
+          "label": "State the tangent–chord angle: 50°."
+        }
       ],
-      "doneNote": "Three facts, sorted: the right angle, the half-arc angle, and the equal pair."
-    },
-    {
-      "stepId": "state_equal_tangents",
-      "interactionType": "statement",
-      "prompt": "Two equal tangents from a point",
-      "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "pair", "arc": 120, "tint": true } },
-      "legend": [
-        { "color": "orange", "label": "tangent" },
-        { "color": "teal", "label": "arc between the contacts" }
-      ],
-      "body": "Two [tangents](orange) drawn from the same outside point are equal in length, and the line from that point to the centre cuts the angle between them exactly in half.\nThe angle between the two [tangents](orange) is 180° minus the [arc](teal) caught between the points of contact. Here that [arc](teal) is 120°, so the angle is 60°."
-    },
-    {
-      "stepId": "tangent_chord",
-      "interactionType": "statement",
-      "prompt": "The tangent–chord angle",
-      "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "chord", "arc": 100, "tint": true } },
-      "legend": [
-        { "color": "orange", "label": "tangent" },
-        { "color": "magenta", "label": "chord" },
-        { "color": "teal", "label": "arc" }
-      ],
-      "body": "Where a [tangent](orange) meets a [chord](magenta) at the point of contact, the angle between them is half the [arc](teal) the chord cuts off.\nHere is the trick that makes it click: that angle equals an inscribed angle drawn in the far piece of the circle — the \"alternate segment\". So it behaves exactly like an inscribed angle: half its arc.\nHere the [arc](teal) is 100°, so the [tangent](orange)–[chord](magenta) angle is 50°."
+      "doneNote": "Find the arc, halve it: ½ × 100° = 50°. The tangent–chord angle is half its arc, just like an inscribed angle."
     },
     {
       "stepId": "why",
       "interactionType": "proof",
       "prompt": "Why the tangent–chord angle is half the arc",
-      "diagram": { "mode": "static", "variant": "tangent-chord" },
+      "diagram": {
+        "mode": "static",
+        "variant": "tangent-chord"
+      },
       "proofMode": "reason",
       "gates": [
         {
           "prompt": "To tie the angle φ to the circle, which line should we add?",
           "choices": [
-            { "id": "ot", "label": "The radius OT to the point of contact." },
-            { "id": "second", "label": "A second tangent from another point." },
-            { "id": "diam", "label": "The diameter through A." }
+            {
+              "id": "ot",
+              "label": "The radius OT to the point of contact."
+            },
+            {
+              "id": "second",
+              "label": "A second tangent from another point."
+            },
+            {
+              "id": "diam",
+              "label": "The diameter through A."
+            }
           ],
           "answer": "ot",
           "hint": "The radius to the point of contact is the one line that meets the tangent at a right angle."
@@ -92,9 +103,18 @@
         {
           "prompt": "Why is triangle OTA isosceles (two equal sides)?",
           "choices": [
-            { "id": "radii", "label": "OT and OA are both radii, so they are equal." },
-            { "id": "right", "label": "Because it has a right angle at T." },
-            { "id": "ta", "label": "Because TA equals OT." }
+            {
+              "id": "radii",
+              "label": "OT and OA are both radii, so they are equal."
+            },
+            {
+              "id": "right",
+              "label": "Because it has a right angle at T."
+            },
+            {
+              "id": "ta",
+              "label": "Because TA equals OT."
+            }
           ],
           "answer": "radii",
           "hint": "OT and OA both reach from the centre to the circle, so they are the same length."
@@ -102,9 +122,18 @@
         {
           "prompt": "Each base angle is 90° − φ. So the top angle ∠TOA is…",
           "choices": [
-            { "id": "2phi", "label": "2φ, since all three angles add to 180°." },
-            { "id": "phi", "label": "90° − φ." },
-            { "id": "justphi", "label": "φ." }
+            {
+              "id": "2phi",
+              "label": "2φ, since all three angles add to 180°."
+            },
+            {
+              "id": "phi",
+              "label": "90° − φ."
+            },
+            {
+              "id": "justphi",
+              "label": "φ."
+            }
           ],
           "answer": "2phi",
           "hint": "180° − (90° − φ) − (90° − φ) = 2φ."
@@ -112,9 +141,18 @@
         {
           "prompt": "∠TOA = 2φ is a central angle on arc TA, and a central angle equals its arc. So φ is…",
           "choices": [
-            { "id": "half", "label": "half of arc TA." },
-            { "id": "double", "label": "twice arc TA." },
-            { "id": "equal", "label": "equal to arc TA." }
+            {
+              "id": "half",
+              "label": "half of arc TA."
+            },
+            {
+              "id": "double",
+              "label": "twice arc TA."
+            },
+            {
+              "id": "equal",
+              "label": "equal to arc TA."
+            }
           ],
           "answer": "half",
           "hint": "arc TA = 2φ, so φ is half the arc."
@@ -129,27 +167,6 @@
       ]
     },
     {
-      "stepId": "debug",
-      "interactionType": "spot_the_mistake",
-      "prompt": "Find the slip in this working",
-      "subtitle": "A tangent and a chord cut off an arc of 80°. One line is wrong — tap it.",
-      "lines": [
-        { "id": "l1", "text": "The tangent-chord angle sits where the tangent meets the chord at T." },
-        { "id": "l2", "text": "The chord cuts off an arc of 80 degrees." },
-        { "id": "l3", "text": "The angle equals the whole arc, so it is 80 degrees.", "wrong": true },
-        { "id": "l4", "text": "So the tangent-chord angle is 80 degrees." }
-      ],
-      "explanation": "The tangent–chord angle is HALF the arc, not the whole arc — it behaves just like an inscribed angle. The correct angle is ½ × 80° = 40°.",
-      "hint": "Inscribed angles, and this tangent–chord angle, are half their arc — not the full arc.",
-      "doneNote": "Right — it should be half the arc, 40°."
-    },
-    {
-      "stepId": "secant_tangent",
-      "interactionType": "statement",
-      "prompt": "The secant–tangent product",
-      "body": "From an outside point, draw one tangent of length PT and one secant meeting the circle at a near point A and a far point B. Then the tangent squared equals the secant's two parts multiplied: PT² = PA × PB.\nFor example, if PA = 4 and PB = 9, then PT² = 36, so PT = 6.\nThe tangent is the \"in-between\" length — the geometric mean of the secant's two parts."
-    },
-    {
       "stepId": "guided_practice",
       "interactionType": "practice",
       "prompt": "Practice",
@@ -158,7 +175,16 @@
         {
           "id": "tangent_chord_arc_120",
           "prompt": "A tangent and a chord meet at the point of contact, cutting off a 120° arc. Find the tangent–chord angle.",
-          "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "chord", "arc": 120, "unknown": "angle", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "tangent",
+            "tangent": {
+              "kind": "chord",
+              "arc": 120,
+              "unknown": "angle",
+              "tint": true
+            }
+          },
           "correctAnswer": 60,
           "unit": "°",
           "feedback": {
@@ -170,7 +196,16 @@
         {
           "id": "tangent_chord_angle_35",
           "prompt": "A tangent–chord angle measures 35°. Find the arc the chord cuts off.",
-          "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "chord", "arc": 70, "unknown": "arc", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "tangent",
+            "tangent": {
+              "kind": "chord",
+              "arc": 70,
+              "unknown": "arc",
+              "tint": true
+            }
+          },
           "correctAnswer": 70,
           "unit": "°",
           "feedback": {
@@ -182,7 +217,16 @@
         {
           "id": "tangent_pair_arc_100",
           "prompt": "Two tangents from a point touch a circle, enclosing a 100° arc between the points of contact. Find the angle between the tangents.",
-          "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "pair", "arc": 100, "unknown": "angle", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "tangent",
+            "tangent": {
+              "kind": "pair",
+              "arc": 100,
+              "unknown": "angle",
+              "tint": true
+            }
+          },
           "correctAnswer": 80,
           "unit": "°",
           "feedback": {
@@ -194,23 +238,55 @@
       ]
     },
     {
-      "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "A [tangent](orange) and a [chord](magenta) meet at the point of contact, cutting off an [arc](teal) of 86°. Find the [tangent](orange)–[chord](magenta) angle.",
-      "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "chord", "arc": 86, "unknown": "angle", "tint": true } },
-      "problem": {
-        "id": "tangent_chord_challenge_86",
-        "prompt": "Tangent–chord angle",
-        "diagram": { "mode": "static", "variant": "tangent", "tangent": { "kind": "chord", "arc": 86, "unknown": "angle", "tint": true } },
-        "correctAnswer": 43,
-        "unit": "°",
-        "feedback": {
-          "correct": "Done. ½ × 86° = 43°.",
-          "incorrect": "The tangent–chord angle is half the intercepted arc."
+      "stepId": "secant_tangent",
+      "interactionType": "statement",
+      "prompt": "The secant–tangent product",
+      "body": "From an outside point, draw one tangent of length PT and one secant meeting the circle at a near point A and a far point B. Then the tangent squared equals the secant's two parts multiplied: PT² = PA × PB.\nFor example, if PA = 4 and PB = 9, then PT² = 36, so PT = 6.\nThe tangent is the \"in-between\" length — the geometric mean of the secant's two parts."
+    },
+    {
+      "stepId": "rapid_checks",
+      "interactionType": "true_false",
+      "prompt": "Quick checks — true or false?",
+      "subtitle": "One card for each of the three tangent facts — and a few traps.",
+      "cards": [
+        {
+          "id": "tf_perp",
+          "statement": "A tangent meets the radius drawn to the point of contact at 90°.",
+          "answer": true,
+          "note": "Yes — radius ⊥ tangent. That right angle is the key fact the whole lesson rests on."
         },
-        "strongHint": "Halve the arc: 86° ÷ 2."
-      }
+        {
+          "id": "tf_onepoint",
+          "statement": "A tangent crosses the circle at two points.",
+          "answer": false,
+          "note": "No — a tangent touches at exactly one point. A line that cuts through at two points is a secant."
+        },
+        {
+          "id": "tf_equal",
+          "statement": "The two tangents drawn from a single outside point are equal in length.",
+          "answer": true,
+          "note": "True — PT₁ = PT₂, as you saw when you dragged the outside point."
+        },
+        {
+          "id": "tf_wholearc",
+          "statement": "A tangent–chord angle equals the whole arc the chord cuts off.",
+          "answer": false,
+          "note": "No — it is half the arc, just like an inscribed angle. An 80° arc gives a 40° angle, not 80°."
+        },
+        {
+          "id": "tf_bisect",
+          "statement": "From an outside point, the line to the centre bisects the angle between the two tangents.",
+          "answer": true,
+          "note": "True — that line splits the angle between the tangents exactly in half."
+        },
+        {
+          "id": "tf_pair100",
+          "statement": "If two tangents enclose a 100° arc between their contact points, the angle between them is 100°.",
+          "answer": false,
+          "note": "No — the angle is 180° − 100° = 80°. The angle between two tangents is 180° minus the near arc."
+        }
+      ],
+      "doneNote": "Radius ⊥ tangent, tangent–chord = ½ arc, and two tangents from a point are equal — the three facts, locked in."
     }
   ]
 }

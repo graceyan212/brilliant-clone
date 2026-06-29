@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
-import { supabase } from './supabase'
+import { isSupabaseConfigured, supabase } from './supabase'
 import { AuthContext, type AuthContextValue } from './auth-context'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -10,13 +10,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let active = true
 
-    supabase.auth.getSession().then(({ data }) => {
-      if (!active) {
-        return
-      }
-      setSession(data.session)
+    // No backend configured: skip auth entirely and resolve immediately so the
+    // app renders as a no-account experience instead of waiting on a client
+    // that can't reach a server.
+    if (!isSupabaseConfigured) {
       setLoading(false)
-    })
+      return
+    }
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (!active) {
+          return
+        }
+        setSession(data.session)
+        setLoading(false)
+      })
+      .catch(() => {
+        if (active) {
+          setLoading(false)
+        }
+      })
 
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession)

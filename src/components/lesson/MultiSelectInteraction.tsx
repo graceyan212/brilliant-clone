@@ -29,6 +29,7 @@ export function MultiSelectInteraction({
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [wrongMarks, setWrongMarks] = useState<Set<string>>(new Set())
   const [solved, setSolved] = useState(false)
+  const [attempts, setAttempts] = useState(0)
   const [status, setStatus] = useState<{ correct: boolean; text: string }>()
 
   function toggle(id: string) {
@@ -61,16 +62,32 @@ export function MultiSelectInteraction({
       return
     }
 
-    const wrong = new Set(
-      [...selected].filter((id) => !options.find((option) => option.id === id)?.correct),
-    )
+    const correctSet = new Set(correctIds)
+    const wrong = new Set([...selected].filter((id) => !correctSet.has(id)))
+    const missing = correctIds.filter((id) => !selected.has(id)).length
     setWrongMarks(wrong)
-    setStatus({
-      correct: false,
-      text:
-        feedback?.incorrect ??
-        "Not the full set yet — clear anything that isn't true, and check for any you missed.",
-    })
+
+    const nextAttempts = attempts + 1
+    setAttempts(nextAttempts)
+
+    const rule =
+      feedback?.incorrect ??
+      "Not the full set yet — clear anything that isn't true, and check for any you missed."
+    // Escalate: 1st miss states the rule; 2nd adds a precise count of what's off;
+    // 3rd+ shows the count AND the rule together, so each check reveals a bit more.
+    const counts: string[] = []
+    if (wrong.size > 0)
+      counts.push(`${wrong.size} of your picks ${wrong.size === 1 ? 'is' : 'are'} wrong (marked)`)
+    if (missing > 0) counts.push(`you're still missing ${missing}`)
+    const diagnostic = counts.length ? `${counts.join(', and ')}.` : ''
+
+    let text = rule
+    if (nextAttempts === 2 && diagnostic) {
+      text = diagnostic
+    } else if (nextAttempts >= 3 && diagnostic) {
+      text = `${diagnostic} ${rule}`
+    }
+    setStatus({ correct: false, text })
   }
 
   return (

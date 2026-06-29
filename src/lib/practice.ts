@@ -78,6 +78,10 @@ function inscribedProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 
         incorrect: 'How does the inscribed angle compare with the central angle?',
       },
       strongHint: `Halve the central angle: ${value}\u00B0 \u00F7 2.`,
+      commonError: {
+        value,
+        feedback: `${value}\u00B0 is the central angle itself \u2014 the inscribed angle is HALF of it, so \u2220ACB = ${value} \u00F7 2 = ${inscribed}\u00B0.`,
+      },
     }
   }
   if (given === 'inscribed') {
@@ -119,6 +123,10 @@ function cyclicProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 'id
         incorrect: 'Opposite angles of a cyclic quadrilateral add to 180\u00B0.',
       },
       strongHint: '\u2220A and \u2220C are opposite, so take the given \u2220A away from 180\u00B0.',
+      commonError: {
+        value,
+        feedback: `Opposite angles are supplementary, not equal \u2014 \u2220C = 180\u00B0 \u2212 ${value}\u00B0 = ${other}\u00B0.`,
+      },
     }
   }
   if (given === 'C') {
@@ -132,6 +140,10 @@ function cyclicProblem({ given, value }: PracticeSpec): Omit<NumericProblem, 'id
         incorrect: '\u2220A and \u2220C are opposite, so they add to 180\u00B0.',
       },
       strongHint: '\u2220A and \u2220C are opposite, so take the given \u2220C away from 180\u00B0.',
+      commonError: {
+        value,
+        feedback: `Opposite angles are supplementary, not equal \u2014 \u2220A = 180\u00B0 \u2212 ${value}\u00B0 = ${other}\u00B0.`,
+      },
     }
   }
   throw new Error(`unknown cyclic given: ${given}`)
@@ -452,6 +464,10 @@ function pythagoreanProblem({ given, values }: PracticeSpec): Omit<NumericProble
         incorrect: 'In a right triangle, leg\u00B2 + leg\u00B2 = hypotenuse\u00B2.',
       },
       strongHint: `The hypotenuse c has c\u00B2 = ${first}\u00B2 + ${second}\u00B2 = ${first * first + second * second}. Take the square root.`,
+      commonError: {
+        value: first + second,
+        feedback: `You added the legs. Square them first: c = \u221A(${first}\u00B2 + ${second}\u00B2) = \u221A${first * first + second * second} = ${hyp}.`,
+      },
     }
   }
 
@@ -1006,6 +1022,7 @@ function chordAngleProblem({ given, values }: PracticeSpec): Omit<NumericProblem
       throw new Error(`invalid chord-angle values: ${values}`)
     }
     const angle = (first + second) / 2
+    const halfDiff = Math.abs(first - second) / 2
     return {
       prompt: `Two chords cross inside a circle, cutting off arcs of ${first}\u00B0 and ${second}\u00B0. Find the angle where they meet.`,
       diagram: { mode: 'static', variant: 'chordAngle', chordAngle: { arc1: first, arc2: second, unknown: 'angle' } },
@@ -1016,6 +1033,13 @@ function chordAngleProblem({ given, values }: PracticeSpec): Omit<NumericProblem
         incorrect: 'Inside the circle, the angle is half the sum of the two intercepted arcs.',
       },
       strongHint: `Add the arcs and halve: (${first}\u00B0 + ${second}\u00B0) \u00F7 2.`,
+      commonError:
+        Number.isInteger(halfDiff) && halfDiff !== angle
+          ? {
+              value: halfDiff,
+              feedback: `That's half the DIFFERENCE \u2014 the rule for secants meeting OUTSIDE the circle. Two chords crossing INSIDE use half the SUM: \u00BD(${first}\u00B0 + ${second}\u00B0) = ${angle}\u00B0.`,
+            }
+          : undefined,
     }
   }
   if (given === 'arc') {
@@ -1064,6 +1088,7 @@ function secantAngleProblem({ given, values }: PracticeSpec): Omit<NumericProble
       throw new Error(`invalid secant-angle values: ${values}`)
     }
     const angle = (far - near) / 2
+    const halfSum = (far + near) / 2
     return {
       prompt: `Two secants from an external point cut off a far arc of ${far}\u00B0 and a near arc of ${near}\u00B0. Find the angle at the point.`,
       diagram: { mode: 'static', variant: 'secant', secant: { farArc: far, nearArc: near, unknown: 'angle' } },
@@ -1074,6 +1099,12 @@ function secantAngleProblem({ given, values }: PracticeSpec): Omit<NumericProble
         incorrect: 'Outside the circle, the angle is half the difference of the two arcs.',
       },
       strongHint: `Subtract the arcs and halve: (${far}\u00B0 \u2212 ${near}\u00B0) \u00F7 2.`,
+      commonError: Number.isInteger(halfSum)
+        ? {
+            value: halfSum,
+            feedback: `That's half the SUM \u2014 the rule for two chords crossing INSIDE the circle. From an external point, use half the DIFFERENCE: \u00BD(${far}\u00B0 \u2212 ${near}\u00B0) = ${angle}\u00B0.`,
+          }
+        : undefined,
     }
   }
   if (given === 'near') {

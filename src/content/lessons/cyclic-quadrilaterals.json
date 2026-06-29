@@ -1,28 +1,39 @@
 {
   "lessonId": "cyclic-quadrilaterals",
   "title": "Cyclic quadrilaterals",
-  "totalSteps": 9,
+  "totalSteps": 7,
   "steps": [
-    {
-      "stepId": "bridge",
-      "interactionType": "statement",
-      "prompt": "Four friends on a Ferris wheel",
-      "graphic": {
-        "name": "ferris",
-        "caption": "Four friends ride a Ferris wheel, each in a cabin on the rim. Join the cabins and you get a four-cornered shape with every corner on one circle."
-      },
-      "legend": [
-        { "color": "magenta", "label": "∠A & ∠C (one pair of opposite corners)" },
-        { "color": "orange", "label": "∠B & ∠D (the other pair)" }
-      ],
-      "body": "A cyclic quadrilateral is a four-cornered shape with ALL four corners sitting on one circle — like four cabins on a Ferris wheel.\nLast lesson you learned an inscribed angle is half its arc. That one fact hides a surprise about OPPOSITE corners (the ones across the shape from each other).\nHere [∠A and ∠C](magenta) are one pair of opposite corners; [∠B and ∠D](orange) are the other."
-    },
     {
       "stepId": "exploration",
       "interactionType": "explore",
       "prompt": "Drag D. Watch ∠A and ∠C trade off.",
-      "subtitle": "[∠A](magenta) and [∠C](magenta) are opposite corners. As one grows, the other shrinks — but keep an eye on their SUM.",
-      "diagram": { "mode": "interactive", "variant": "quad", "showReadout": true, "quadTint": true }
+      "subtitle": "A cyclic quadrilateral has all four corners on one circle. [∠A](magenta) and [∠C](magenta) are opposite corners — as one grows, the other shrinks. Keep an eye on their SUM.",
+      "diagram": {
+        "mode": "interactive",
+        "variant": "quad",
+        "showReadout": true,
+        "quadTint": true
+      }
+    },
+    {
+      "stepId": "state_theorem",
+      "interactionType": "statement",
+      "prompt": "Opposite corners add to 180°",
+      "graphic": {
+        "name": "ferris",
+        "caption": "Four friends ride a Ferris wheel, each in a cabin on the rim. Join the cabins and you get a four-cornered shape with every corner on one circle — a cyclic quadrilateral."
+      },
+      "diagram": {
+        "mode": "static",
+        "variant": "quad",
+        "quadGivenA": 110,
+        "quadShow": [
+          "A",
+          "C"
+        ],
+        "quadTint": true
+      },
+      "body": "In any cyclic quadrilateral, each pair of OPPOSITE corners is supplementary — they add to 180°.\n[∠A + ∠C](magenta) = 180°, and [∠B + ∠D](orange) = 180°.\nHere ∠A = 110° forces [∠C](magenta) = 70°. 'Supplementary' just means the two angles together make a straight line, 180°."
     },
     {
       "stepId": "estimate_supplement",
@@ -44,39 +55,13 @@
       "revealText": "∠A = 180° − 110° = 70°. Opposite corners are supplementary — they add up to 180°."
     },
     {
-      "stepId": "state_theorem",
-      "interactionType": "statement",
-      "prompt": "Opposite corners add to 180°",
-      "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 110, "quadShow": ["A", "C"], "quadTint": true },
-      "legend": [
-        { "color": "magenta", "label": "∠A + ∠C = 180°" },
-        { "color": "orange", "label": "∠B + ∠D = 180°" }
-      ],
-      "body": "In any cyclic quadrilateral, each pair of OPPOSITE corners is supplementary — they add to 180°.\n[∠A + ∠C](magenta) = 180°, and [∠B + ∠D](orange) = 180°.\nHere ∠A = 110° forces [∠C](magenta) = 70°. 'Supplementary' just means the two angles together make a straight line, 180°."
-    },
-    {
-      "stepId": "sort_cyclic",
-      "interactionType": "categorize",
-      "prompt": "Is it a cyclic quadrilateral?",
-      "subtitle": "A quadrilateral is cyclic ONLY when all four corners lie on one circle. Sort each one.",
-      "buckets": [
-        { "id": "cyclic", "label": "Cyclic (all 4 corners on the circle)" },
-        { "id": "not", "label": "Not cyclic (a corner is off)" }
-      ],
-      "items": [
-        { "id": "allon", "label": "All four corners lie on the circle", "bucket": "cyclic" },
-        { "id": "square", "label": "A square drawn inside its circle", "bucket": "cyclic" },
-        { "id": "rect", "label": "A rectangle with all 4 corners on one circle", "bucket": "cyclic" },
-        { "id": "inside", "label": "One corner sits inside the circle", "bucket": "not" },
-        { "id": "outside", "label": "One corner pokes outside the circle", "bucket": "not" }
-      ],
-      "doneNote": "A quadrilateral is cyclic only when EVERY corner lies on the circle — and then opposite angles add to 180°."
-    },
-    {
       "stepId": "visual_proof",
       "interactionType": "proof",
       "prompt": "Proof: opposite corners add to 180°",
-      "diagram": { "mode": "static", "variant": "quad" },
+      "diagram": {
+        "mode": "static",
+        "variant": "quad"
+      },
       "proofMode": "reorder",
       "stages": [
         "[∠A](magenta) is an inscribed angle opening onto the arc from B through C to D, so that arc = 2 × ∠A.",
@@ -86,19 +71,53 @@
       ]
     },
     {
-      "stepId": "debug_360",
-      "interactionType": "spot_the_mistake",
-      "prompt": "Find the mistake",
-      "subtitle": "A student finds a missing angle in a cyclic quadrilateral ABCD. One line is wrong — tap it.",
-      "lines": [
-        { "id": "l1", "text": "ABCD is cyclic, and angle A = 70 degrees." },
-        { "id": "l2", "text": "Angle A and angle C are opposite corners." },
-        { "id": "l3", "text": "Opposite angles add to 360, so angle C = 360 - 70 = 290 degrees.", "wrong": true },
-        { "id": "l4", "text": "So angle C = 290 degrees." }
+      "stepId": "quick_checks",
+      "interactionType": "true_false",
+      "prompt": "Quick checks — true or false?",
+      "subtitle": "Opposite corners of a cyclic quadrilateral are supplementary — they add to 180°.",
+      "diagram": {
+        "mode": "static",
+        "variant": "quad",
+        "quadGivenA": 110,
+        "quadShow": [
+          "A",
+          "C"
+        ],
+        "quadTint": true
+      },
+      "cards": [
+        {
+          "id": "tf_equal",
+          "statement": "Opposite angles of a cyclic quadrilateral are equal.",
+          "answer": false,
+          "note": "No — they are supplementary, not equal. [∠A + ∠C](magenta) = 180°, so unless both are 90° they differ."
+        },
+        {
+          "id": "tf_180",
+          "statement": "Opposite angles of a cyclic quadrilateral add to 180°.",
+          "answer": true,
+          "note": "Yes — each pair of opposite corners is supplementary. [∠A + ∠C](magenta) = 180° and [∠B + ∠D](orange) = 180°."
+        },
+        {
+          "id": "tf_360",
+          "statement": "If ∠A = 70°, then its opposite corner ∠C = 290°.",
+          "answer": false,
+          "note": "No — opposite angles add to 180°, not 360°. So [∠C](magenta) = 180° − 70° = 110°. An angle of 290° couldn't fit inside a quadrilateral."
+        },
+        {
+          "id": "tf_allon",
+          "statement": "A quadrilateral is cyclic only when all four corners lie on one circle.",
+          "answer": true,
+          "note": "Yes — every corner must sit on the circle. Only then are the opposite angles guaranteed to be supplementary."
+        },
+        {
+          "id": "tf_72",
+          "statement": "In a cyclic quadrilateral with ∠A = 72°, the opposite corner ∠C = 108°.",
+          "answer": true,
+          "note": "Correct. [∠C](magenta) = 180° − 72° = 108°."
+        }
       ],
-      "explanation": "Opposite angles of a cyclic quadrilateral add to 180°, not 360°. So [∠C](magenta) = 180° − 70° = 110°. (An angle of 290° couldn't even fit inside a quadrilateral.)",
-      "hint": "What do opposite corners add up to — a full turn (360°), or a straight line (180°)?",
-      "doneNote": "Right — opposite angles make 180°, not 360°."
+      "doneNote": "Opposite corners are supplementary — they make 180°, never 360°, and they're equal only in the special 90°-90° case."
     },
     {
       "stepId": "guided_practice",
@@ -109,7 +128,15 @@
         {
           "id": "cyclic_find_c_100",
           "prompt": "ABCD is a cyclic quadrilateral. ∠A = 100°. Find ∠C.",
-          "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 100, "quadShow": ["A"], "quadTint": true },
+          "diagram": {
+            "mode": "static",
+            "variant": "quad",
+            "quadGivenA": 100,
+            "quadShow": [
+              "A"
+            ],
+            "quadTint": true
+          },
           "correctAnswer": 80,
           "unit": "°",
           "feedback": {
@@ -121,7 +148,16 @@
         {
           "id": "cyclic_find_a_115",
           "prompt": "ABCD is a cyclic quadrilateral. ∠C = 115°. Find ∠A.",
-          "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 65, "quadShow": ["C"], "quadRotate": 35, "quadTint": true },
+          "diagram": {
+            "mode": "static",
+            "variant": "quad",
+            "quadGivenA": 65,
+            "quadShow": [
+              "C"
+            ],
+            "quadRotate": 35,
+            "quadTint": true
+          },
           "correctAnswer": 65,
           "unit": "°",
           "feedback": {
@@ -133,7 +169,16 @@
         {
           "id": "cyclic_find_c_72",
           "prompt": "ABCD is a cyclic quadrilateral. ∠A = 72°. Find ∠C.",
-          "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 72, "quadShow": ["A"], "quadRotate": 200, "quadTint": true },
+          "diagram": {
+            "mode": "static",
+            "variant": "quad",
+            "quadGivenA": 72,
+            "quadShow": [
+              "A"
+            ],
+            "quadRotate": 200,
+            "quadTint": true
+          },
           "correctAnswer": 108,
           "unit": "°",
           "feedback": {
@@ -145,21 +190,36 @@
       ]
     },
     {
-      "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "ABCD is a cyclic quadrilateral and [∠C](magenta) = 117°. What is [∠A](magenta)?",
-      "diagram": { "mode": "static", "variant": "quad", "quadGivenA": 63, "quadShow": ["C"], "quadRotate": 120, "quadTint": true },
-      "problem": {
-        "id": "challenge_find_a_117",
-        "prompt": "∠A",
-        "correctAnswer": 63,
-        "unit": "°",
-        "feedback": {
-          "correct": "Correct. ∠A and ∠C are opposite, so 180° − 117° = 63°.",
-          "incorrect": "Opposite angles of a cyclic quadrilateral are supplementary (add to 180°)."
+      "stepId": "state_rule",
+      "interactionType": "fill_blank",
+      "prompt": "Pin down the rule",
+      "subtitle": "Opposite corners of a cyclic quadrilateral are supplementary. Fill in the case [∠A](magenta) = 110°.",
+      "diagram": {
+        "mode": "static",
+        "variant": "quad",
+        "quadGivenA": 110,
+        "quadShow": [
+          "A",
+          "C"
+        ],
+        "quadTint": true
+      },
+      "template": "∠A + ∠C = {{sum}}°, so if ∠A = 110° then ∠C = {{c}}°.",
+      "blanks": [
+        {
+          "id": "sum",
+          "answer": 180
+        },
+        {
+          "id": "c",
+          "answer": 70
         }
-      }
+      ],
+      "feedback": {
+        "correct": "",
+        "incorrect": "Opposite corners add to 180°. Take the given ∠A away from 180° to get ∠C."
+      },
+      "doneNote": "∠A + ∠C = 180°, so ∠C = 180° − 110° = 70°. Opposite corners are always supplementary."
     }
   ]
 }

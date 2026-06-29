@@ -353,3 +353,323 @@
     transition: none;
   }
 }
+
+/* ───────────────────────── Walkthrough (guided solve) ───────────────────── */
+.walkthrough__intro {
+  margin: 0 0 14px;
+  color: var(--ink-2);
+}
+
+.walkthrough__chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.walkthrough__part {
+  padding: 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.walkthrough__part.is-solved {
+  border-color: color-mix(in srgb, var(--good) 45%, var(--line));
+  background: color-mix(in srgb, var(--good) 6%, var(--surface));
+}
+
+.walkthrough__part.is-current {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.walkthrough__prompt {
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.walkthrough__step-tag {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  vertical-align: middle;
+}
+
+.walkthrough__note {
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+}
+
+/* ───────────────────────── Claim deck (true / false) ────────────────────── */
+.claim-deck__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.claim-deck__counter {
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.claim-deck__streak {
+  color: var(--good);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.claim-card {
+  display: flex;
+  align-items: center;
+  min-height: 96px;
+  padding: 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.claim-card.is-answered {
+  opacity: 0.85;
+}
+
+.claim-card__statement {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.claim-deck__choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.claim-btn {
+  min-height: 52px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.claim-btn--true:hover {
+  border-color: var(--good);
+  color: var(--good);
+}
+
+.claim-btn--false:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.claim-deck__next {
+  margin-top: 12px;
+}
+
+/* ───────────────────────── Fill in the blanks (cloze) ───────────────────── */
+.fill-blank__template {
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+.fill-blank__text {
+  white-space: pre-wrap;
+}
+
+.fill-blank__slot {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.fill-blank__input {
+  width: auto;
+  min-width: 3ch;
+  max-width: 100%;
+  padding: 2px 6px;
+  border: none;
+  border-bottom: 2px solid var(--accent);
+  border-radius: 4px 4px 0 0;
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.fill-blank__input:focus {
+  outline: none;
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+.fill-blank__input.is-wrong {
+  border-bottom-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+}
+
+.fill-blank__input.is-correct {
+  border-bottom-color: var(--good);
+  background: color-mix(in srgb, var(--good) 12%, var(--surface));
+}
+
+.fill-blank__unit {
+  color: var(--ink-2);
+  font-size: 0.95rem;
+}
+
+/* ───────────────────────── Sort (put in order) ──────────────────────────── */
+.sortable__instruction {
+  margin: 0 0 12px;
+  color: var(--ink-2);
+}
+
+.sortable__placed {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  counter-reset: none;
+}
+
+.sortable__slot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1.5px solid color-mix(in srgb, var(--good) 45%, var(--line));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--good) 7%, var(--surface));
+}
+
+.sortable__rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--good);
+  color: var(--surface);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.sortable__bank {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sortable__chip {
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.98rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sortable__chip:hover {
+  border-color: var(--accent);
+}
+
+.sortable__chip.is-wrong {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+
+/* ─── Fill-in-the-blank: word-bank (tap-to-place) mode ───────────────────── */
+.wbank__slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.5ch;
+  min-height: 1.9em;
+  padding: 2px 10px;
+  border: none;
+  border-bottom: 2px dashed var(--ink-3);
+  border-radius: 6px 6px 0 0;
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  vertical-align: baseline;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.wbank__slot.is-filled {
+  border-bottom-style: solid;
+  border-bottom-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+
+.wbank__slot.is-wrong {
+  border-bottom-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+
+.wbank__slot.is-correct {
+  border-bottom-color: var(--good);
+  background: color-mix(in srgb, var(--good) 14%, var(--surface));
+}
+
+.wbank__bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 4px;
+}
+
+.wbank__chip {
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--ink) 12%, transparent);
+  transition: border-color 120ms ease, transform 80ms ease;
+}
+
+.wbank__chip:hover {
+  border-color: var(--accent);
+}
+
+.wbank__chip:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* Used chips stay in place but go invisible, so the bank doesn't reflow as
+   chips are placed (no jumping targets). */
+.wbank__chip.is-used {
+  visibility: hidden;
+}

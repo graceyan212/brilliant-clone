@@ -605,6 +605,13 @@
   padding-bottom: 104px;
 }
 
+/* Dev builds add the step-skip row above the action bar, making the fixed
+   bottom bar taller; reserve extra space so it never covers lesson content.
+   Applied only via the DEV-gated class below, so production keeps 104px. */
+.lesson-shell.has-dev-bar {
+  padding-bottom: 156px;
+}
+
 .lesson-stage {
   display: grid;
   gap: 22px;
@@ -845,4 +852,283 @@
   .diagram-placeholder {
     grid-row: span 2;
   }
+}
+
+/* ─── Phase 3: spaced-repetition review card ─────────────────────────────── */
+.review-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 18px 0 4px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+}
+
+.review-card.is-due {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+}
+
+.review-card__icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--accent);
+}
+
+.review-card.is-clear .review-card__icon {
+  background: color-mix(in srgb, var(--good) 14%, var(--surface));
+  color: var(--good);
+}
+
+.review-card__text {
+  display: grid;
+  gap: 2px;
+}
+
+.review-card__text strong {
+  font-size: 1rem;
+}
+
+.review-card__text span {
+  color: var(--ink-2);
+  font-size: 0.88rem;
+}
+
+.review-card__cta {
+  flex: none;
+  margin-left: auto;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--paper);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ─── Memory dashboard ───────────────────────────────────────────────────── */
+.memory {
+  margin: 22px 0 4px;
+}
+
+.memory__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.memory__heading {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.memory__summary {
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.memory__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.memory__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 90px auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.memory__label {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.memory__bar {
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 8%, var(--surface));
+  overflow: hidden;
+}
+
+.memory__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.memory__fill.is-mastered {
+  background: var(--good);
+}
+
+.memory__state {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* ─── Locked journey node (mastery gating) ───────────────────────────────── */
+.jm-node--locked .jm-node__link {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.jm-node--locked .jm-dot {
+  background: color-mix(in srgb, var(--ink) 8%, var(--surface));
+  color: var(--ink-3);
+}
+
+.jm-node__star {
+  color: var(--good);
+}
+
+/* ─── Header right cluster ───────────────────────────────────────────────── */
+.nav-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* One compact AI control: a small switch + an "AI ⓘ" label that doubles as the
+   explainer trigger. Borderless and in the nav typeface so it reads as a quiet
+   setting, not a CTA, and the info stays visibly tied to the AI label. */
+.ai-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Labeled switch: the text and thumb are laid out as a tight pair that fits the
+   content, so the thumb sits just beside the text (a small fixed gap) rather than
+   across an empty track. Off = thumb-left, On = thumb-right. */
+.ai-switch {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 5px;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 16%, var(--surface));
+  cursor: pointer;
+  transition: background-color 140ms ease;
+}
+
+.ai-switch.is-on {
+  flex-direction: row;
+  background: var(--accent);
+}
+
+.ai-switch__label {
+  padding: 0 3px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+.ai-switch.is-on .ai-switch__label {
+  color: #fff;
+}
+
+.ai-switch__thumb {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.ai-info {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1px solid var(--ink-3);
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-3);
+  font: inherit;
+  font-size: 0.66rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.ai-info:hover,
+.ai-info[aria-expanded='true'] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.ai-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  width: min(300px, calc(100vw - 32px));
+  padding: 14px 15px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 16%, transparent);
+  text-align: left;
+  cursor: default;
+}
+
+.ai-pop__title {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.ai-pop__list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.ai-pop__list li {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.ai-pop__list b {
+  color: var(--ink);
+}
+
+.ai-pop__foot {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink-3);
 }

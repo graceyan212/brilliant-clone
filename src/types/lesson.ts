@@ -20,6 +20,10 @@ export type LessonStep =
   | MultiSelectStep
   | EstimateStep
   | SpotMistakeStep
+  | WalkthroughStep
+  | TrueFalseStep
+  | FillBlankStep
+  | SortStep
 
 /** A point in the 0..360 diagram viewBox. */
 export type DiagramPoint = { x: number; y: number }
@@ -298,14 +302,6 @@ export type PracticeSpec = {
   context?: string
 }
 
-/** One entry in a colour key. The colour is a shared palette token name. */
-export type LegendItem = {
-  /** A palette token name (blue, orange, green, magenta, teal, purple, …). */
-  color: TokenColor
-  /** What the colour stands for in this lesson, e.g. "side a" or "arc AB". */
-  label: string
-}
-
 /** A decorative, real-world illustration shown above the prompt. */
 export type StepGraphic = {
   /** A registered scene name (see the SceneGraphic component). */
@@ -319,11 +315,6 @@ type BaseStep = {
   prompt: string
   subtitle?: string
   diagram?: DiagramConfig
-  /**
-   * Optional colour key. Any step can show it so the colours used in the prose
-   * (via `[label](color)` tokens) and the diagram are explained to the learner.
-   */
-  legend?: LegendItem[]
   /** Optional real-world illustration to hook the concept (intro/statement steps). */
   graphic?: StepGraphic
 }
@@ -348,6 +339,13 @@ export type NumericProblem = {
   unit?: string
   feedback: Feedback
   strongHint?: string
+  /**
+   * The canonical wrong answer for this problem and a targeted explanation of the
+   * misconception behind it. When the learner's wrong entry matches `value`, this
+   * replaces the generic "incorrect" feedback so the very first mistake teaches —
+   * e.g. answering the central angle instead of halving it for an inscribed angle.
+   */
+  commonError?: { value: number; feedback: string }
 }
 
 export type MultipleChoiceStep = BaseStep & {
@@ -565,6 +563,13 @@ export type EstimateStep = BaseStep & {
   start?: number
   /** Live figure that tracks the slider: an opening angle or a fill bar. */
   visual?: 'angle' | 'bar'
+  /**
+   * Hide the live numeric readout until the learner checks. Use for "train your
+   * eye" tasks where the target is stated (e.g. "make a 120° angle"): showing the
+   * running degrees would let them dial in the number instead of judging by eye.
+   * The figure still tracks the slider; only the number is withheld until Check.
+   */
+  hideValue?: boolean
   feedback?: Feedback
   /** Revealed once the estimate lands within tolerance. */
   revealText?: string
@@ -591,5 +596,138 @@ export type SpotMistakeStep = BaseStep & {
   /** Nudge shown when a correct (fine) line is tapped. */
   hint?: string
   /** Shown once the mistake is found. */
+  doneNote?: string
+}
+
+/**
+ * One step of a scaffolded solve. A 'numeric' part takes a typed number; a
+ * 'choice' part is a tap-one-answer. Either way the answer is checked in code —
+ * the learner can't advance to the next part until the current one is right, so
+ * the whole problem is worked out one move at a time.
+ */
+export type WalkthroughPart =
+  | {
+      kind: 'numeric'
+      /** The sub-question, e.g. "First, what is the central angle?" */
+      prompt: string
+      /** Correct value, checked in code. */
+      answer: number
+      /** Accepted ± tolerance (default 0). */
+      tolerance?: number
+      /** Unit suffix drawn beside the input, e.g. "°". */
+      unit?: string
+      /** Optional nudge shown after a wrong entry. */
+      hint?: string
+      /** Optional line revealed once this part is solved, carrying the reasoning forward. */
+      note?: string
+    }
+  | {
+      kind: 'choice'
+      prompt: string
+      options: AnswerOption[]
+      /** id of the correct option. Checked in code. */
+      answer: string
+      hint?: string
+      note?: string
+    }
+
+/**
+ * A guided, multi-step solve. Instead of one answer box, the learner works a
+ * problem one move at a time: each part unlocks the next only when it is right,
+ * so a single hard problem becomes a short chain of small wins. Any step diagram
+ * stays visible above the chain.
+ */
+export type WalkthroughStep = BaseStep & {
+  interactionType: 'walkthrough'
+  /** Optional framing line shown above the first part. */
+  intro?: string
+  parts: WalkthroughPart[]
+  /** Shown once every part is solved. */
+  doneNote?: string
+}
+
+/** One claim in a true/false deck. */
+export type ClaimCard = {
+  id: string
+  /** The statement to judge. */
+  statement: string
+  /** Whether it is true. Checked in code. */
+  answer: boolean
+  /** Explanation revealed after answering (right or wrong). */
+  note?: string
+}
+
+/**
+ * Rapid-fire true/false. The learner judges a short deck of claims one at a
+ * time, gets the reason on each, and advances. A wrong tap reveals the reason
+ * and lets them try the next card; the step completes once the deck is cleared.
+ * A faster, lighter rhythm than a single graded question.
+ */
+export type TrueFalseStep = BaseStep & {
+  interactionType: 'true_false'
+  cards: ClaimCard[]
+  /** Shown once the deck is cleared. */
+  doneNote?: string
+}
+
+/** One blank in a fill_blank template, referenced by `{{id}}` in the template. */
+export type FillBlankSlot = {
+  id: string
+  /** Correct value. A number is graded numerically (with tolerance); a string is matched case-insensitively. */
+  answer: string | number
+  /** Numeric answers only: accepted ± tolerance (default 0). */
+  tolerance?: number
+  /** String answers only: extra accepted spellings (case-insensitive). */
+  accept?: string[]
+  /** Placeholder shown in the empty input. */
+  placeholder?: string
+  /** Unit suffix drawn beside a numeric input, e.g. "°". */
+  unit?: string
+}
+
+/**
+ * Cloze / fill-in-the-blanks. A template sentence or formula carries `{{id}}`
+ * tokens; each maps to a slot the learner completes. Checked all at once in
+ * code. Good for cementing a formula ("(n − 2) × 180°") or a definition without
+ * a full numeric problem.
+ */
+export type FillBlankStep = BaseStep & {
+  interactionType: 'fill_blank'
+  /** Sentence/formula with `{{id}}` placeholders, e.g. "Sum = ({{n}} − 2) × {{base}}°". */
+  template: string
+  blanks: FillBlankSlot[]
+  /**
+   * Optional Duolingo-style word bank: a set of tappable chips the learner places
+   * into the blanks (instead of typing). Include the correct answers plus
+   * distractors, e.g. `["equal", 70, 180, 110, 90, 20]`. When present, the typed
+   * inputs are replaced by the chip bank; chips are matched to each blank's
+   * `answer` in code. When omitted, the blanks are free-text inputs.
+   */
+  bank?: (string | number)[]
+  feedback?: Feedback
+  /** Shown once every blank is correct. */
+  doneNote?: string
+}
+
+/** One item the learner orders in a `sort` step. */
+export type SortItem = {
+  id: string
+  label: string
+}
+
+/**
+ * Put-in-order. The items are shown shuffled and the learner taps them into the
+ * target order described by the prompt (e.g. "smallest angle first", or the
+ * steps of a method). The authored array IS the correct order; grading is in
+ * code. Distinct from `categorize`, which sorts into named buckets rather than a
+ * sequence.
+ */
+export type SortStep = BaseStep & {
+  interactionType: 'sort'
+  /** Instruction above the list, e.g. "Tap them from smallest to largest." */
+  instruction?: string
+  /** Items in their CORRECT order; rendered shuffled. */
+  items: SortItem[]
+  /** Shown once the order is correct. */
   doneNote?: string
 }

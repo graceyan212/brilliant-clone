@@ -1,59 +1,43 @@
 {
   "lessonId": "parts-of-a-circle",
   "title": "Parts of a circle",
-  "totalSteps": 6,
+  "totalSteps": 5,
   "steps": [
-    {
-      "stepId": "hook",
-      "interactionType": "statement",
-      "prompt": "Every round thing is built from the same parts",
-      "graphic": {
-        "name": "wheel",
-        "caption": "A cart wheel: every spoke runs from the center to the rim, and the bar straight across is the longest line of all. Bikes, clocks, pizzas \u2014 same parts every time."
-      },
-      "body": "A circle is more than one round line. Mathematicians give special names to the straight lines you can draw on it, and each one has its own job.\nIn this warm-up you'll meet five of them \u2014 radius, chord, diameter, secant, and tangent \u2014 and you'll keep using these words for the rest of the course. Each part gets its own colour so it's easy to spot."
-    },
     {
       "stepId": "identify",
       "interactionType": "identify",
       "figure": "parts",
       "prompt": "Tap each part of the circle",
-      "legend": [
-        { "color": "purple", "label": "radius" },
-        { "color": "green", "label": "chord" },
-        { "color": "orange", "label": "diameter" },
-        { "color": "blue", "label": "secant" },
-        { "color": "red", "label": "tangent" }
-      ],
-      "doneNote": "That's the core vocabulary \u2014 five lines you'll use all course.",
+      "subtitle": "A circle is more than one round line — each straight line on it has a name and a job. Meet all five: [radius](purple), [chord](green), [diameter](orange), [secant](blue), [tangent](red).",
+      "doneNote": "That's the core vocabulary — five lines you'll use all course.",
       "targets": [
         {
           "id": "radius",
-          "prompt": "Tap the [radius](purple) \u2014 the line from the center O straight out to the rim.",
+          "prompt": "Tap the [radius](purple) — the line from the center O straight out to the rim.",
           "label": "Radius",
-          "hint": "It starts at the middle dot O and stops at the edge \u2014 half of a diameter."
+          "hint": "It starts at the middle dot O and stops at the edge — half of a diameter."
         },
         {
           "id": "chord",
-          "prompt": "Tap a [chord](green) \u2014 a straight line joining two points on the rim, like a guitar string across the hole.",
+          "prompt": "Tap a [chord](green) — a straight line joining two points on the rim, like a guitar string across the hole.",
           "label": "Chord",
           "hint": "Both ends sit on the rim, but it skips the center."
         },
         {
           "id": "diameter",
-          "prompt": "Tap the [diameter](orange) \u2014 the chord that runs straight through the center, rim to rim.",
+          "prompt": "Tap the [diameter](orange) — the chord that runs straight through the center, rim to rim.",
           "label": "Diameter",
-          "hint": "It's the longest chord \u2014 the one passing through the center O."
+          "hint": "It's the longest chord — the one passing through the center O."
         },
         {
           "id": "secant",
-          "prompt": "Tap the [secant](blue) \u2014 a line that slices through the circle at two points and keeps going.",
+          "prompt": "Tap the [secant](blue) — a line that slices through the circle at two points and keeps going.",
           "label": "Secant",
           "hint": "Like a chord, but it carries on past both ends (note the arrows)."
         },
         {
           "id": "tangent",
-          "prompt": "Tap the [tangent](red) \u2014 a line that just grazes the rim at a single point, like a road touching a roundabout.",
+          "prompt": "Tap the [tangent](red) — a line that just grazes the rim at a single point, like a road touching a roundabout.",
           "label": "Tangent",
           "hint": "It touches the edge once and never goes inside."
         }
@@ -64,86 +48,143 @@
       "interactionType": "categorize",
       "prompt": "Sort each line by what it does",
       "subtitle": "Tap a card, then tap its group. Tip: first check whether it reaches the middle dot O.",
-      "legend": [
-        { "color": "purple", "label": "radius" },
-        { "color": "orange", "label": "diameter" },
-        { "color": "green", "label": "chord" },
-        { "color": "blue", "label": "secant" },
-        { "color": "red", "label": "tangent" }
-      ],
       "buckets": [
-        { "id": "center", "label": "Reaches the center O" },
-        { "id": "cross", "label": "Crosses the rim at 2 points" },
-        { "id": "graze", "label": "Just grazes it at 1 point" }
+        {
+          "id": "center",
+          "label": "Reaches the center O"
+        },
+        {
+          "id": "cross",
+          "label": "Crosses the rim at 2 points"
+        },
+        {
+          "id": "graze",
+          "label": "Just grazes it at 1 point"
+        }
       ],
       "items": [
-        { "id": "radius", "label": "[Radius](purple)", "bucket": "center" },
-        { "id": "diameter", "label": "[Diameter](orange)", "bucket": "center" },
-        { "id": "chord", "label": "[Chord](green)", "bucket": "cross" },
-        { "id": "secant", "label": "[Secant](blue)", "bucket": "cross" },
-        { "id": "tangent", "label": "[Tangent](red)", "bucket": "graze" }
+        {
+          "id": "radius",
+          "label": "[Radius](purple)",
+          "bucket": "center"
+        },
+        {
+          "id": "diameter",
+          "label": "[Diameter](orange)",
+          "bucket": "center"
+        },
+        {
+          "id": "chord",
+          "label": "[Chord](green)",
+          "bucket": "cross"
+        },
+        {
+          "id": "secant",
+          "label": "[Secant](blue)",
+          "bucket": "cross"
+        },
+        {
+          "id": "tangent",
+          "label": "[Tangent](red)",
+          "bucket": "graze"
+        }
       ],
-      "doneNote": "Sorted! The [radius](purple) and [diameter](orange) reach the center; the [chord](green) and [secant](blue) cross the rim twice; the [tangent](red) only grazes it once."
+      "doneNote": "All five sorted."
     },
     {
       "stepId": "match_terms",
       "interactionType": "match",
       "prompt": "Match each part to what it means",
-      "subtitle": "Tap a term, then tap its meaning \u2014 or the other way around.",
+      "subtitle": "Tap a term, then tap its meaning — or the other way around.",
       "leftHeading": "Part",
       "rightHeading": "What it is",
       "doneNote": "Vocabulary locked in. Remember: the radius reaches halfway, the diameter all the way.",
       "pairs": [
-        { "id": "radius", "left": "Radius", "right": "From the center out to the rim \u2014 reaches halfway across" },
-        { "id": "chord", "left": "Chord", "right": "Joins two points on the rim, like a guitar string across the hole" },
-        { "id": "diameter", "left": "Diameter", "right": "A chord through the center \u2014 reaches all the way across" },
-        { "id": "secant", "left": "Secant", "right": "A road that cuts through the circle at two points" },
-        { "id": "tangent", "left": "Tangent", "right": "A road that just touches the circle at one point" }
+        {
+          "id": "radius",
+          "left": "Radius",
+          "right": "From the center out to the rim — reaches halfway across"
+        },
+        {
+          "id": "chord",
+          "left": "Chord",
+          "right": "Joins two points on the rim, like a guitar string across the hole"
+        },
+        {
+          "id": "diameter",
+          "left": "Diameter",
+          "right": "A chord through the center — reaches all the way across"
+        },
+        {
+          "id": "secant",
+          "left": "Secant",
+          "right": "A road that cuts through the circle at two points"
+        },
+        {
+          "id": "tangent",
+          "left": "Tangent",
+          "right": "A road that just touches the circle at one point"
+        }
       ]
     },
     {
-      "stepId": "debug_labels",
-      "interactionType": "spot_the_mistake",
-      "prompt": "A student described a circle. Find the wrong line.",
-      "subtitle": "One line gets a part's job wrong \u2014 tap it.",
-      "lines": [
-        { "id": "l1", "text": "A radius goes from the center O out to the rim." },
-        { "id": "l2", "text": "A chord joins two points on the rim." },
-        { "id": "l3", "text": "A tangent cuts across the circle at two points.", "wrong": true },
-        { "id": "l4", "text": "A secant cuts across and keeps going past both ends." }
-      ],
-      "explanation": "A [tangent](red) only touches the circle at one point \u2014 it never goes inside. The line that cuts across at two points is the [secant](blue). Line 3 mixed the two up.",
-      "hint": "Which word means 'just touches at one point'?",
-      "doneNote": "Yes \u2014 that's a secant's job, not a tangent's."
+      "stepId": "size_recap",
+      "interactionType": "statement",
+      "prompt": "How big is each line?",
+      "diagram": {
+        "mode": "static",
+        "variant": "parts"
+      },
+      "body": "The [radius](purple) reaches halfway — center O out to the rim.\nThe [diameter](orange) is a [chord](green) straight through the center, so it spans the whole circle.\nSo the diameter is exactly twice the radius:\ndiameter = 2 × radius"
     },
     {
-      "stepId": "diameter_check",
-      "interactionType": "multiple_choice",
-      "prompt": "How long is the diameter compared with the radius?",
-      "subtitle": "The [radius](purple) reaches halfway; the [diameter](orange) reaches the whole way across.",
-      "diagram": { "mode": "static", "variant": "parts" },
-      "legend": [
-        { "color": "purple", "label": "radius" },
-        { "color": "orange", "label": "diameter" }
-      ],
-      "options": [
-        { "id": "twice", "label": "Twice as long" },
+      "stepId": "claims_check",
+      "interactionType": "true_false",
+      "prompt": "True or false? Tap through the deck.",
+      "subtitle": "One claim about each part — decide if it gets the definition right.",
+      "diagram": {
+        "mode": "static",
+        "variant": "parts"
+      },
+      "cards": [
         {
-          "id": "same",
-          "label": "The same length",
-          "feedback": "The radius only reaches halfway \u2014 from the center to the rim."
+          "id": "c1",
+          "statement": "A diameter is a chord that passes through the center.",
+          "answer": true,
+          "note": "Right — the [diameter](orange) is the special [chord](green) running straight through the center O, rim to rim. It's the longest chord of all."
         },
         {
-          "id": "half",
-          "label": "Half as long",
-          "feedback": "Other way around: the radius is the shorter one."
+          "id": "c2",
+          "statement": "A tangent crosses the circle at two points.",
+          "answer": false,
+          "note": "No — a [tangent](red) just grazes the rim at a single point. The line that cuts across at two points is the [secant](blue)."
+        },
+        {
+          "id": "c3",
+          "statement": "A radius runs from the center out to the rim.",
+          "answer": true,
+          "note": "Yes — the [radius](purple) goes from the center O straight out to the rim, reaching only halfway across the circle."
+        },
+        {
+          "id": "c4",
+          "statement": "A chord must pass through the center of the circle.",
+          "answer": false,
+          "note": "No — a [chord](green) just joins two points on the rim and can skip the center entirely. Only when it does pass through the center is it a [diameter](orange)."
+        },
+        {
+          "id": "c5",
+          "statement": "A secant cuts through the circle at two points and keeps going past both ends.",
+          "answer": true,
+          "note": "Right — a [secant](blue) is like a [chord](green) extended: it slices the rim at two points and carries on past both ends."
+        },
+        {
+          "id": "c6",
+          "statement": "The diameter is twice as long as the radius.",
+          "answer": true,
+          "note": "Yes — the [radius](purple) reaches halfway and the [diameter](orange) reaches all the way across, so diameter = 2 × radius."
         }
       ],
-      "correctAnswer": "twice",
-      "feedback": {
-        "correct": "Right \u2014 the diameter spans the whole circle, so diameter = 2 \u00d7 radius.",
-        "incorrect": "Compare how far each one reaches across the circle."
-      }
+      "doneNote": "Deck cleared — you've got the five parts and how they size up. On to the real circle theorems."
     }
   ]
 }

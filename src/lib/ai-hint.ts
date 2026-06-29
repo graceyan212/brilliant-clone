@@ -1,3 +1,4 @@
+import { isAiEnabled } from './ai-settings'
 import { supabase } from './supabase'
 
 /** Inputs for a guided hint about repeated WRONG NUMERIC answers. `attempts` are
@@ -43,6 +44,11 @@ export function fetchGuidedHint(args: ChoiceGuidedHintArgs): Promise<string | nu
 export async function fetchGuidedHint(
   args: NumericGuidedHintArgs | ChoiceGuidedHintArgs,
 ): Promise<string | null> {
+  // Respect the in-app AI toggle: when off, skip the call so the caller falls
+  // back to its curated static hint, exactly as when no API key is set.
+  if (!isAiEnabled()) {
+    return null
+  }
   try {
     // The numeric body stays byte-identical to the original contract so a
     // not-yet-redeployed edge function keeps serving numeric hints unchanged. The

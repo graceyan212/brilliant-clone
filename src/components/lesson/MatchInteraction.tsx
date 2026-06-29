@@ -251,7 +251,8 @@ function chipClass(isSelected: boolean, isWrong: boolean): string {
 //   1st  gentle + names what was actually picked.
 //   2nd  more guidance: nudges toward the term's own meaning, or acknowledges a
 //        repeated wrong pick.
-//   3rd+ near-reveal: shows the opening of the correct meaning so nobody stalls.
+//   3rd+ encouragement only \u2014 it never reveals the answer. The wrong meanings
+//        shrink as other pairs lock in, so the learner can always close in.
 function wrongHint(
   term: MatchPair | undefined,
   wrongOwner: MatchPair | undefined,
@@ -271,18 +272,5 @@ function wrongHint(
     }
     return `That meaning belongs to "${wrongOwner.left}". Think about what "${termLabel}" literally refers to.`
   }
-  if (!term) {
-    return `Keep looking for the meaning that fits "${termLabel}".`
-  }
-  return `"${termLabel}" matches: "${firstWords(term.right, 6)}"`
-}
-
-// First `count` words of `text`, with an ellipsis when it was truncated, so a
-// near-reveal hint shows the start of the answer without always dumping all of it.
-function firstWords(text: string, count: number): string {
-  const words = text.trim().split(/\s+/)
-  if (words.length <= count) {
-    return text.trim()
-  }
-  return `${words.slice(0, count).join(' ')}\u2026`
+  return `Not that one either \u2014 picture what "${termLabel}" actually is, then pick the meaning that fits.`
 }

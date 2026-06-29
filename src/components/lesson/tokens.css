@@ -1,9 +1,8 @@
-/* Semantic colour tokens shared by prose (MathText), legend chips, and SVG
-   diagram labels. Drive everything from the --tok-* custom properties in
-   index.css so a colour reads identically in the words and in the figure.
+/* Semantic colour tokens shared by prose (MathText) and SVG diagram labels.
+   Drive everything from the --tok-* custom properties in index.css so a colour
+   reads identically in the words and in the figure.
 
-   - .tok--<name>      colour inline prose text (used by MathText / legend label)
-   - .tok-bg--<name>   solid fill for a legend swatch or chip background
+   - .tok--<name>      colour inline prose text (used by MathText)
    (SVG diagram marks colour-match via inline styles: tokenColorVar() -> var(--tok-*).) */
 
 .tok--blue,
@@ -48,68 +47,6 @@
 }
 .tok--slate {
   color: var(--tok-slate);
-}
-
-.tok-bg--blue {
-  background: var(--tok-blue);
-}
-.tok-bg--orange {
-  background: var(--tok-orange);
-}
-.tok-bg--green {
-  background: var(--tok-green);
-}
-.tok-bg--magenta {
-  background: var(--tok-magenta);
-}
-.tok-bg--teal {
-  background: var(--tok-teal);
-}
-.tok-bg--purple {
-  background: var(--tok-purple);
-}
-.tok-bg--amber {
-  background: var(--tok-amber);
-}
-.tok-bg--red {
-  background: var(--tok-red);
-}
-.tok-bg--pink {
-  background: var(--tok-pink);
-}
-.tok-bg--slate {
-  background: var(--tok-slate);
-}
-
-/* Colour key / legend */
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  margin: 0;
-  padding: 10px 12px;
-  list-style: none;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
-}
-
-.legend__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.legend__swatch {
-  flex: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-}
-
-.legend__label {
-  font-size: 0.9rem;
-  line-height: 1.2;
 }
 
 /* Math typesetting -----------------------------------------------------------

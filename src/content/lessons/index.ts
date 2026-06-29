@@ -1,4 +1,4 @@
-import type { Lesson } from '../../types/lesson'
+import type { Lesson, PracticeTopic } from '../../types/lesson'
 import anglesContent from './angles-and-angle-chasing.json'
 import triangleAnglesContent from './angles-in-a-triangle.json'
 import areasOfPolygonsContent from './areas-of-polygons.json'
@@ -34,6 +34,11 @@ export type RegisteredLesson = {
   kind?: 'prequiz'
   /** The lesson surfaced as "Up next" after completion (and on the home screen). */
   nextLessonId?: string
+  /**
+   * The spaced-repetition / mastery concept this lesson teaches (its practice
+   * topic). Omitted for the warm-up prequiz, which isn't reviewed or gated.
+   */
+  concept?: PracticeTopic
   content: Lesson
 }
 
@@ -59,6 +64,7 @@ const angles: RegisteredLesson = {
   title: 'Angles & angle-chasing',
   tagline: 'Vertical, corresponding, and alternate angles across crossing lines.',
   nextLessonId: 'angles-in-a-triangle',
+  concept: 'angles',
   content: anglesContent as Lesson,
   summary: {
     text: 'When a transversal crosses two parallel lines, corresponding and alternate interior angles are equal, while co-interior angles add to 180\u00b0.',
@@ -72,6 +78,7 @@ const triangleAngles: RegisteredLesson = {
   title: 'Angles in a triangle',
   tagline: 'The three angles of every triangle add to 180\u00b0.',
   nextLessonId: 'pythagorean-theorem',
+  concept: 'triangle-angle',
   content: triangleAnglesContent as Lesson,
   summary: {
     text: 'The three interior angles of any triangle add to 180\u00b0, and an exterior angle equals the sum of the two remote interior angles.',
@@ -87,6 +94,7 @@ const pythagorean: RegisteredLesson = {
   title: 'The Pythagorean theorem',
   tagline: 'In a right triangle, the two legs and the hypotenuse obey a\u00b2 + b\u00b2 = c\u00b2.',
   nextLessonId: 'special-right-triangles',
+  concept: 'pythagorean',
   content: pythagoreanContent as Lesson,
   summary: {
     text: 'In any right triangle, the squares of the two legs add up to the square of the hypotenuse.',
@@ -100,6 +108,7 @@ const specialTriangles: RegisteredLesson = {
   title: 'Special right triangles',
   tagline: 'The fixed side ratios of the 45-45-90 and 30-60-90 triangles.',
   nextLessonId: 'similar-triangles',
+  concept: 'special-triangle',
   content: specialTrianglesContent as Lesson,
   summary: {
     text: 'A 45-45-90 triangle has sides 1 : 1 : \u221a2, and a 30-60-90 triangle has sides 1 : \u221a3 : 2.',
@@ -113,6 +122,7 @@ const similarTriangles: RegisteredLesson = {
   title: 'Similar triangles & scaling',
   tagline: 'Equal angles mean proportional sides \u2014 and area scales by k\u00b2.',
   nextLessonId: 'polygon-angles',
+  concept: 'similar-triangle',
   content: similarTrianglesContent as Lesson,
   summary: {
     text: 'Triangles with equal angles are similar: corresponding sides share one ratio k, and their areas scale by k\u00b2.',
@@ -128,6 +138,7 @@ const polygonAngles: RegisteredLesson = {
   title: 'Polygon angles',
   tagline: 'The interior angles of an n-gon add to (n \u2212 2) \u00d7 180\u00b0.',
   nextLessonId: 'areas-of-polygons',
+  concept: 'polygon-angle',
   content: polygonAnglesContent as Lesson,
   summary: {
     text: 'The interior angles of an n-sided polygon always add to (n \u2212 2) \u00d7 180\u00b0, so each angle of a regular n-gon is that sum split n ways.',
@@ -141,6 +152,7 @@ const areasOfPolygons: RegisteredLesson = {
   title: 'Areas of polygons',
   tagline: 'Triangle, parallelogram, trapezoid, and kite areas \u2014 all from base \u00d7 height.',
   nextLessonId: 'central-angles',
+  concept: 'polygon-area',
   content: areasOfPolygonsContent as Lesson,
   summary: {
     text: 'Every polygon area comes back to base \u00d7 height: a triangle is \u00bd b h, a parallelogram b h, a trapezoid averages its parallel sides, and a kite is half its diagonals\u2019 product.',
@@ -156,6 +168,7 @@ const centralAngles: RegisteredLesson = {
   title: 'Central angles & arc measure',
   tagline: 'A central angle and the arc it cuts off share one measure.',
   nextLessonId: 'inscribed-angle-theorem',
+  concept: 'central-angle',
   content: centralAnglesContent as Lesson,
   summary: {
     text: 'An arc has the same measure as the central angle that subtends it, and the whole circle is 360\u00b0.',
@@ -169,6 +182,7 @@ const inscribed: RegisteredLesson = {
   title: 'The inscribed angle theorem',
   tagline: 'An inscribed angle and the central angle on the same arc.',
   nextLessonId: 'cyclic-quadrilaterals',
+  concept: 'inscribed',
   content: inscribedContent as Lesson,
   summary: {
     text: 'An inscribed angle is always half the central angle that shares the same two endpoints on the circle.',
@@ -182,6 +196,7 @@ const cyclic: RegisteredLesson = {
   title: 'Cyclic quadrilaterals',
   tagline: 'Opposite angles when four points share a circle.',
   nextLessonId: 'intersecting-chord-angles',
+  concept: 'cyclic',
   content: cyclicContent as Lesson,
   summary: {
     text: 'Opposite angles of a cyclic quadrilateral are supplementary: each pair sums to 180\u00b0, because the two arcs they open onto fill the whole circle.',
@@ -195,6 +210,7 @@ const intersectingChordAngles: RegisteredLesson = {
   title: 'Angles from intersecting chords',
   tagline: 'When two chords cross, the angle is half the arcs it catches.',
   nextLessonId: 'secant-angle',
+  concept: 'chord-angle',
   content: chordAngleContent as Lesson,
   summary: {
     text: 'When two chords cross inside a circle, the angle is half the sum of the two intercepted arcs.',
@@ -208,6 +224,7 @@ const secantAngle: RegisteredLesson = {
   title: 'Secants & the secant angle',
   tagline: 'From outside the circle, the angle is half the difference of the arcs.',
   nextLessonId: 'tangents',
+  concept: 'secant-angle',
   content: secantAngleContent as Lesson,
   summary: {
     text: 'From an external point, the angle between two secants is half the difference of the intercepted arcs.',
@@ -221,6 +238,7 @@ const tangents: RegisteredLesson = {
   title: 'Tangents to a circle',
   tagline: 'Perpendicular radii, the alternate-segment angle, and equal tangents.',
   nextLessonId: 'power-of-point',
+  concept: 'tangent-angle',
   content: tangentsContent as Lesson,
   summary: {
     text: 'A tangent is perpendicular to the radius; the tangent\u2013chord angle is half its arc, and two tangents from a point are equal.',
@@ -234,6 +252,7 @@ const power: RegisteredLesson = {
   title: 'Crossing chords',
   tagline: 'When two chords cross, the products of their parts match.',
   nextLessonId: 'circumscribed-circle',
+  concept: 'power-of-point',
   content: powerContent as Lesson,
   summary: {
     text: 'When two chords cross inside a circle, the products of their two pieces are equal.',
@@ -247,6 +266,7 @@ const circumscribedCircle: RegisteredLesson = {
   title: 'Circumscribed circle',
   tagline: 'Perpendicular bisectors meet at the circumcenter through all three vertices.',
   nextLessonId: 'arcs-and-sectors',
+  concept: 'circumcircle',
   content: circumcircleContent as Lesson,
   summary: {
     text: 'The perpendicular bisectors of a triangle\u2019s sides meet at the circumcenter, equidistant from all three vertices.',
@@ -259,6 +279,7 @@ const sectors: RegisteredLesson = {
   path: '/lesson/arcs-and-sectors',
   title: 'Arcs and sectors',
   tagline: 'A slice of a circle is set by its central angle.',
+  concept: 'sector',
   content: arcsSectorsContent as Lesson,
   summary: {
     text: 'A sector is the fraction \u03b8/360 of its circle, so its arc and area are that same fraction of 2\u03c0r and \u03c0r\u00b2.',

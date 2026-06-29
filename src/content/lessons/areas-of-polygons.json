@@ -1,96 +1,152 @@
 {
   "lessonId": "areas-of-polygons",
   "title": "Areas of polygons",
-  "totalSteps": 9,
+  "totalSteps": 8,
   "steps": [
     {
       "stepId": "hook",
       "interactionType": "statement",
-      "prompt": "A sail leans \u2014 so what counts as its height?",
+      "prompt": "A sail leans — so what counts as its height?",
       "graphic": {
         "name": "sail",
-        "caption": "A triangular sail with a slanted edge. To find its area you use the height measured straight down from the top \u2014 the dashed orange line \u2014 not the length of the slanted edge."
+        "caption": "A triangular sail with a slanted edge. To find its area you use the height measured straight down from the top — the dashed orange line — not the length of the slanted edge."
       },
-      "legend": [
-        { "color": "blue", "label": "base" },
-        { "color": "orange", "label": "height (straight down)" },
-        { "color": "slate", "label": "slanted side" }
-      ],
-      "body": "Area counts how many unit squares fit inside a shape, and almost every area grows from one idea: [base](blue) \u00d7 [height](orange).\nThe trick is the [height](orange). It is measured straight across, perpendicular to the [base](blue) \u2014 like a plumb line dropped from the top corner. It is NOT the length of the [slanted side](slate), which leans and is always a bit longer."
-    },
-    {
-      "stepId": "explore",
-      "interactionType": "explore",
-      "prompt": "Slide the corner. Watch the area hold.",
-      "subtitle": "Drag the top corner sideways: the shape leans, but the [base](blue) and the [height](orange) (the dashed orange plumb line) don't change \u2014 so the area stays put. Raise or lower the corner and the [height](orange) changes, and the area follows it.",
-      "legend": [
-        { "color": "blue", "label": "base" },
-        { "color": "orange", "label": "perpendicular height" },
-        { "color": "slate", "label": "slanted side" }
-      ],
-      "diagram": { "mode": "interactive", "variant": "quadArea", "quadArea": { "shape": "parallelogram", "tint": true }, "showReadout": true }
-    },
-    {
-      "stepId": "debug_slant",
-      "interactionType": "spot_the_mistake",
-      "prompt": "Spot the classic area mistake",
-      "subtitle": "This parallelogram has [base](blue) 10 and a straight-down [height](orange) of 5. Its [slanted side](slate) is 6. One line is wrong \u2014 tap it.",
-      "legend": [
-        { "color": "blue", "label": "base = 10" },
-        { "color": "orange", "label": "height = 5" },
-        { "color": "slate", "label": "slanted side = 6" }
-      ],
-      "diagram": { "mode": "static", "variant": "quadArea", "quadArea": { "shape": "parallelogram", "base": "10", "height": "5", "tint": true } },
-      "lines": [
-        { "id": "l1", "text": "The base is 10, and the slanted side is 6." },
-        { "id": "l2", "text": "Area of a parallelogram = base x height." },
-        { "id": "l3", "text": "Area = 10 x 6 = 60 square units.", "wrong": true },
-        { "id": "l4", "text": "So the area is 60." }
-      ],
-      "explanation": "Line 3 used the [slanted side](slate) (6) in place of the [height](orange). The height is the straight-down distance to the [base](blue) \u2014 here it is 5, not 6. The real area is [base](blue) \u00d7 [height](orange) = 10 \u00d7 5 = 50. The slant always overshoots because it leans.",
-      "hint": "Which length drops straight down to the base \u2014 the slanted side, or the dashed orange height?",
-      "doneNote": "Exactly \u2014 the slant is not the height."
+      "body": "Area counts how many unit squares fit inside a shape, and almost every area grows from one idea: [base](blue) × [height](orange).\nThe trick is the [height](orange). It is measured straight across, perpendicular to the [base](blue) — like a plumb line dropped from the top corner. It is NOT the length of the [slanted side](slate), which leans and is always a bit longer."
     },
     {
       "stepId": "toolkit",
       "interactionType": "statement",
       "prompt": "One idea, many shapes",
-      "diagram": { "mode": "static", "variant": "quadArea", "quadArea": { "shape": "trapezoid", "base": "b\u2081", "base2": "b\u2082", "height": "h", "tint": true } },
-      "legend": [
-        { "color": "blue", "label": "base(s)" },
-        { "color": "orange", "label": "perpendicular height" }
-      ],
-      "body": "Every formula traces back to [base](blue) \u00d7 [height](orange):\nParallelogram = [b](blue) \u00d7 [h](orange).  Triangle = \u00bd \u00d7 [b](blue) \u00d7 [h](orange), half a parallelogram.  Trapezoid = \u00bd \u00d7 ([b\u2081](blue) + [b\u2082](blue)) \u00d7 [h](orange), the average of the two parallel sides times the height.  Kite = \u00bd \u00d7 d\u2081 \u00d7 d\u2082, half the box around its diagonals.  Equilateral triangle of side s = (\u221a3 \u00f7 4) \u00d7 s\u00b2.\nIn every one, the [height](orange) is the straight-down (perpendicular) distance \u2014 never the slant."
+      "diagram": {
+        "mode": "static",
+        "variant": "quadArea",
+        "quadArea": {
+          "shape": "trapezoid",
+          "base": "b₁",
+          "base2": "b₂",
+          "height": "h",
+          "tint": true
+        }
+      },
+      "body": "Every formula traces back to [base](blue) × [height](orange):\nParallelogram = [b](blue) × [h](orange).  Triangle = ½ × [b](blue) × [h](orange), half a parallelogram.  Trapezoid = ½ × ([b₁](blue) + [b₂](blue)) × [h](orange), the average of the two parallel sides times the height.  Kite = ½ × d₁ × d₂, half the box around its diagonals.  Equilateral triangle of side s = (√3 ÷ 4) × s².\nIn every one, the [height](orange) is the straight-down (perpendicular) distance — never the slant."
     },
     {
-      "stepId": "match_formulas",
-      "interactionType": "match",
-      "prompt": "Match each shape to its area",
-      "subtitle": "Tap a shape, then tap its area formula.",
-      "leftHeading": "Shape",
-      "rightHeading": "Area",
-      "doneNote": "Every one of these comes back to base \u00d7 height.",
-      "pairs": [
-        { "id": "para", "left": "Parallelogram", "right": "b \u00d7 h" },
-        { "id": "tri", "left": "Triangle", "right": "\u00bd \u00d7 b \u00d7 h" },
-        { "id": "trap", "left": "Trapezoid", "right": "\u00bd \u00d7 (b\u2081 + b\u2082) \u00d7 h" },
-        { "id": "kite", "left": "Kite", "right": "\u00bd \u00d7 d\u2081 \u00d7 d\u2082" },
-        { "id": "equi", "left": "Equilateral triangle", "right": "(\u221a3 \u00f7 4) \u00d7 s\u00b2" }
-      ]
+      "stepId": "explore",
+      "interactionType": "explore",
+      "prompt": "Slide the corner. Watch the area hold.",
+      "subtitle": "Drag the top corner sideways: the shape leans, but the [base](blue) and the [height](orange) (the dashed orange plumb line) don't change — so the area stays put. Raise or lower the corner and the [height](orange) changes, and the area follows it.",
+      "diagram": {
+        "mode": "interactive",
+        "variant": "quadArea",
+        "quadArea": {
+          "shape": "parallelogram",
+          "tint": true
+        },
+        "showReadout": true
+      }
+    },
+    {
+      "stepId": "debug_slant",
+      "interactionType": "spot_the_mistake",
+      "prompt": "Spot the classic area mistake",
+      "subtitle": "This parallelogram has [base](blue) 10 and a straight-down [height](orange) of 5. Its [slanted side](slate) is 6. One line is wrong — tap it.",
+      "diagram": {
+        "mode": "static",
+        "variant": "quadArea",
+        "quadArea": {
+          "shape": "parallelogram",
+          "base": "10",
+          "height": "5",
+          "tint": true
+        }
+      },
+      "lines": [
+        {
+          "id": "l1",
+          "text": "The base is 10, and the slanted side is 6."
+        },
+        {
+          "id": "l2",
+          "text": "Area of a parallelogram = base x height."
+        },
+        {
+          "id": "l3",
+          "text": "Area = 10 x 6 = 60 square units.",
+          "wrong": true
+        },
+        {
+          "id": "l4",
+          "text": "So the area is 60."
+        }
+      ],
+      "explanation": "Line 3 used the [slanted side](slate) (6) in place of the [height](orange). The height is the straight-down distance to the [base](blue) — here it is 5, not 6. The real area is [base](blue) × [height](orange) = 10 × 5 = 50. The slant always overshoots because it leans.",
+      "hint": "Which length drops straight down to the base — the slanted side, or the dashed orange height?",
+      "doneNote": "Exactly — the slant is not the height."
+    },
+    {
+      "stepId": "formula_checks",
+      "interactionType": "true_false",
+      "prompt": "True or false?",
+      "subtitle": "Every claim is about the area formulas. Each one comes back to [base](blue) × [height](orange) — and the [height](orange) is the straight-down distance, never the [slant](slate).",
+      "cards": [
+        {
+          "id": "tf_triangle",
+          "statement": "A triangle's area is ½ × base × height.",
+          "answer": true,
+          "note": "Yes — a triangle is half a parallelogram, so ½ × b × h."
+        },
+        {
+          "id": "tf_para_slant",
+          "statement": "A parallelogram's area is base × its slanted side.",
+          "answer": false,
+          "note": "No — it's base × perpendicular height. The slant leans and overshoots: for base 10, height 5, slant 6, the area is 10 × 5 = 50, not 10 × 6."
+        },
+        {
+          "id": "tf_trapezoid",
+          "statement": "A trapezoid's area is the average of its two parallel sides times the height.",
+          "answer": true,
+          "note": "Yes — ½ × (b₁ + b₂) × h is exactly the average of the parallel sides, times the height."
+        },
+        {
+          "id": "tf_kite",
+          "statement": "A kite's area is ½ × d₁ × d₂, half the product of its diagonals.",
+          "answer": true,
+          "note": "Yes — it's half the box drawn around its two diagonals."
+        },
+        {
+          "id": "tf_para_full",
+          "statement": "A parallelogram with base 10 and height 5 has an area of 60.",
+          "answer": false,
+          "note": "No — base × height = 10 × 5 = 50. The 60 sneaks in the slanted side (6) where the height belongs."
+        }
+      ],
+      "doneNote": "Triangle, trapezoid and kite each carry a ½; the parallelogram is the full base × height — and the height is always the straight-down distance."
     },
     {
       "stepId": "shear_proof",
       "interactionType": "proof",
       "proofMode": "reason",
       "prompt": "Proof: a parallelogram is a rectangle in disguise",
-      "diagram": { "mode": "static", "variant": "quad-area" },
+      "diagram": {
+        "mode": "static",
+        "variant": "quad-area"
+      },
       "gates": [
         {
           "prompt": "To turn the parallelogram into a shape we already know, what should we draw?",
           "choices": [
-            { "id": "height", "label": "The [height](orange) \u2014 a straight-down line from a top corner to the [base](blue)." },
-            { "id": "diag", "label": "A diagonal across the middle." },
-            { "id": "circle", "label": "A circle inside it." }
+            {
+              "id": "height",
+              "label": "The [height](orange) — a straight-down line from a top corner to the [base](blue)."
+            },
+            {
+              "id": "diag",
+              "label": "A diagonal across the middle."
+            },
+            {
+              "id": "circle",
+              "label": "A circle inside it."
+            }
           ],
           "answer": "height",
           "hint": "Cut straight down along the perpendicular height."
@@ -98,48 +154,74 @@
         {
           "prompt": "We slide the sliced-off right triangle to the other end. Why does it fit exactly?",
           "choices": [
-            { "id": "opposite", "label": "Opposite sides of a parallelogram are equal." },
-            { "id": "congruent", "label": "Because all triangles are congruent." },
-            { "id": "right", "label": "Because every angle is 90\u00b0." }
+            {
+              "id": "opposite",
+              "label": "Opposite sides of a parallelogram are equal."
+            },
+            {
+              "id": "congruent",
+              "label": "Because all triangles are congruent."
+            },
+            {
+              "id": "right",
+              "label": "Because every angle is 90°."
+            }
           ],
           "answer": "opposite",
           "hint": "The two slanted sides are equal and parallel."
         },
         {
-          "prompt": "Now it's a rectangle with the same [base](blue) and [height](orange). Its area is\u2026",
+          "prompt": "Now it's a rectangle with the same [base](blue) and [height](orange). Its area is…",
           "choices": [
-            { "id": "bh", "label": "[base](blue) \u00d7 [height](orange) \u2014 and half of it, a triangle, is \u00bd \u00d7 b \u00d7 h." },
-            { "id": "sum", "label": "base + height." },
-            { "id": "half", "label": "\u00bd \u00d7 base \u00d7 height." }
+            {
+              "id": "bh",
+              "label": "[base](blue) × [height](orange) — and half of it, a triangle, is ½ × b × h."
+            },
+            {
+              "id": "sum",
+              "label": "base + height."
+            },
+            {
+              "id": "half",
+              "label": "½ × base × height."
+            }
           ],
           "answer": "bh",
-          "hint": "Rectangle area is base \u00d7 height; the base and height never changed."
+          "hint": "Rectangle area is base × height; the base and height never changed."
         }
       ],
       "stages": [
         "Start with a parallelogram. Its [base](blue) and its straight-down [height](orange) are what the area depends on.",
         "Drop the [height](orange) straight down from a top corner to the [base](blue). It slices a right triangle off one end.",
         "Slide that triangle across to the other end. Opposite sides of a parallelogram are equal, so it fits perfectly.",
-        "What's left is a rectangle with the same [base](blue) and [height](orange), so the area is [b](blue) \u00d7 [h](orange) \u2014 and a triangle, half of one, is \u00bd \u00d7 b \u00d7 h."
+        "What's left is a rectangle with the same [base](blue) and [height](orange), so the area is [b](blue) × [h](orange) — and a triangle, half of one, is ½ × b × h."
       ]
     },
     {
-      "stepId": "sort_half",
-      "interactionType": "categorize",
-      "prompt": "Does the area formula have a \u00bd in it?",
-      "subtitle": "Some areas are a full [base](blue) \u00d7 [height](orange); others are only half of that. Sort each shape by whether its formula carries a \u00bd.",
-      "buckets": [
-        { "id": "half", "label": "Has a \u00bd" },
-        { "id": "no_half", "label": "No \u00bd (full base \u00d7 height)" }
-      ],
+      "stepId": "order_by_area",
+      "interactionType": "sort",
+      "prompt": "Order these by area",
+      "subtitle": "Work out each area with [base](blue) × [height](orange) (and a ½ where the formula has one), then line them up. Every one uses the straight-down [height](orange), never the slant.",
+      "instruction": "Tap them from smallest area to largest.",
       "items": [
-        { "id": "triangle", "label": "Triangle", "bucket": "half" },
-        { "id": "kite", "label": "Kite", "bucket": "half" },
-        { "id": "trapezoid", "label": "Trapezoid", "bucket": "half" },
-        { "id": "parallelogram", "label": "Parallelogram", "bucket": "no_half" },
-        { "id": "rectangle", "label": "Rectangle", "bucket": "no_half" }
+        {
+          "id": "triangle",
+          "label": "Triangle: base 8, height 5  →  ½ × 8 × 5 = 20"
+        },
+        {
+          "id": "trapezoid",
+          "label": "Trapezoid: parallel sides 9 and 5, height 4  →  ½ × (9 + 5) × 4 = 28"
+        },
+        {
+          "id": "parallelogram",
+          "label": "Parallelogram: base 7, height 6  →  7 × 6 = 42"
+        },
+        {
+          "id": "kite",
+          "label": "Kite: diagonals 10 and 12  →  ½ × 10 × 12 = 60"
+        }
       ],
-      "doneNote": "Got it. Triangle (\u00bd\u00d7b\u00d7h), kite (\u00bd\u00d7d\u2081\u00d7d\u2082) and trapezoid (\u00bd\u00d7(b\u2081+b\u2082)\u00d7h) each carry a \u00bd. A parallelogram and a rectangle are the full base \u00d7 height."
+      "doneNote": "20 < 28 < 42 < 60. Triangle, trapezoid, parallelogram, kite — each from base × height."
     },
     {
       "stepId": "guided_practice",
@@ -150,53 +232,65 @@
         {
           "id": "area_triangle_8_5",
           "prompt": "A triangle has base 8 and perpendicular height 5. Find its area.",
-          "diagram": { "mode": "static", "variant": "quadArea", "quadArea": { "shape": "triangle", "base": "8", "height": "5", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "quadArea",
+            "quadArea": {
+              "shape": "triangle",
+              "base": "8",
+              "height": "5",
+              "tint": true
+            }
+          },
           "correctAnswer": 20,
           "feedback": {
-            "correct": "Correct. \u00bd \u00d7 8 \u00d7 5 = 20.",
-            "incorrect": "A triangle's area is \u00bd \u00d7 base \u00d7 height \u2014 use the straight-down height."
+            "correct": "Correct. ½ × 8 × 5 = 20.",
+            "incorrect": "A triangle's area is ½ × base × height — use the straight-down height."
           },
-          "strongHint": "Halve the product: \u00bd \u00d7 8 \u00d7 5."
+          "strongHint": "Halve the product: ½ × 8 × 5."
         },
         {
           "id": "area_parallelogram_7_6",
           "prompt": "A parallelogram has base 7 and perpendicular height 6. Find its area.",
-          "diagram": { "mode": "static", "variant": "quadArea", "quadArea": { "shape": "parallelogram", "base": "7", "height": "6", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "quadArea",
+            "quadArea": {
+              "shape": "parallelogram",
+              "base": "7",
+              "height": "6",
+              "tint": true
+            }
+          },
           "correctAnswer": 42,
           "feedback": {
-            "correct": "Correct. 7 \u00d7 6 = 42.",
-            "incorrect": "A parallelogram's area is base \u00d7 height (the straight-down height)."
+            "correct": "Correct. 7 × 6 = 42.",
+            "incorrect": "A parallelogram's area is base × height (the straight-down height)."
           },
-          "strongHint": "Multiply: 7 \u00d7 6."
+          "strongHint": "Multiply: 7 × 6."
         },
         {
           "id": "area_trapezoid_9_5_4",
           "prompt": "A trapezoid has parallel sides 9 and 5 and a perpendicular height of 4. Find its area.",
-          "diagram": { "mode": "static", "variant": "quadArea", "quadArea": { "shape": "trapezoid", "base": "9", "base2": "5", "height": "4", "tint": true } },
+          "diagram": {
+            "mode": "static",
+            "variant": "quadArea",
+            "quadArea": {
+              "shape": "trapezoid",
+              "base": "9",
+              "base2": "5",
+              "height": "4",
+              "tint": true
+            }
+          },
           "correctAnswer": 28,
           "feedback": {
-            "correct": "Correct. \u00bd \u00d7 (9 + 5) \u00d7 4 = \u00bd \u00d7 14 \u00d7 4 = 28.",
-            "incorrect": "Average the two parallel sides, then multiply by the height: \u00bd \u00d7 (b\u2081 + b\u2082) \u00d7 h."
+            "correct": "Correct. ½ × (9 + 5) × 4 = ½ × 14 × 4 = 28.",
+            "incorrect": "Average the two parallel sides, then multiply by the height: ½ × (b₁ + b₂) × h."
           },
-          "strongHint": "Add the parallel sides first: \u00bd \u00d7 (9 + 5) \u00d7 4."
+          "strongHint": "Add the parallel sides first: ½ × (9 + 5) × 4."
         }
       ]
-    },
-    {
-      "stepId": "challenge",
-      "interactionType": "numeric",
-      "prompt": "Quiz",
-      "subtitle": "A kite has diagonals 10 and 12. Find its area.",
-      "problem": {
-        "id": "area_challenge_kite_10_12",
-        "prompt": "Kite area",
-        "diagram": { "mode": "static", "variant": "quadArea", "quadArea": { "shape": "kite", "diag1": "10", "diag2": "12", "tint": true } },
-        "correctAnswer": 60,
-        "feedback": {
-          "correct": "Done. \u00bd \u00d7 10 \u00d7 12 = 60.",
-          "incorrect": "A kite's area is half the product of its diagonals: \u00bd \u00d7 d\u2081 \u00d7 d\u2082."
-        }
-      }
     }
   ]
 }

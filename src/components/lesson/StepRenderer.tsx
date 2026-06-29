@@ -37,23 +37,31 @@ import type {
   MatchStep,
   MultipleChoiceStep,
   NumericProblem,
+  PracticeTopic,
   ProofFillBlank,
   ProofStep,
   StatementStep,
 } from '../../types/lesson'
+
+/** Reports a graded attempt on a concept up to the lesson page (spaced repetition + mastery). */
+export type ConceptResult = (topic: PracticeTopic, outcome: { correct: boolean; firstTry: boolean }) => void
 import { fetchGuidedHint } from '../../lib/ai-hint'
 import { generateAiPractice } from '../../lib/ai-practice'
 import { generatePracticeProblems } from '../../lib/practice'
 import { SceneGraphic } from '../graphic/SceneGraphic'
 import { CategorizeInteraction } from './CategorizeInteraction'
 import { EstimateInteraction } from './EstimateInteraction'
+import { FillBlankInteraction } from './FillBlankInteraction'
 import { MatchInteraction } from './MatchInteraction'
 // The shared, data-driven highlighter. `AngleText` is kept as an alias so the
 // many existing call sites here keep working; both colour the legacy angle
 // phrases AND any `[label](color)` tokens a lesson authors.
-import { AngleText, Legend } from './MathText'
+import { AngleText } from './MathText'
 import { MultiSelectInteraction } from './MultiSelectInteraction'
+import { SortInteraction } from './SortInteraction'
 import { SpotTheMistakeInteraction } from './SpotTheMistakeInteraction'
+import { TrueFalseInteraction } from './TrueFalseInteraction'
+import { WalkthroughInteraction } from './WalkthroughInteraction'
 import './StepRenderer.css'
 
 // Number of wrong tries on the SAME question before we fetch a single AI "guided
@@ -77,6 +85,8 @@ type StepRendererProps = {
   onContinue: () => void
   onGoToStep: (index: number) => void
   onBack: () => void
+  // Records practice results for spaced repetition + mastery (see LessonView).
+  onConceptResult?: ConceptResult
   // Dev-only: present only under import.meta.env.DEV (see LessonView). `onDevJump`
   // moves to any step; `onDevFinish` jumps to the completion screen.
   onDevJump?: (index: number) => void
@@ -92,6 +102,7 @@ export function StepRenderer({
   onContinue,
   onGoToStep,
   onBack,
+  onConceptResult,
   onDevJump,
   onDevFinish,
 }: StepRendererProps) {
@@ -118,7 +129,7 @@ export function StepRenderer({
       />
 
       {step.interactionType === 'practice' ? (
-        <PracticeLayout step={step} onComplete={complete} />
+        <PracticeLayout step={step} onComplete={complete} onConceptResult={onConceptResult} />
       ) : step.interactionType === 'proof' ? (
         <ProofLayout step={step} onComplete={complete} />
       ) : step.interactionType === 'identify' ? (
@@ -138,7 +149,6 @@ export function StepRenderer({
               </p>
             )}
             {step.interactionType === 'statement' && <StatementBody step={step} />}
-            {step.legend && <Legend items={step.legend} />}
           </div>
 
           {step.diagram && (
@@ -293,6 +303,32 @@ function Interaction({ step, onComplete }: { step: LessonStep; onComplete: () =>
           onComplete={onComplete}
         />
       )
+    case 'walkthrough':
+      return <WalkthroughInteraction step={step} onComplete={onComplete} />
+    case 'true_false':
+      return (
+        <TrueFalseInteraction cards={step.cards} doneNote={step.doneNote} onComplete={onComplete} />
+      )
+    case 'fill_blank':
+      return (
+        <FillBlankInteraction
+          template={step.template}
+          blanks={step.blanks}
+          bank={step.bank}
+          feedback={step.feedback}
+          doneNote={step.doneNote}
+          onComplete={onComplete}
+        />
+      )
+    case 'sort':
+      return (
+        <SortInteraction
+          instruction={step.instruction}
+          items={step.items}
+          doneNote={step.doneNote}
+          onComplete={onComplete}
+        />
+      )
     case 'explore':
     case 'proof':
     case 'practice':
@@ -303,7 +339,7 @@ function Interaction({ step, onComplete }: { step: LessonStep; onComplete: () =>
   }
 }
 
-function DiagramView({ config, onInteract }: { config: DiagramConfig; onInteract?: () => void }) {
+export function DiagramView({ config, onInteract }: { config: DiagramConfig; onInteract?: () => void }) {
   if (config.mode === 'static') {
     if (config.variant === 'quad') {
       return (
@@ -1170,7 +1206,6 @@ function MatchLayout({ step, onComplete }: { step: MatchStep; onComplete: () => 
             <AngleText text={step.subtitle} />
           </p>
         )}
-        {step.legend && <Legend items={step.legend} />}
       </div>
 
       {step.diagram && (
@@ -1226,7 +1261,6 @@ function IdentifyLayout({ step, onComplete }: { step: IdentifyStep; onComplete: 
         <p className="prompt-subtitle">
           {done ? (step.doneNote ?? 'All found.') : <AngleText text={current.prompt} />}
         </p>
-        {step.legend && <Legend items={step.legend} />}
       </div>
 
       <div className="diagram-placeholder">
@@ -1298,8 +1332,18 @@ function NumericField({
     const nextAttempts = [...wrongAttempts, parsed]
     setWrongCount(nextCount)
     setWrongAttempts(nextAttempts)
-    const direction = parsed > problem.correctAnswer ? 'Too high.' : 'Too low.'
-    setFeedback({ correct: false, text: `${direction} ${problem.feedback.incorrect}` })
+    // If the wrong value is the known misconception (e.g. the central angle
+    // instead of half it, or the half-sum instead of the half-difference), teach
+    // that specific error instead of a generic "too high / too low" nudge.
+    const errorTol = problem.tolerance ?? 0
+    const hitCommonError =
+      problem.commonError && Math.abs(parsed - problem.commonError.value) <= errorTol
+    if (hitCommonError && problem.commonError) {
+      setFeedback({ correct: false, text: problem.commonError.feedback })
+    } else {
+      const direction = parsed > problem.correctAnswer ? 'Too high.' : 'Too low.'
+      setFeedback({ correct: false, text: `${direction} ${problem.feedback.incorrect}` })
+    }
 
     // Once the learner has missed enough times, fetch one AI guided hint that
     // reasons about the wrong values. The correct answer is passed only to ground
@@ -1375,9 +1419,11 @@ function NumericField({
 function PracticeLayout({
   step,
   onComplete,
+  onConceptResult,
 }: {
   step: Extract<LessonStep, { interactionType: 'practice' }>
   onComplete: () => void
+  onConceptResult?: ConceptResult
 }) {
   const [extraProblems, setExtraProblems] = useState<NumericProblem[]>([])
   const [solved, setSolved] = useState<Record<string, boolean>>({})
@@ -1445,6 +1491,9 @@ function PracticeLayout({
           onSolved={(firstTry) => {
             markSolved(current.id)
             setCorrectRun((run) => (firstTry ? run + 1 : 0))
+            if (step.morePracticeKind) {
+              onConceptResult?.(step.morePracticeKind, { correct: true, firstTry })
+            }
           }}
         />
       </div>

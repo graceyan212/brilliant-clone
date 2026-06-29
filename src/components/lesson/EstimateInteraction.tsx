@@ -14,7 +14,17 @@ function clamp(value: number, min: number, max: number): number {
 
 // A small angle that opens to the live value: two rays from a vertex with a
 // shaded wedge between them. Lets the learner "feel" the size as they drag.
-function AngleVisual({ value, answer, solved }: { value: number; answer: number; solved: boolean }) {
+function AngleVisual({
+  value,
+  answer,
+  solved,
+  hideValue,
+}: {
+  value: number
+  answer: number
+  solved: boolean
+  hideValue?: boolean
+}) {
   const cx = 50
   const cy = 132
   const rRay = 138
@@ -34,7 +44,12 @@ function AngleVisual({ value, answer, solved }: { value: number; answer: number;
   const answerEnd = tip(answer, rRay)
 
   return (
-    <svg className="estimate__svg" viewBox="0 0 220 160" role="img" aria-label={`Angle of about ${value} degrees`}>
+    <svg
+      className="estimate__svg"
+      viewBox="0 0 220 160"
+      role="img"
+      aria-label={hideValue && !solved ? 'Angle preview — judge its size by eye' : `Angle of about ${value} degrees`}
+    >
       <path className="estimate__wedge" d={wedge} />
       {solved && (
         <line
@@ -109,16 +124,27 @@ export function EstimateInteraction({ step, onComplete }: EstimateInteractionPro
   }
 
   const unit = step.unit ?? ''
+  // For "train your eye" tasks the running number is hidden until Check, so the
+  // learner judges by sight instead of matching the digits to the stated target.
+  const revealValue = !step.hideValue || solved
 
   return (
     <section className="estimate" aria-label="Estimate with the slider">
-      {step.visual === 'angle' && <AngleVisual value={value} answer={step.answer} solved={solved} />}
+      {step.visual === 'angle' && (
+        <AngleVisual value={value} answer={step.answer} solved={solved} hideValue={step.hideValue} />
+      )}
       {step.visual === 'bar' && (
         <BarVisual value={value} min={min} max={max} answer={step.answer} solved={solved} />
       )}
 
       <p className="estimate__readout" aria-live="polite">
-        Your estimate: <strong>{value}{unit}</strong>
+        {revealValue ? (
+          <>
+            Your estimate: <strong>{value}{unit}</strong>
+          </>
+        ) : (
+          <span className="estimate__byeye">Judge it by eye, then check.</span>
+        )}
         {solved && (
           <span className="estimate__answer-text">
             {' '}
